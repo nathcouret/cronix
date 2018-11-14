@@ -29,3 +29,4 @@ const htmlText = createSyntaxDiagramsCode(serializedGrammar);
 const outPath = resolve(__dirname, "./");
 writeFileSync(outPath + "/generated_diagrams.html", htmlText);
 writeFileSync(outPath + "/ast.json",JSON.stringify(ast));
+writeFileSync(outPath + "/cron.txt", ast.value());
