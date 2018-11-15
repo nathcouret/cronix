@@ -8,16 +8,18 @@ cronExpression:
 // Union is implicitly expressed through the repetition with ,
 expression: exprNotUnion (',' exprNotUnion)*;
 
-exprNotUnion: atomicExpr | interval | range;
+exprNotUnion: atomicExpr | (interval | range | dow);
 
-interval: atomicExpr '/' atomicExpr;
+interval: '/' atomicExpr;
 
-range: atomicExpr '-' atomicExpr;
+range: '-' atomicExpr;
+
+dow: 'L' | ('#') INTEGER;
 
 // leaves
-atomicExpr: integer | month | dow;
+atomicExpr: INTEGER | MONTH | DOW | '*' | '?';
 
-month:
+MONTH:
 	'JAN'
 	| 'FEB'
 	| 'MAR'
@@ -31,11 +33,8 @@ month:
 	| 'NOV'
 	| 'DEC';
 
-// day of week with optional recurrence (quartz specific)
-dow: dowUnion | integer ('#' integer | 'L');
+DOW: 'SUN' | 'MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT';
 
-dowUnion: 'SUN' | 'MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT';
-
-integer: INT (INT);
+INTEGER: INT (INT);
 
 INT: '0' ..'9';
