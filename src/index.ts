@@ -5,6 +5,8 @@ import { createSyntaxDiagramsCode } from "chevrotain";
 import { resolve } from "path";
 import { writeFileSync } from "fs";
 
+
+// Just doing lots of testing in there
 const parser = new CronParser();
 const lexingResult = CronLexer.tokenize("0 0 12 ? * 5L *");
 parser.input = lexingResult.tokens;
