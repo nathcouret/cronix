@@ -1,11 +1,15 @@
 import { CstNode, IToken } from "chevrotain";
-import { CronParser } from "./parser";
-import { anyExpr, Cron, DayOfWeekExpression, everyExpr, Expression, intervalExpr, rangeExpr, StringLiteral } from "./syntax";
+import { QuartzParser } from "./parser";
+import { anyExpr, CronExpression, DayOfWeekExpression, everyExpr, Expression, intervalExpr, rangeExpr, StringLiteral } from "./syntax";
 
-const parser = new CronParser();
+const parser = new QuartzParser();
 const BaseVisitor = parser.getBaseCstVisitorConstructor();
 
 interface CronContext {
+  cronExpression: CstNode;
+}
+
+interface CronExpressionContext {
   seconds: CstNode;
   minutes: CstNode;
   hours: CstNode;
@@ -50,8 +54,12 @@ export class CronVisitor extends BaseVisitor {
     this.validateVisitor();
   }
 
-  public cronExpression(ctx: CronContext) {
-    const visitedContext: Cron = new Cron();
+  public cron(ctx: CronContext) {
+    return this.visit(ctx.cronExpression);
+  }
+
+  public cronExpression(ctx: CronExpressionContext) {
+    const visitedContext: CronExpression = new CronExpression();
     visitedContext.second = this.visit(ctx.seconds);
     visitedContext.minute = this.visit(ctx.minutes);
     visitedContext.hour = this.visit(ctx.hours);

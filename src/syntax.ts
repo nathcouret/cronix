@@ -7,6 +7,14 @@ export abstract class AbstractTree implements Syntax {
 }
 
 export class Cron extends AbstractTree {
+  cronExpression!: CronExpression;
+
+  value() {
+    return this.cronExpression.value();
+  }
+}
+
+export class CronExpression extends AbstractTree {
   private _second: AbstractTree;
   get second() {
     return this._second;

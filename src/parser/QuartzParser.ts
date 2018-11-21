@@ -1,16 +1,22 @@
-import { Parser } from "chevrotain";
-import { quartzVocabulary, Days, Months, Integer, Dash, Last, Sharp, Slash, Comma, Any, Every } from "./lexer";
+import {
+  Any,
+  Days,
+  Integer,
+  Last,
+  Months,
+  quartzVocabulary,
+  Sharp
+} from "../lexer";
+import { BaseParser } from "./BaseParser";
+import { IAnyOrAlt, IToken } from "chevrotain";
 
-export class CronParser extends Parser {
+export class QuartzParser extends BaseParser {
   constructor() {
     super(quartzVocabulary);
-
-    this.cronExpression();
-
     this.performSelfAnalysis();
   }
 
-  public readonly cronExpression = this.RULE("cronExpression", () => {
+  readonly cronExpression = this.OVERRIDE_RULE("cronExpression", () => {
     // Seconds
     this.SUBRULE1(this.expression, { LABEL: "seconds" });
     // Minutes
@@ -29,14 +35,7 @@ export class CronParser extends Parser {
     });
   });
 
-  public readonly expression = this.RULE("expression", () => {
-    this.AT_LEAST_ONE_SEP({
-      SEP: Comma,
-      DEF: () => this.SUBRULE(this.exprNotUnion)
-    });
-  });
-
-  public readonly exprNotUnion = this.RULE("exprNotUnion", () => {
+  readonly exprNotUnion = this.OVERRIDE_RULE("exprNotUnion", () => {
     this.SUBRULE(this.atomicExpr, { LABEL: "lhs" });
     this.OPTION({
       DEF: () =>
@@ -48,30 +47,18 @@ export class CronParser extends Parser {
     });
   });
 
-  public readonly interval = this.RULE("interval", () => {
-    this.CONSUME(Slash);
-    this.SUBRULE(this.atomicExpr, { LABEL: "rhs" });
-  });
+  readonly extendedAtomicExpr = [
+    {
+      ALT: () => this.CONSUME(Months)
+    },
+    {
+      ALT: () => this.CONSUME(Days)
+    },
+    { ALT: () => this.CONSUME(Any) }
+  ];
 
-  public readonly range = this.RULE("range", () => {
-    this.CONSUME(Dash);
-    this.SUBRULE(this.atomicExpr, { LABEL: "rhs" });
-  });
-
-  public readonly atomicExpr = this.RULE("atomicExpr", () => {
-    this.OR([
-      {
-        ALT: () => this.CONSUME(Integer)
-      },
-      {
-        ALT: () => this.CONSUME(Months)
-      },
-      {
-        ALT: () => this.CONSUME(Days)
-      },
-      { ALT: () => this.CONSUME(Any) },
-      { ALT: () => this.CONSUME(Every) }
-    ]);
+  readonly atomicExpr = this.OVERRIDE_RULE("atomicExpr", () => {
+    this.OR([...this.baseAtomics, ...this.extendedAtomicExpr]);
   });
 
   // Day of week
