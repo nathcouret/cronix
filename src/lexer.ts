@@ -12,13 +12,19 @@ export const Comma = createToken({ name: "Comma", pattern: /,/ });
 
 export const Integer = createToken({ name: "Integer", pattern: /0|[1-9]\d*/ });
 
-export const Any = createToken({ name: "Any", pattern: /\?/ });
-
 export const Every = createToken({ name: "Every", pattern: /\*/ });
+
+// Quartz specific
+export const Any = createToken({ name: "Any", pattern: /\?/ });
 
 export const Sharp = createToken({ name: "Sharp", pattern: /#/ });
 
 export const Last = createToken({ name: "Last", pattern: /L/ });
+
+export const Weekday = createToken({ name: "Weekday", pattern: /W/ });
+
+// Jenkins specific
+export const RoundTime = createToken({ name: "RoundTime", pattern: /H/ });
 
 export const WhiteSpace = createToken({
   name: "WhiteSpace",
@@ -26,11 +32,25 @@ export const WhiteSpace = createToken({
   group: Lexer.SKIPPED
 });
 
-export const allTokens = [WhiteSpace, Months, Days, Dash, Slash, Comma, Integer, Any, Every, Sharp, Last];
+export const baseTokens = [WhiteSpace, Months, Days, Dash, Slash, Comma, Integer, Every];
 
-export const cronVocabulary: TokenVocabulary = allTokens.reduce((map: TokenTypeDictionary, obj: TokenType) => {
-  map[obj.name] = obj;
-  return map;
-}, {});
+// Available tokens for Quartz cron
+export const quartzTokens = [...baseTokens, Any, Sharp, Last, Weekday];
 
-export const CronLexer = new Lexer(allTokens);
+// Available tokens for Jenkins cron
+export const JenkinsTokens = [...baseTokens, RoundTime];
+
+function genVocabulary(tokens: TokenType[]) {
+  return tokens.reduce((map: TokenTypeDictionary, obj: TokenType) => {
+    map[obj.name] = obj;
+    return map;
+  }, {});
+}
+
+export const baseVocabulary: TokenVocabulary = genVocabulary(baseTokens);
+
+export const quartzVocabulary: TokenVocabulary = genVocabulary(quartzTokens);
+
+export const jenkinsVocabulary: TokenVocabulary = genVocabulary(JenkinsTokens);
+
+export const CronLexer = new Lexer(quartzTokens);

@@ -1,9 +1,9 @@
 import { Parser } from "chevrotain";
-import { cronVocabulary, Days, Months, Integer, Dash, Last, Sharp, Slash, Comma, Any, Every } from "./lexer";
+import { quartzVocabulary, Days, Months, Integer, Dash, Last, Sharp, Slash, Comma, Any, Every } from "./lexer";
 
 export class CronParser extends Parser {
   constructor() {
-    super(cronVocabulary);
+    super(quartzVocabulary);
 
     this.cronExpression();
 
