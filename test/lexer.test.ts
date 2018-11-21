@@ -1,4 +1,4 @@
-import { CronLexer } from "../src/lexer";
+import { CronLexer } from "src/lexer";
 
 function testInput(input: string) {
   return CronLexer.tokenize(input);

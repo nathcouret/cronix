@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "build": "tsc --build",
+    "build": "tsc -p tsconfig.dist.json",
     "run": "node dist/index.js"
   },
   "devDependencies": {

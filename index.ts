@@ -1,6 +1,6 @@
-import { CronLexer } from "./lexer";
-import { CronParser } from "./parser";
-import {cronVisitor} from "./semantic";
+import { CronLexer } from "./src/lexer";
+import { CronParser } from "./src/parser";
+import {cronVisitor} from "./src/semantic";
 import { createSyntaxDiagramsCode } from "chevrotain";
 import { resolve } from "path";
 import { writeFileSync } from "fs";

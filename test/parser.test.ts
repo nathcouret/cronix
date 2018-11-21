@@ -1,5 +1,5 @@
-import { CronLexer } from "../src/lexer";
-import { CronParser } from "../src/parser";
+import { CronLexer } from "src/lexer";
+import { CronParser } from "src/parser";
 
 const parser = new CronParser();
 

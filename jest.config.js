@@ -10,5 +10,8 @@ module.exports = {
       tsConfig: "tsconfig.json"
     }
   },
+  moduleNameMapper: {
+    '^src/(.*)$': '<rootDir>/src/$1'
+},
   testMatch: ["**/?(*.)+(spec|test).(js|ts)"]
 };
