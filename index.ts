@@ -14,12 +14,6 @@ parser.input = lexingResult.tokens;
 // Parse the tokens into a CST
 const cst = parser.cronExpression();
 
-if (parser.errors.length > 0) {
-  console.log("o no " + parser.errors.length);
-  console.log(parser.errors);
-} else {
-  console.log("oh yeah");
-}
 // Grammar diagram generation
 const serializedGrammar = parser.getSerializedGastProductions();
 // create the HTML Text

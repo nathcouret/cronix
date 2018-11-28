@@ -6,15 +6,11 @@ export const WhiteSpace = createToken({
   group: Lexer.SKIPPED
 });
 
-const monthsPattern = /JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC/;
-
-const daysPattern = /SUN|MON|TUE|WED|THU|FRI|SAT/;
-
 export const Identifier = createToken({name: "Identifier", pattern: Lexer.NA});
 
-export const Months = createToken({ name: "Months", pattern: monthsPattern, categories: [Identifier] });
+export const Months = createToken({ name: "Months", pattern: /JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC/, categories: [Identifier] });
 
-export const Days = createToken({ name: "Days", pattern: daysPattern, categories: [Identifier] });
+export const Days = createToken({ name: "Days", pattern: /SUN|MON|TUE|WED|THU|FRI|SAT/, categories: [Identifier] });
 
 export const Dash = createToken({ name: "Dash", pattern: /-/ });
 
@@ -38,6 +34,7 @@ export const Weekday = createToken({ name: "Weekday", pattern: /W/, categories: 
 // Jenkins specific
 export const RoundTime = createToken({ name: "RoundTime", pattern: /H/, categories: [Identifier] });
 
+// Base tokens
 export const baseTokens = [WhiteSpace, Identifier, Months, Days, Dash, Slash, Comma, Integer, Every];
 
 // Available tokens for Quartz cron
