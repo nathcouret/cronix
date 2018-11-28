@@ -1,7 +1,7 @@
-import { CronLexer } from "src/lexer";
-import { CronParser } from "src/parser";
+import { CronLexer, baseVocabulary } from "../src/lexer";
+import { BaseParser } from "../src/parser";
 
-const parser = new CronParser();
+const parser = new BaseParser(baseVocabulary);
 
 function parse(input: string, startingRule: string) {
   const lexingResult = CronLexer.tokenize(input);
