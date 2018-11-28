@@ -29,22 +29,9 @@ test("test union", () => {
   expect(res.tokens.length).toBe(5);
 });
 
-test("test any", () => {
+test("test every", () => {
   const res = testInput("*");
   expect(res.tokens.length).toBe(1);
-});
-
-test("test every", () => {
-  const res = testInput("?");
-  expect(res.tokens.length).toBe(1);
-});
-
-test("test day of week", () => {
-  let res = testInput("5L");
-  expect(res.tokens.length).toBe(2);
-
-  res = testInput("4#2");
-  expect(res.tokens.length).toBe(3);
 });
 
 test("mixed union", () => {
