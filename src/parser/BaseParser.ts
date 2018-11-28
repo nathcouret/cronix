@@ -1,8 +1,8 @@
-import { IAnyOrAlt, Parser, TokenVocabulary } from "chevrotain";
-import { Comma, Dash, Every, Integer, Slash } from "../lexer";
+import { Parser, TokenVocabulary } from "chevrotain";
+import { Comma, Dash, Identifier, Slash } from "../lexer";
 
 export class BaseParser extends Parser {
-  constructor(vocabulary: TokenVocabulary, invokedByChild: boolean = true) {
+  constructor(vocabulary: TokenVocabulary, invokedByChild: boolean = false) {
     super(vocabulary);
     if (!invokedByChild) {
       this.performSelfAnalysis();
@@ -32,36 +32,23 @@ export class BaseParser extends Parser {
   });
 
   readonly exprNotUnion = this.RULE("exprNotUnion", () => {
-    this.SUBRULE(this.atomicExpr, { LABEL: "lhs" });
+    this.SUBRULE1(this.atomicExpr, { LABEL: "lhs" });
     this.OPTION({
-      DEF: () =>
-        this.OR([
-          { ALT: () => this.SUBRULE2(this.interval) },
-          { ALT: () => this.SUBRULE2(this.range) }
-        ])
+      DEF: () => this.OR([{ ALT: () => this.SUBRULE2(this.interval) }, { ALT: () => this.SUBRULE2(this.range) }])
     });
   });
 
   readonly interval = this.RULE("interval", () => {
-    this.CONSUME(Slash);
-    this.SUBRULE(this.atomicExpr, { LABEL: "rhs" });
+    this.CONSUME1(Slash);
+    this.CONSUME2(Identifier, { LABEL: "rhs" });
   });
 
   readonly range = this.RULE("range", () => {
-    this.CONSUME(Dash);
-    this.SUBRULE(this.atomicExpr, { LABEL: "rhs" });
+    this.CONSUME1(Dash);
+    this.CONSUME2(Identifier, { LABEL: "rhs" });
   });
-
-  protected baseAtomics = [
-    {
-      ALT: () => this.CONSUME(Integer)
-    },
-    { ALT: () => this.CONSUME(Every) }
-  ];
 
   readonly atomicExpr = this.RULE("atomicExpr", () => {
-    this.OR(this.baseAtomics);
+    this.CONSUME(Identifier);
   });
-
-  extendedAtomicExpr!: IAnyOrAlt<{}>[];
 }

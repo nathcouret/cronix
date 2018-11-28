@@ -1,20 +1,9 @@
-import { IAnyOrAlt, IToken } from "chevrotain";
-import { jenkinsVocabulary, RoundTime } from "../lexer";
+import { jenkinsVocabulary } from "../lexer";
 import { BaseParser } from "./BaseParser";
 
 export class JenkinsParser extends BaseParser {
   constructor() {
-    super(jenkinsVocabulary);
+    super(jenkinsVocabulary, true);
     this.performSelfAnalysis();
   }
-
-  public extendedAtomicExpr = [
-    {
-      ALT: () => this.CONSUME(RoundTime)
-    }
-  ];
-
-  readonly atomicExpr = this.OVERRIDE_RULE("atomicExpr", () => {
-    this.OR([...this.baseAtomics, ...this.extendedAtomicExpr]);
-  });
 }

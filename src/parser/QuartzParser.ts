@@ -1,18 +1,10 @@
-import {
-  Any,
-  Days,
-  Integer,
-  Last,
-  Months,
-  quartzVocabulary,
-  Sharp
-} from "../lexer";
+import { Any, Days, Integer, Last, Months, quartzVocabulary, Sharp, Identifier } from "../lexer";
 import { BaseParser } from "./BaseParser";
 import { IAnyOrAlt, IToken } from "chevrotain";
 
 export class QuartzParser extends BaseParser {
   constructor() {
-    super(quartzVocabulary);
+    super(quartzVocabulary, true);
     this.performSelfAnalysis();
   }
 
@@ -36,7 +28,7 @@ export class QuartzParser extends BaseParser {
   });
 
   readonly exprNotUnion = this.OVERRIDE_RULE("exprNotUnion", () => {
-    this.SUBRULE(this.atomicExpr, { LABEL: "lhs" });
+    this.CONSUME(Identifier, { LABEL: "lhs" });
     this.OPTION({
       DEF: () =>
         this.OR([
@@ -47,28 +39,14 @@ export class QuartzParser extends BaseParser {
     });
   });
 
-  readonly extendedAtomicExpr = [
-    {
-      ALT: () => this.CONSUME(Months)
-    },
-    {
-      ALT: () => this.CONSUME(Days)
-    },
-    { ALT: () => this.CONSUME(Any) }
-  ];
-
-  readonly atomicExpr = this.OVERRIDE_RULE("atomicExpr", () => {
-    this.OR([...this.baseAtomics, ...this.extendedAtomicExpr]);
-  });
-
   // Day of week
   private readonly dow = this.RULE("dow", () => {
     this.OR([
       { ALT: () => this.CONSUME(Last) },
       {
         ALT: () => {
-          this.CONSUME(Sharp);
-          this.CONSUME(Integer);
+          this.CONSUME1(Sharp);
+          this.CONSUME2(Integer);
         }
       }
     ]);
