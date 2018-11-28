@@ -5,17 +5,18 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "build": "webpack",
+    "build": "rimraf dist && webpack",
     "run": "node dist/index.js"
   },
   "devDependencies": {
     "@types/jest": "^23.3.9",
     "@types/node": "^10.12.6",
+    "awesome-typescript-loader": "^5.2.1",
     "chevrotain": "^4.1.0",
     "jest": "^23.6.0",
+    "rimraf": "^2.6.2",
     "ts-jest": "^23.10.4",
     "typescript": "^3.1.6",
-    "awesome-typescript-loader": "^5.2.1",
     "webpack": "^4.26.0",
     "webpack-cli": "^3.1.2"
   }
