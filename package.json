@@ -1,12 +1,12 @@
 {
   "name": "fenix_cron",
   "version": "1.0.0",
-  "main": "src/index.ts",
+  "main": "dist/fenix-cron.js",
   "license": "MIT",
   "scripts": {
     "test": "jest",
     "build": "rimraf dist && webpack",
-    "run": "node dist/index.js"
+    "run": "node dist/fenix-cron.js"
   },
   "devDependencies": {
     "@types/jest": "^23.3.9",
