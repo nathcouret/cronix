@@ -33,12 +33,11 @@ export class BaseParser extends Parser {
 
   readonly exprNotUnion = this.RULE("exprNotUnion", () => {
     this.CONSUME(Identifier, { LABEL: "lhs" });
-    this.OPTION({
-      DEF: () =>
-        this.OR([
-          { ALT: () => this.SUBRULE(this.interval) },
-          { ALT: () => this.SUBRULE(this.range) }
-        ])
+    this.OPTION1({
+      DEF: () => this.SUBRULE1(this.range)
+    });
+    this.OPTION2({
+      DEF: () => this.SUBRULE2(this.interval)
     });
   });
 
