@@ -47,11 +47,11 @@ export class BaseParser extends Parser {
 
   readonly interval = this.RULE("interval", () => {
     this.CONSUME1(Slash);
-    this.CONSUME2(Identifier, { LABEL: "irhs" });
+    this.CONSUME2(Identifier, { LABEL: "rhs" });
   });
 
   readonly range = this.RULE("range", () => {
     this.CONSUME1(Dash);
-    this.CONSUME2(Identifier, { LABEL: "rrhs" });
+    this.CONSUME2(Identifier, { LABEL: "rhs" });
   });
 }

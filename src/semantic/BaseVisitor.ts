@@ -1,8 +1,7 @@
 import { CstNode, IToken } from "chevrotain";
 import { baseVocabulary } from "../lexer";
 import { BaseParser } from "../parser";
-import { CronExpression, Expression, StringLiteral, rangeExpr } from "../syntax/BaseSyntax";
-import { intervalExpr, AbstractTree } from "../syntax/syntax";
+import { CronExpression, Expression, rangeExpr, StringLiteral, AbstractTree, intervalExpr } from "../syntax/BaseSyntax";
 
 const BaseVisitorConstructor = new BaseParser(
   baseVocabulary
@@ -41,10 +40,10 @@ export class BaseVisitor extends BaseVisitorConstructor {
   public atomicExpr(ctx: AtomicExprContext, lhs: StringLiteral) {
       let expr: AbstractTree = lhs;
       if(ctx.range) {
-          expr = intervalExpr(lhs, this.visit(ctx.range));
+          expr = rangeExpr(lhs, this.visit(ctx.range));
       }
       if(ctx.interval) {
-          expr = rangeExpr(expr, this.visit(ctx.interval));
+          expr = intervalExpr(expr, this.visit(ctx.interval));
       }
       return expr;
   }
