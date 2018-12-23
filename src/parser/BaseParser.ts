@@ -33,6 +33,10 @@ export class BaseParser extends Parser {
 
   readonly exprNotUnion = this.RULE("exprNotUnion", () => {
     this.CONSUME(Identifier, { LABEL: "lhs" });
+    this.SUBRULE(this.atomicExpr);
+  });
+
+  readonly atomicExpr = this.RULE("atomicExpr", () => {
     this.OPTION1({
       DEF: () => this.SUBRULE1(this.range)
     });
@@ -43,11 +47,11 @@ export class BaseParser extends Parser {
 
   readonly interval = this.RULE("interval", () => {
     this.CONSUME1(Slash);
-    this.CONSUME2(Identifier, { LABEL: "rhs" });
+    this.CONSUME2(Identifier, { LABEL: "irhs" });
   });
 
   readonly range = this.RULE("range", () => {
     this.CONSUME1(Dash);
-    this.CONSUME2(Identifier, { LABEL: "rhs" });
+    this.CONSUME2(Identifier, { LABEL: "rrhs" });
   });
 }

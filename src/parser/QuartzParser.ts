@@ -1,6 +1,5 @@
-import { Any, Days, Integer, Last, Months, quartzVocabulary, Sharp, Identifier } from "../lexer";
+import { Identifier, Integer, Last, quartzVocabulary, Sharp } from "../lexer";
 import { BaseParser } from "./BaseParser";
-import { IAnyOrAlt, IToken } from "chevrotain";
 
 export class QuartzParser extends BaseParser {
   constructor() {
@@ -32,9 +31,8 @@ export class QuartzParser extends BaseParser {
     this.OPTION({
       DEF: () =>
         this.OR([
-          { ALT: () => this.SUBRULE(this.interval) },
-          { ALT: () => this.SUBRULE(this.range) },
-          { ALT: () => this.SUBRULE(this.dow) }
+          { ALT: () => this.SUBRULE(this.dow) },
+          { ALT: () => this.SUBRULE(this.atomicExpr) }
         ])
     });
   });
