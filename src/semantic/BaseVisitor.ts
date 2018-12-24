@@ -1,7 +1,14 @@
 import { CstNode, IToken } from "chevrotain";
 import { baseVocabulary } from "../lexer";
 import { BaseParser } from "../parser";
-import { CronExpression, Expression, rangeExpr, StringLiteral, AbstractTree, intervalExpr } from "../syntax/BaseSyntax";
+import {
+  CronExpression,
+  Expression,
+  rangeExpr,
+  StringLiteral,
+  AbstractTree,
+  intervalExpr
+} from "../syntax/BaseSyntax";
 
 const BaseVisitorConstructor = new BaseParser(
   baseVocabulary
@@ -14,38 +21,38 @@ export class BaseVisitor extends BaseVisitorConstructor {
   }
 
   public cron(ctx: CronContext) {
-      return this.visit(ctx.cronExpression);
+    return this.visit(ctx.cronExpression);
   }
 
   public cronExpression(ctx: CronExpressionContext) {
-      const visitedContext = new CronExpression();
-      visitedContext.minute = this.visit(ctx.minutes);
-      visitedContext.hour = this.visit(ctx.hours);
-      visitedContext.dom = this.visit(ctx.dom);
-      visitedContext.month = this.visit(ctx.month);
-      visitedContext.dow = this.visit(ctx.dow);
-      return visitedContext;
+    const visitedContext = new CronExpression();
+    visitedContext.minute = this.visit(ctx.minutes);
+    visitedContext.hour = this.visit(ctx.hours);
+    visitedContext.dom = this.visit(ctx.dom);
+    visitedContext.month = this.visit(ctx.month);
+    visitedContext.dow = this.visit(ctx.dow);
+    return visitedContext;
   }
 
   public expression(ctx: ExpressionContext) {
-      const exprs = ctx.exprNotUnion.map(e => this.visit(e));
-      return new Expression(exprs);
+    const exprs = ctx.exprNotUnion.map(e => this.visit(e));
+    return new Expression(exprs);
   }
 
   public exprNotUnion(ctx: ExprNotUnionContext) {
-      const lhs = new StringLiteral(ctx.lhs[0].image);
-      return this.visit(ctx.atomicExpr, lhs);
+    const lhs = new StringLiteral(ctx.lhs[0].image);
+    return this.visit(ctx.atomicExpr, lhs);
   }
 
   public atomicExpr(ctx: AtomicExprContext, lhs: StringLiteral) {
-      let expr: AbstractTree = lhs;
-      if(ctx.range) {
-          expr = rangeExpr(lhs, this.visit(ctx.range));
-      }
-      if(ctx.interval) {
-          expr = intervalExpr(expr, this.visit(ctx.interval));
-      }
-      return expr;
+    let expr: AbstractTree = lhs;
+    if (ctx.range) {
+      expr = rangeExpr(lhs, this.visit(ctx.range));
+    }
+    if (ctx.interval) {
+      expr = intervalExpr(expr, this.visit(ctx.interval));
+    }
+    return expr;
   }
 
   public interval(ctx: OperationContext) {
@@ -55,7 +62,6 @@ export class BaseVisitor extends BaseVisitorConstructor {
   public range(ctx: OperationContext) {
     return new StringLiteral(ctx.rhs[0].image);
   }
-
 }
 
 export interface CronContext {
