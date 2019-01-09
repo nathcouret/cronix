@@ -14,5 +14,6 @@ module.exports = {
   moduleNameMapper: {
     '^src/(.*)$': '<rootDir>/src/$1'
 },
-  testMatch: ["**/?(*.)+(spec|test).(js|ts)"]
+  testMatch: ["**/?(*.)+(spec|test).(js|ts)"],
+  testPathIgnorePatterns: ["<rootDir>/dist/", "<rootDir>/node_modules/"]
 };
