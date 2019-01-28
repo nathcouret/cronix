@@ -1,5 +1,4 @@
 const path = require("path");
-const HappyPack = require("happypack");
 const CheckerPlugin = require("fork-ts-checker-webpack-plugin");
 
 module.exports = {
@@ -20,21 +19,24 @@ module.exports = {
       {
         test: /.ts$/,
         exclude: /node_modules/,
-        loader: "happypack/loader?id=ts"
+        use: [
+          {
+            loader: 'thread-loader',
+            options: {
+              workers: require('os').cpus().length - 1
+            }
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              happyPackMode: true
+            }
+          }
+        ]
       }
     ]
   },
   plugins: [
-    new HappyPack({
-      id: "ts",
-      threads: require('os').cpus().length - 1,
-      loaders: [
-        {
-          path: "ts-loader",
-          query: { happyPackMode: true }
-        }
-      ]
-    }),
     new CheckerPlugin({ checkSyntacticErrors: true })
   ]
 };
