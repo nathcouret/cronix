@@ -1,0 +1,275 @@
+
+<!-- This is a generated file -->
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  body {
+    background-color: hsl(30, 20%, 95%)
+  }
+</style>
+
+
+<link rel='stylesheet' href='https://unpkg.com/chevrotain@4.1.0/diagrams/diagrams.css'>
+
+<script src='https://unpkg.com/chevrotain@4.1.0/diagrams/vendor/railroad-diagrams.js'></script>
+<script src='https://unpkg.com/chevrotain@4.1.0/diagrams/src/diagrams_builder.js'></script>
+<script src='https://unpkg.com/chevrotain@4.1.0/diagrams/src/diagrams_behavior.js'></script>
+<script src='https://unpkg.com/chevrotain@4.1.0/diagrams/src/main.js'></script>
+
+<div id="diagrams" align="center"></div>    
+
+<script>
+    window.serializedGrammar = [
+  {
+    "type": "Rule",
+    "name": "cron",
+    "orgText": "function(){return r.SUBRULE(r.cronExpression)}",
+    "definition": [
+      {
+        "type": "NonTerminal",
+        "name": "cronExpression",
+        "idx": 0
+      }
+    ]
+  },
+  {
+    "type": "Rule",
+    "name": "cronExpression",
+    "orgText": "function(){e.SUBRULE1(e.expression,{LABEL:\"seconds\"}),e.SUBRULE2(e.expression,{LABEL:\"minutes\"}),e.SUBRULE3(e.expression,{LABEL:\"hours\"}),e.SUBRULE4(e.expression,{LABEL:\"dom\"}),e.SUBRULE5(e.expression,{LABEL:\"month\"}),e.SUBRULE6(e.expression,{LABEL:\"dow\"}),e.OPTION({DEF:function(){return e.SUBRULE7(e.expression,{LABEL:\"year\"})}})}",
+    "definition": [
+      {
+        "type": "NonTerminal",
+        "name": "expression",
+        "idx": 1
+      },
+      {
+        "type": "NonTerminal",
+        "name": "expression",
+        "idx": 2
+      },
+      {
+        "type": "NonTerminal",
+        "name": "expression",
+        "idx": 3
+      },
+      {
+        "type": "NonTerminal",
+        "name": "expression",
+        "idx": 4
+      },
+      {
+        "type": "NonTerminal",
+        "name": "expression",
+        "idx": 5
+      },
+      {
+        "type": "NonTerminal",
+        "name": "expression",
+        "idx": 6
+      },
+      {
+        "type": "Option",
+        "idx": 0,
+        "definition": [
+          {
+            "type": "NonTerminal",
+            "name": "expression",
+            "idx": 7
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "Rule",
+    "name": "expression",
+    "orgText": "function(){r.AT_LEAST_ONE_SEP({SEP:a.Comma,DEF:function(){return r.SUBRULE(r.exprNotUnion)}})}",
+    "definition": [
+      {
+        "type": "RepetitionMandatoryWithSeparator",
+        "idx": 0,
+        "separator": {
+          "type": "Terminal",
+          "name": "Comma",
+          "label": "Comma",
+          "idx": 1,
+          "pattern": ","
+        },
+        "definition": [
+          {
+            "type": "NonTerminal",
+            "name": "exprNotUnion",
+            "idx": 0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "Rule",
+    "name": "exprNotUnion",
+    "orgText": "function(){e.CONSUME(o.Identifier,{LABEL:\"lhs\"}),e.OPTION({DEF:function(){return e.OR([{ALT:function(){return e.SUBRULE(e.dow)}},{ALT:function(){return e.SUBRULE(e.atomicExpr)}}])}})}",
+    "definition": [
+      {
+        "type": "Terminal",
+        "name": "Identifier",
+        "label": "Identifier",
+        "idx": 0,
+        "pattern": "NOT_APPLICABLE"
+      },
+      {
+        "type": "Option",
+        "idx": 0,
+        "definition": [
+          {
+            "type": "Alternation",
+            "idx": 0,
+            "definition": [
+              {
+                "type": "Flat",
+                "definition": [
+                  {
+                    "type": "NonTerminal",
+                    "name": "dow",
+                    "idx": 0
+                  }
+                ]
+              },
+              {
+                "type": "Flat",
+                "definition": [
+                  {
+                    "type": "NonTerminal",
+                    "name": "atomicExpr",
+                    "idx": 0
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "Rule",
+    "name": "atomicExpr",
+    "orgText": "function(){r.OPTION1({DEF:function(){return r.SUBRULE1(r.range)}}),r.OPTION2({DEF:function(){return r.SUBRULE2(r.interval)}})}",
+    "definition": [
+      {
+        "type": "Option",
+        "idx": 1,
+        "definition": [
+          {
+            "type": "NonTerminal",
+            "name": "range",
+            "idx": 1
+          }
+        ]
+      },
+      {
+        "type": "Option",
+        "idx": 2,
+        "definition": [
+          {
+            "type": "NonTerminal",
+            "name": "interval",
+            "idx": 2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "Rule",
+    "name": "interval",
+    "orgText": "function(){r.CONSUME1(a.Slash),r.CONSUME2(a.Identifier,{LABEL:\"rhs\"})}",
+    "definition": [
+      {
+        "type": "Terminal",
+        "name": "Slash",
+        "label": "Slash",
+        "idx": 1,
+        "pattern": "\\/"
+      },
+      {
+        "type": "Terminal",
+        "name": "Identifier",
+        "label": "Identifier",
+        "idx": 2,
+        "pattern": "NOT_APPLICABLE"
+      }
+    ]
+  },
+  {
+    "type": "Rule",
+    "name": "range",
+    "orgText": "function(){r.CONSUME1(a.Dash),r.CONSUME2(a.Identifier,{LABEL:\"rhs\"})}",
+    "definition": [
+      {
+        "type": "Terminal",
+        "name": "Dash",
+        "label": "Dash",
+        "idx": 1,
+        "pattern": "-"
+      },
+      {
+        "type": "Terminal",
+        "name": "Identifier",
+        "label": "Identifier",
+        "idx": 2,
+        "pattern": "NOT_APPLICABLE"
+      }
+    ]
+  },
+  {
+    "type": "Rule",
+    "name": "dow",
+    "orgText": "function(){e.OR([{ALT:function(){return e.CONSUME(o.Last)}},{ALT:function(){e.CONSUME1(o.Sharp),e.CONSUME2(o.Integer)}}])}",
+    "definition": [
+      {
+        "type": "Alternation",
+        "idx": 0,
+        "definition": [
+          {
+            "type": "Flat",
+            "definition": [
+              {
+                "type": "Terminal",
+                "name": "Last",
+                "label": "Last",
+                "idx": 0,
+                "pattern": "L"
+              }
+            ]
+          },
+          {
+            "type": "Flat",
+            "definition": [
+              {
+                "type": "Terminal",
+                "name": "Sharp",
+                "label": "Sharp",
+                "idx": 1,
+                "pattern": "#"
+              },
+              {
+                "type": "Terminal",
+                "name": "Integer",
+                "label": "Integer",
+                "idx": 2,
+                "pattern": "[0-9]{1,2}"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+];
+</script>
+
+<script>
+    var diagramsDiv = document.getElementById("diagrams");
+    main.drawDiagramsFromSerializedGrammar(serializedGrammar, diagramsDiv);
+</script>
