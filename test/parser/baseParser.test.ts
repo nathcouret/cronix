@@ -76,4 +76,22 @@ describe("parser", () => {
     // Then
     expect(parser.errors).toEqual([]);
   });
+
+  test("Very complex expression", () => {
+    // At 12:00 on every 2nd day-of-month from 1 through 10 and every 3rd day-of-month from 15 through 25
+    const expression = "0 12 1-10/2,15-25/3 * *";
+
+    parse(expression);
+
+    expect(parser.errors).toEqual([]);
+  });
+
+  test("Very complex expression with error", () => {
+    // At 12:00 on every 2nd day-of-month from 1 through 10 and every 3rd day-of-month from 15 through 25
+    const expression = "0 12 1-10/2,15-25/3 * *";
+
+    parse(expression);
+    // It's actually a semantic error
+    expect(parser.errors).toEqual([]);
+  });
 });
