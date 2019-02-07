@@ -1,10 +1,4 @@
-import {
-  createToken,
-  Lexer,
-  TokenType,
-  TokenTypeDictionary,
-  TokenVocabulary
-} from "chevrotain";
+import { createToken, Lexer, TokenType, TokenTypeDictionary, TokenVocabulary } from "chevrotain";
 
 export const WhiteSpace = createToken({
   name: "WhiteSpace",
@@ -76,17 +70,7 @@ export const RoundTime = createToken({
 });
 
 // Base tokens
-export const baseTokens = [
-  WhiteSpace,
-  Identifier,
-  Months,
-  Days,
-  Dash,
-  Slash,
-  Comma,
-  Integer,
-  Every
-];
+export const baseTokens = [WhiteSpace, Identifier, Months, Days, Dash, Slash, Comma, Integer, Every];
 
 // Available tokens for Quartz cron
 export const quartzTokens = [...baseTokens, Any, Sharp, Last, Weekday];

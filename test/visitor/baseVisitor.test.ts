@@ -77,4 +77,35 @@ describe("BaseVisitor", () => {
     expect(ast.month.value()).toEqual("*");
     expect(ast.dow.value()).toEqual("*");
   });
+  test("Very complex expression", () => {
+    // Given
+    // At 12:00 on every 2nd day-of-month from 1 through 10 and every 3rd day-of-month from 15 through 25
+    const expression = "0 12 1-10/2,15-25/3 * *";
+    // When
+    const cst = parse(expression);
+    const ast: CronExpression = new BaseVisitor().visit(cst);
+    // Then
+    expect(parser.errors).toEqual([]);
+    expect(ast.minute.value()).toEqual("0");
+    expect(ast.hour.value()).toEqual("12");
+    expect(ast.dom.value()).toEqual("1-10/2,15-25/3");
+    expect(ast.month.value()).toEqual("*");
+    expect(ast.dow.value()).toEqual("*");
+  });
+  test("Very complex expression with error", () => {
+    // Given
+    // At 12:00 on every 2nd day-of-month from 10 through 1 and every 3rd day-of-month from 15 through 25
+    const expression = "0 12 10-1/2,15-25/3 * *";
+
+    // When
+    const cst = parse(expression);
+    const ast: CronExpression = new BaseVisitor().visit(cst);
+    /// Then
+    expect(parser.errors).toEqual([]);
+    expect(ast.minute.value()).toEqual("0");
+    expect(ast.hour.value()).toEqual("12");
+    expect(ast.dom.value()).toEqual("10-1/2,15-25/3");
+    expect(ast.month.value()).toEqual("*");
+    expect(ast.dow.value()).toEqual("*");
+  });
 });

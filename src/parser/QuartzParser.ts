@@ -29,11 +29,7 @@ export class QuartzParser extends BaseParser {
   readonly exprNotUnion = this.OVERRIDE_RULE("exprNotUnion", () => {
     this.CONSUME(Identifier, { LABEL: "lhs" });
     this.OPTION({
-      DEF: () =>
-        this.OR([
-          { ALT: () => this.SUBRULE(this.dow) },
-          { ALT: () => this.SUBRULE(this.atomicExpr) }
-        ])
+      DEF: () => this.OR([{ ALT: () => this.SUBRULE(this.dow) }, { ALT: () => this.SUBRULE(this.atomicExpr) }])
     });
   });
 

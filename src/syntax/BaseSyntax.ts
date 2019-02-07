@@ -55,13 +55,7 @@ export class CronExpression extends AbstractTree {
     this._dow = dow;
   }
 
-  constructor(
-    minute = everyExpr,
-    hour = everyExpr,
-    dom = everyExpr,
-    month = everyExpr,
-    dow = everyExpr
-  ) {
+  constructor(minute = everyExpr, hour = everyExpr, dom = everyExpr, month = everyExpr, dow = everyExpr) {
     super();
     this._dow = dow;
     this._minute = minute;

@@ -1,6 +1,15 @@
 import { CstNode, IToken } from "chevrotain";
 import { QuartzParser } from "../parser";
-import { anyExpr, CronExpression, DayOfWeekExpression, everyExpr, Expression, intervalExpr, rangeExpr, StringLiteral } from "../syntax/syntax";
+import {
+  anyExpr,
+  CronExpression,
+  DayOfWeekExpression,
+  everyExpr,
+  Expression,
+  intervalExpr,
+  rangeExpr,
+  StringLiteral
+} from "../syntax/syntax";
 
 const parser = new QuartzParser();
 const BaseVisitor = parser.getBaseCstVisitorConstructor();

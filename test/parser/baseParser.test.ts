@@ -87,8 +87,8 @@ describe("parser", () => {
   });
 
   test("Very complex expression with error", () => {
-    // At 12:00 on every 2nd day-of-month from 1 through 10 and every 3rd day-of-month from 15 through 25
-    const expression = "0 12 1-10/2,15-25/3 * *";
+    // At 12:00 on every 2nd day-of-month from 10 through 1 and every 3rd day-of-month from 15 through 25
+    const expression = "0 12 10-1/2,15-25/3 * *";
 
     parse(expression);
     // It's actually a semantic error
