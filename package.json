@@ -8,10 +8,12 @@
     "build": "rimraf dist && webpack",
     "run": "node dist/fenix-cron.js"
   },
+  "dependencies": {
+    "chevrotain": "^4.1.0"
+  },
   "devDependencies": {
     "@types/jest": "^23.3.9",
     "@types/node": "^10.12.6",
-    "chevrotain": "^4.1.0",
     "fork-ts-checker-webpack-plugin": "^0.5.2",
     "jest": "^23.6.0",
     "prettier": "1.16.4",

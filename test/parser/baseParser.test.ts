@@ -1,10 +1,6 @@
-import { baseVocabulary, baseTokens } from "../../src/lexer";
+import { EarlyExitException, Lexer, NotAllInputParsedException } from "chevrotain";
+import { baseTokens, baseVocabulary } from "../../src/lexer";
 import { BaseParser } from "../../src/parser";
-import {
-  Lexer,
-  NotAllInputParsedException,
-  EarlyExitException
-} from "chevrotain";
 
 const parser = new BaseParser(baseVocabulary);
 const lexer = new Lexer(baseTokens);
@@ -93,5 +89,29 @@ describe("parser", () => {
     parse(expression);
     // It's actually a semantic error
     expect(parser.errors).toEqual([]);
+  });
+
+  test("Extraneous dash in range expression", () => {
+    const expression = "0 12 15--25/3 * *";
+
+    parse(expression);
+
+    expect(parser.errors.length).toBe(1);
+  });
+
+  test("missing operand in step value", () => {
+    const expression = "0 12 5/ * *";
+
+    parse(expression);
+
+    expect(parser.errors.length).toBe(1);
+  });
+
+  test("empty subexpression", () => {
+    const expression = "0 5/2 * *";
+
+    parse(expression);
+
+    expect(parser.errors.length).toBe(1);
   });
 });

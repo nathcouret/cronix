@@ -1,21 +1,21 @@
 import { CstNode, IToken } from "chevrotain";
 import { baseVocabulary } from "../lexer";
 import { BaseParser } from "../parser";
-import { CronExpression, Expression, rangeExpr, StringLiteral, AbstractTree, intervalExpr } from "../syntax/BaseSyntax";
+import { AbstractTree, CronExpression, Expression, intervalExpr, rangeExpr, StringLiteral } from "../syntax/BaseSyntax";
 
-const BaseVisitorConstructor = new BaseParser(baseVocabulary).getBaseCstVisitorConstructor();
-export class BaseVisitor extends BaseVisitorConstructor {
+const baseVisitorConstructor = new BaseParser(baseVocabulary).getBaseCstVisitorConstructor();
+export class BaseVisitor extends baseVisitorConstructor {
   constructor() {
     super();
     // stuff
     this.validateVisitor();
   }
 
-  public cron(ctx: CronContext) {
+  cron(ctx: ICronContext) {
     return this.visit(ctx.cronExpression);
   }
 
-  public cronExpression(ctx: CronExpressionContext) {
+  cronExpression(ctx: ICronExpressionContext) {
     const visitedContext = new CronExpression();
     visitedContext.minute = this.visit(ctx.minutes);
     visitedContext.hour = this.visit(ctx.hours);
@@ -25,17 +25,17 @@ export class BaseVisitor extends BaseVisitorConstructor {
     return visitedContext;
   }
 
-  public expression(ctx: ExpressionContext) {
+  expression(ctx: IExpressionContext) {
     const exprs = ctx.exprNotUnion.map(e => this.visit(e));
     return new Expression(exprs);
   }
 
-  public exprNotUnion(ctx: ExprNotUnionContext) {
+  exprNotUnion(ctx: IExprNotUnionContext) {
     const lhs = new StringLiteral(ctx.lhs[0].image);
     return this.visit(ctx.atomicExpr, lhs);
   }
 
-  public atomicExpr(ctx: AtomicExprContext, lhs: StringLiteral) {
+  atomicExpr(ctx: IAtomicExprContext, lhs: StringLiteral) {
     let expr: AbstractTree = lhs;
     if (ctx.range) {
       expr = rangeExpr(lhs, this.visit(ctx.range));
@@ -46,20 +46,20 @@ export class BaseVisitor extends BaseVisitorConstructor {
     return expr;
   }
 
-  public interval(ctx: OperationContext) {
+  interval(ctx: IOperationContext) {
     return new StringLiteral(ctx.rhs[0].image);
   }
 
-  public range(ctx: OperationContext) {
+  range(ctx: IOperationContext) {
     return new StringLiteral(ctx.rhs[0].image);
   }
 }
 
-export interface CronContext {
+export interface ICronContext {
   cronExpression: CstNode;
 }
 
-interface CronExpressionContext {
+interface ICronExpressionContext {
   minutes: CstNode;
   hours: CstNode;
   dom: CstNode;
@@ -67,20 +67,20 @@ interface CronExpressionContext {
   dow: CstNode;
 }
 
-interface ExpressionContext {
+interface IExpressionContext {
   exprNotUnion: CstNode[];
 }
 
-interface ExprNotUnionContext {
+interface IExprNotUnionContext {
   lhs: IToken[];
   atomicExpr: CstNode;
 }
 
-interface AtomicExprContext {
+interface IAtomicExprContext {
   interval?: CstNode;
   range?: CstNode;
 }
 
-interface OperationContext {
+interface IOperationContext {
   rhs: IToken[];
 }

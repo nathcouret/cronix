@@ -1,13 +1,13 @@
-export interface Syntax {
+export interface ISyntax {
   value(): string;
 }
 
-export abstract class AbstractTree implements Syntax {
+export abstract class AbstractTree implements ISyntax {
   abstract value(): string;
 }
 
 export class Cron extends AbstractTree {
-  cronExpression!: CronExpression;
+  private cronExpression!: CronExpression;
 
   value() {
     return this.cronExpression.value();
