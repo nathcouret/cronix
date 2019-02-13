@@ -7,7 +7,7 @@ export abstract class AbstractTree implements ISyntax {
 }
 
 export class Cron extends AbstractTree {
-  private cronExpression!: CronExpression;
+  protected cronExpression!: CronExpression;
 
   value() {
     return this.cronExpression.value();
@@ -15,7 +15,7 @@ export class Cron extends AbstractTree {
 }
 
 export class CronExpression extends AbstractTree {
-  private _minute: AbstractTree;
+  protected _minute: AbstractTree;
   get minute() {
     return this._minute;
   }
@@ -23,7 +23,7 @@ export class CronExpression extends AbstractTree {
     this._minute = v;
   }
 
-  private _hour: AbstractTree;
+  protected _hour: AbstractTree;
   get hour() {
     return this._hour;
   }
@@ -31,7 +31,7 @@ export class CronExpression extends AbstractTree {
     this._hour = v;
   }
 
-  private _dom: AbstractTree;
+  protected _dom: AbstractTree;
   get dom() {
     return this._dom;
   }
@@ -39,7 +39,7 @@ export class CronExpression extends AbstractTree {
     this._dom = v;
   }
 
-  private _month: AbstractTree;
+  protected _month: AbstractTree;
   get month() {
     return this._month;
   }
@@ -47,7 +47,7 @@ export class CronExpression extends AbstractTree {
     this._month = v;
   }
 
-  private _dow: AbstractTree;
+  protected _dow: AbstractTree;
   get dow() {
     return this._dow;
   }
@@ -70,7 +70,7 @@ export class CronExpression extends AbstractTree {
 }
 
 export class Expression extends AbstractTree {
-  private _exprs: AbstractTree[];
+  protected _exprs: AbstractTree[];
 
   constructor(exprs: AbstractTree[]) {
     super();
@@ -83,9 +83,9 @@ export class Expression extends AbstractTree {
 }
 
 export class DualExpression extends AbstractTree {
-  private _rhs: AbstractTree;
-  private _lhs: AbstractTree;
-  private _separator: string;
+  protected _rhs: AbstractTree;
+  protected _lhs: AbstractTree;
+  protected _separator: string;
 
   constructor(lhs: AbstractTree, rhs: AbstractTree, separator: string) {
     super();
@@ -107,7 +107,7 @@ export function rangeExpr(lhs: AbstractTree, rhs: AbstractTree) {
 }
 
 export class StringLiteral extends AbstractTree {
-  private readonly _value: string;
+  protected readonly _value: string;
   constructor(value: string) {
     super();
     this._value = value;

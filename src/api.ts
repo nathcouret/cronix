@@ -1,11 +1,11 @@
 import { baseVocabulary, CronLexer } from "./lexer";
 import { BaseParser } from "./parser";
 import { BaseVisitor } from "./semantic/BaseVisitor";
-import { CronExpression } from "./syntax/syntax";
+import { CronExpression } from "./syntax/BaseSyntax";
 
 // default values to * to reduce boilerplate for the user
 // second and year optionals, only used for Quartz scheduler
-export interface CronExpr {
+export interface ICronExpr {
   second?: string;
   minute?: string;
   hour?: string;
@@ -21,25 +21,20 @@ enum CronMode {
   JENKINS
 }
 
-interface CronOptions {
+interface ICronOptions {
   mode: CronMode;
 }
 
-export function cron(expression: string | CronExpr, options: CronOptions = { mode: CronMode.CRONTAB }) {
-  let expr: string;
-  if (isCronException(expression)) {
-    expr = compute(expression, options);
-  } else {
-    expr = expression;
-  }
+export function cron(expression: string | ICronExpr, options: ICronOptions = { mode: CronMode.CRONTAB }) {
+  const expr = isCronException(expression) ? compute(expression, options) : expression;
   return computeExpr(expr, options);
 }
 
-function isCronException(expression: string | CronExpr): expression is CronExpr {
-  return (<CronExpr>expression).hour !== undefined;
+function isCronException(expression: string | ICronExpr): expression is ICronExpr {
+  return (expression as ICronExpr).hour !== undefined;
 }
 
-function computeExpr(expr: string, options: CronOptions): CronExpression {
+function computeExpr(expr: string, options: ICronOptions): CronExpression {
   const { mode } = options;
   switch (mode) {
     case CronMode.QUARTZ:
@@ -54,7 +49,7 @@ function computeExpr(expr: string, options: CronOptions): CronExpression {
   }
 }
 
-function compute(expression: CronExpr, options: CronOptions): string {
+function compute(expression: ICronExpr, options: ICronOptions): string {
   const { mode } = options;
   // default values to * to reduce boilerplate for the user
   const base = [

@@ -1,10 +1,10 @@
-import { cron, CronExpr } from "../src/api";
+import { cron, ICronExpr } from "../src/api";
 
 describe("compute", () => {
   test("A simple Crontab expression", () => {
     // Given
     // Everyday at 04:05
-    const expression: CronExpr = {
+    const expression: ICronExpr = {
       minute: "5",
       hour: "4"
     };

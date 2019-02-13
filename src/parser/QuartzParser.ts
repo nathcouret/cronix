@@ -36,11 +36,11 @@ export class QuartzParser extends BaseParser {
   // Day of week
   private readonly dow = this.RULE("dow", () => {
     this.OR([
-      { ALT: () => this.CONSUME(Last) },
+      { ALT: () => this.CONSUME(Last, { LABEL: "occurence" }) },
       {
         ALT: () => {
           this.CONSUME1(Sharp);
-          this.CONSUME2(Integer);
+          this.CONSUME2(Integer, { LABEL: "occurence" });
         }
       }
     ]);
