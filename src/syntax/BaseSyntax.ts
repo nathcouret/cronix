@@ -1,10 +1,4 @@
-export interface ISyntax {
-  value(): string;
-}
-
-export abstract class AbstractTree implements ISyntax {
-  abstract value(): string;
-}
+import { AbstractTree } from "./base";
 
 export class Cron extends AbstractTree {
   protected cronExpression!: CronExpression;
