@@ -12,7 +12,10 @@ module.exports = {
     libraryTarget: "umd"
   },
   resolve: {
-    extensions: [".ts", ".js"]
+    extensions: [".ts", ".js"],
+    alias: {
+      "@": path.resolve(__dirname, "src")
+    }
   },
   module: {
     rules: [
@@ -21,13 +24,13 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'thread-loader',
+            loader: "thread-loader",
             options: {
-              workers: require('os').cpus().length - 1
+              workers: require("os").cpus().length - 1
             }
           },
           {
-            loader: 'ts-loader',
+            loader: "ts-loader",
             options: {
               happyPackMode: true
             }
@@ -36,7 +39,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new CheckerPlugin({ checkSyntacticErrors: true })
-  ]
+  plugins: [new CheckerPlugin({ checkSyntacticErrors: true })]
 };
