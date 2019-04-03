@@ -1,7 +1,7 @@
 import { CstNode, IToken } from "chevrotain";
 import { QuartzParser } from "../parser";
-import { AbstractTree, Expression, intervalExpr, rangeExpr, StringLiteral } from "../syntax/BaseSyntax";
-import { DayOfWeek, QuartzCronExpression } from "../syntax/QuartzSyntax";
+import { AbstractTree, Expression, intervalExpr, rangeExpr, StringLiteral } from "../syntax/base";
+import { DayOfWeekExpr, QuartzCronExpression } from "../syntax/quartz";
 
 const quartzVisitorConstructor = new QuartzParser().getBaseCstVisitorConstructor();
 export class QuartzVisitor extends quartzVisitorConstructor {
@@ -65,7 +65,7 @@ export class QuartzVisitor extends quartzVisitorConstructor {
 
   dow(ctx: IDoWContext) {
     const occurence = ctx.occurence[0].image === "L" ? 5 : parseInt(ctx.occurence[0].image, 10);
-    return new DayOfWeek(occurence);
+    return new DayOfWeekExpr(occurence);
   }
 }
 

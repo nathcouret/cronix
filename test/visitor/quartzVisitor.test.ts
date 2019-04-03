@@ -2,7 +2,7 @@ import { Lexer } from "chevrotain";
 import { quartzTokens } from "../../src/lexer";
 import { QuartzParser } from "../../src/parser";
 import { QuartzVisitor } from "../../src/semantic/QuartzVisitor";
-import { CronExpression } from "../../src/syntax/BaseSyntax";
+import { QuartzCronExpression } from "../../src/syntax/quartz";
 
 const parser = new QuartzParser();
 const lexer = new Lexer(quartzTokens);
@@ -20,7 +20,7 @@ describe("QuartzVisitor", () => {
     const expression = "* 5 4 * * *";
     // When
     const cst = parse(expression);
-    const ast: CronExpression = new QuartzVisitor().visit(cst);
+    const ast: QuartzCronExpression = new QuartzVisitor().visit(cst);
     // Then
     expect(parser.errors).toEqual([]);
     expect(ast.minute.value()).toEqual("5");
@@ -36,7 +36,7 @@ describe("QuartzVisitor", () => {
     const expression = "* 5 4 * */2 *";
     // When
     const cst = parse(expression);
-    const ast: CronExpression = new QuartzVisitor().visit(cst);
+    const ast: QuartzCronExpression = new QuartzVisitor().visit(cst);
     // Then
     expect(parser.errors).toEqual([]);
     expect(ast.minute.value()).toEqual("5");
@@ -52,7 +52,7 @@ describe("QuartzVisitor", () => {
     const expression = "* 0 4 8-14 * *";
     // When
     const cst = parse(expression);
-    const ast: CronExpression = new QuartzVisitor().visit(cst);
+    const ast: QuartzCronExpression = new QuartzVisitor().visit(cst);
     // Then
     expect(parser.errors).toEqual([]);
     expect(ast.minute.value()).toEqual("0");
@@ -68,7 +68,7 @@ describe("QuartzVisitor", () => {
     const expression = "* 23 0-20/2 * * *";
     // When
     const cst = parse(expression);
-    const ast: CronExpression = new QuartzVisitor().visit(cst);
+    const ast: QuartzCronExpression = new QuartzVisitor().visit(cst);
     // Then
     expect(parser.errors).toEqual([]);
     expect(ast.minute.value()).toEqual("23");
@@ -83,7 +83,7 @@ describe("QuartzVisitor", () => {
     const expression = "* 0 12 1-10/2,15-25/3 * *";
     // When
     const cst = parse(expression);
-    const ast: CronExpression = new QuartzVisitor().visit(cst);
+    const ast: QuartzCronExpression = new QuartzVisitor().visit(cst);
     // Then
     expect(parser.errors).toEqual([]);
     expect(ast.minute.value()).toEqual("0");
@@ -100,7 +100,7 @@ describe("QuartzVisitor", () => {
 
     // When
     const cst = parse(expression);
-    const ast: CronExpression = new QuartzVisitor().visit(cst);
+    const ast: QuartzCronExpression = new QuartzVisitor().visit(cst);
     /// Then
     expect(parser.errors).toEqual([]);
     expect(ast.minute.value()).toEqual("0");

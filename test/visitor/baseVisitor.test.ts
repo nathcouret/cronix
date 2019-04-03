@@ -2,7 +2,7 @@ import { Lexer } from "chevrotain";
 import { baseTokens, baseVocabulary } from "../../src/lexer";
 import { BaseParser } from "../../src/parser";
 import { BaseVisitor } from "../../src/semantic/BaseVisitor";
-import { CronExpression } from "../../src/syntax/BaseSyntax";
+import { CronExpression } from "../../src/syntax/base";
 
 const parser = new BaseParser(baseVocabulary);
 const lexer = new Lexer(baseTokens);
@@ -92,7 +92,7 @@ describe("BaseVisitor", () => {
     expect(ast.month.value()).toEqual("*");
     expect(ast.dow.value()).toEqual("*");
   });
-  // TODO Fix visitor to raise 
+  // TODO Fix visitor to raise
   test("Very complex expression with error", () => {
     // Given
     // At 12:00 on every 2nd day-of-month from 10 through 1 and every 3rd day-of-month from 15 through 25

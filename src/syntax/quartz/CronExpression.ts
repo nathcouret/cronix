@@ -1,6 +1,6 @@
-import { AbstractTree, anyExpr, CronExpression, everyExpr, StringLiteral } from "./BaseSyntax";
+import { AbstractTree, anyExpr, CronExpression, everyExpr } from "../base";
 
-export class QuartzCronExpression extends CronExpression {
+export default class extends CronExpression {
   private _second: AbstractTree;
   get second() {
     return this._second;
@@ -33,24 +33,5 @@ export class QuartzCronExpression extends CronExpression {
 
   value() {
     return `${this.second.value()} ${super.value()} ${this.year.value()}`;
-  }
-}
-
-export class DayOfWeek extends AbstractTree {
-  private _occurence: number;
-  get occurence(): number {
-    return this._occurence;
-  }
-  set occurence(v: number) {
-    this._occurence = v;
-  }
-
-  constructor(occurence: number) {
-    super();
-    this._occurence = occurence;
-  }
-
-  value() {
-    return this._occurence < 5 ? `#${this._occurence}` : `L`;
   }
 }
