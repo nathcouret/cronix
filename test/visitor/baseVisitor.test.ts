@@ -1,11 +1,11 @@
 import { Lexer } from "chevrotain";
-import { baseTokens, baseVocabulary } from "../../src/lexer";
+import { cronTokens, cronVocabulary } from "../../src/lexer";
 import { BaseParser } from "../../src/parser";
 import { BaseVisitor } from "../../src/semantic/BaseVisitor";
 import { CronExpression } from "../../src/syntax/base";
 
-const parser = new BaseParser(baseVocabulary);
-const lexer = new Lexer(baseTokens);
+const parser = new BaseParser(cronVocabulary);
+const lexer = new Lexer(cronTokens);
 
 function parse(input: string) {
   const lexingResult = lexer.tokenize(input);

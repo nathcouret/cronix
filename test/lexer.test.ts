@@ -1,4 +1,7 @@
-import { cronLexer } from "../src/lexer";
+import { Lexer } from "chevrotain";
+import { cronTokens } from "../src/lexer";
+
+const cronLexer = new Lexer(cronTokens);
 
 function testInput(input: string) {
   return cronLexer.tokenize(input);

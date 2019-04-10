@@ -1,9 +1,9 @@
 import { CstNode, IToken } from "chevrotain";
-import { baseVocabulary } from "../lexer";
+import { cronVocabulary } from "../lexer";
 import { BaseParser } from "../parser";
 import { AbstractTree, CronExpression, Expression, intervalExpr, rangeExpr, StringLiteral } from "../syntax/base";
 
-const baseVisitorConstructor = new BaseParser(baseVocabulary).getBaseCstVisitorConstructor();
+const baseVisitorConstructor = new BaseParser(cronVocabulary).getBaseCstVisitorConstructor();
 export class BaseVisitor extends baseVisitorConstructor {
   constructor() {
     super();

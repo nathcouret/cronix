@@ -1,7 +1,8 @@
-import { baseVocabulary, cronLexer } from "./lexer";
 import { BaseParser } from "./parser";
 import { BaseVisitor } from "./semantic/BaseVisitor";
 import { CronExpression } from "./syntax/base";
+import { Lexer } from "chevrotain";
+import { cronTokens, cronVocabulary } from "./lexer";
 
 // default values to * to reduce boilerplate for the user
 // second and year optionals, only used for Quartz scheduler
@@ -41,8 +42,9 @@ function computeExpr(expr: string, options: ICronOptions): CronExpression {
     case CronMode.JENKINS:
     case CronMode.CRONTAB:
     default:
+      const cronLexer = new Lexer(cronTokens);
       const lexingResult = cronLexer.tokenize(expr);
-      const parser = new BaseParser(baseVocabulary);
+      const parser = new BaseParser(cronVocabulary);
       parser.input = lexingResult.tokens;
       const cst = parser.cron();
       return new BaseVisitor().visit(cst);
