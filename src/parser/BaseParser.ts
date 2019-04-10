@@ -1,5 +1,5 @@
 import { Parser, TokenVocabulary } from "chevrotain";
-import { Comma, Dash, Identifier, Slash } from "../lexer";
+import { comma, dash, identifier, slash } from "../lexer";
 
 export class BaseParser extends Parser {
   constructor(vocabulary: TokenVocabulary, invokedByChild: boolean = false) {
@@ -26,13 +26,13 @@ export class BaseParser extends Parser {
 
   readonly expression = this.RULE("expression", () => {
     this.AT_LEAST_ONE_SEP({
-      SEP: Comma,
+      SEP: comma,
       DEF: () => this.SUBRULE(this.exprNotUnion)
     });
   });
 
   readonly exprNotUnion = this.RULE("exprNotUnion", () => {
-    this.CONSUME(Identifier, { LABEL: "lhs" });
+    this.CONSUME(identifier, { LABEL: "lhs" });
     this.SUBRULE(this.atomicExpr);
   });
 
@@ -46,12 +46,12 @@ export class BaseParser extends Parser {
   });
 
   readonly interval = this.RULE("interval", () => {
-    this.CONSUME1(Slash);
-    this.CONSUME2(Identifier, { LABEL: "rhs" });
+    this.CONSUME1(slash);
+    this.CONSUME2(identifier, { LABEL: "rhs" });
   });
 
   readonly range = this.RULE("range", () => {
-    this.CONSUME1(Dash);
-    this.CONSUME2(Identifier, { LABEL: "rhs" });
+    this.CONSUME1(dash);
+    this.CONSUME2(identifier, { LABEL: "rhs" });
   });
 }

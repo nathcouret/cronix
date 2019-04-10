@@ -1,4 +1,4 @@
-import { Identifier, Integer, Last, quartzVocabulary, Sharp } from "../lexer";
+import { identifier, integer, last, quartzVocabulary, sharp } from "../lexer";
 import { BaseParser } from "./BaseParser";
 
 export class QuartzParser extends BaseParser {
@@ -27,7 +27,7 @@ export class QuartzParser extends BaseParser {
   });
 
   readonly exprNotUnion = this.OVERRIDE_RULE("exprNotUnion", () => {
-    this.CONSUME(Identifier, { LABEL: "lhs" });
+    this.CONSUME(identifier, { LABEL: "lhs" });
     this.OPTION({
       DEF: () => this.OR([{ ALT: () => this.SUBRULE(this.dow) }, { ALT: () => this.SUBRULE(this.atomicExpr) }])
     });
@@ -36,11 +36,11 @@ export class QuartzParser extends BaseParser {
   // Day of week
   private readonly dow = this.RULE("dow", () => {
     this.OR([
-      { ALT: () => this.CONSUME(Last, { LABEL: "occurence" }) },
+      { ALT: () => this.CONSUME(last, { LABEL: "occurence" }) },
       {
         ALT: () => {
-          this.CONSUME1(Sharp);
-          this.CONSUME2(Integer, { LABEL: "occurence" });
+          this.CONSUME1(sharp);
+          this.CONSUME2(integer, { LABEL: "occurence" });
         }
       }
     ]);

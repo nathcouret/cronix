@@ -1,7 +1,7 @@
-import { CronLexer } from "../src/lexer";
+import { cronLexer } from "../src/lexer";
 
 function testInput(input: string) {
-  return CronLexer.tokenize(input);
+  return cronLexer.tokenize(input);
 }
 describe("lexer test", () => {
   test("test single day", () => {
