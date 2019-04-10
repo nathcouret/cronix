@@ -24,15 +24,9 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: "thread-loader",
-            options: {
-              workers: require("os").cpus().length - 1
-            }
-          },
-          {
             loader: "ts-loader",
             options: {
-              happyPackMode: true
+              transpileOnly: true
             }
           }
         ]
