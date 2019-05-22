@@ -9,6 +9,6 @@ export const roundTime = createToken({
   categories: [identifier]
 });
 // Available tokens for Jenkins cron
-export const jenkinsTokens = [...cronTokens, roundTime];
+export const jenkinsTokens = [roundTime, ...cronTokens];
 
 export const jenkinsVocabulary: TokenVocabulary = genVocabulary(jenkinsTokens);

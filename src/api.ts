@@ -1,11 +1,13 @@
-import { BaseParser } from "./parser";
+import { BaseParser, QuartzParser, JenkinsParser } from "./parser";
 import { BaseVisitor } from "./semantic/BaseVisitor";
 import { CronExpression } from "./syntax/base";
-import { Lexer } from "chevrotain";
-import { cronTokens, cronVocabulary } from "./lexer";
+import { Lexer, ILexingResult } from "chevrotain";
+import { cronTokens, cronVocabulary, quartzTokens, quartzVocabulary, jenkinsTokens } from "./lexer";
+import { QuartzVisitor } from "./semantic/QuartzVisitor";
+import { JenkinsVisitor } from "./semantic/JenkinsVisitor";
 
 // default values to * to reduce boilerplate for the user
-// second and year optionals, only used for Quartz scheduler
+// second and year optionals, only used by Quartz parser
 export interface ICronExpr {
   second?: string;
   minute?: string;
@@ -16,10 +18,10 @@ export interface ICronExpr {
   year?: string;
 }
 
-enum CronMode {
-  CRONTAB,
-  QUARTZ,
-  JENKINS
+export enum CronMode {
+  CRONTAB = "Crontab",
+  QUARTZ = "Quartz",
+  JENKINS = "Jenkins"
 }
 
 interface ICronOptions {
@@ -35,16 +37,27 @@ function isCronException(expression: string | ICronExpr): expression is ICronExp
   return (expression as ICronExpr).hour !== undefined;
 }
 
-function computeExpr(expr: string, options: ICronOptions): CronExpression {
+function computeExpr(expr: string, options: ICronOptions) {
   const { mode } = options;
+  let parser: BaseParser;
+  let lexingResult: ILexingResult;
   switch (mode) {
     case CronMode.QUARTZ:
+      const quartzLexer = new Lexer(quartzTokens);
+      lexingResult = quartzLexer.tokenize(expr);
+      parser = new QuartzParser();
+      parser.input = lexingResult.tokens;
+      return new QuartzVisitor().visit(parser.cron());
     case CronMode.JENKINS:
+      lexingResult = new Lexer(jenkinsTokens).tokenize(expr);
+      parser = new JenkinsParser();
+      parser.input = lexingResult.tokens;
+      return new JenkinsVisitor().visit(parser.cron());
     case CronMode.CRONTAB:
     default:
       const cronLexer = new Lexer(cronTokens);
-      const lexingResult = cronLexer.tokenize(expr);
-      const parser = new BaseParser(cronVocabulary);
+      lexingResult = cronLexer.tokenize(expr);
+      parser = new BaseParser(cronVocabulary);
       parser.input = lexingResult.tokens;
       const cst = parser.cron();
       return new BaseVisitor().visit(cst);

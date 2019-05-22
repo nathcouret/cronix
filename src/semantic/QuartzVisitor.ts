@@ -1,18 +1,14 @@
 import { CstNode, IToken } from "chevrotain";
 import { QuartzParser } from "../parser";
-import { AbstractTree, Expression, intervalExpr, rangeExpr, StringLiteral } from "../syntax/base";
+import { AbstractTree, intervalExpr, rangeExpr, StringLiteral } from "../syntax/base";
 import { DayOfWeekExpr, QuartzCronExpression } from "../syntax/quartz";
+import abstractVisitor from "./AbstractVisitor";
+import { IAtomicExprContext } from "./context";
 
-const quartzVisitorConstructor = new QuartzParser().getBaseCstVisitorConstructor();
-export class QuartzVisitor extends quartzVisitorConstructor {
+const QuartzVisitorConstructor = abstractVisitor(new QuartzParser().getBaseCstVisitorConstructor());
+export class QuartzVisitor extends QuartzVisitorConstructor {
   constructor() {
-    super();
-    // stuff
-    this.validateVisitor();
-  }
-
-  cron(ctx: ICronContext) {
-    return this.visit(ctx.cronExpression);
+    super(QuartzVisitorConstructor);
   }
 
   cronExpression(ctx: ICronExpressionContext) {
@@ -30,18 +26,7 @@ export class QuartzVisitor extends quartzVisitorConstructor {
     }
     return visitedContext;
   }
-
-  expression(ctx: IExpressionContext) {
-    const exprs = ctx.exprNotUnion.map(e => this.visit(e));
-    return new Expression(exprs);
-  }
-
-  exprNotUnion(ctx: IExprNotUnionContext) {
-    const lhs = new StringLiteral(ctx.lhs[0].image);
-    return this.visit(ctx.atomicExpr, lhs);
-  }
-
-  atomicExpr(ctx: IAtomicExprContext, lhs: StringLiteral) {
+  atomicExpr(ctx: IAtomicQuartzExprContext, lhs: StringLiteral) {
     let expr: AbstractTree = lhs;
     if (ctx.range) {
       expr = rangeExpr(lhs, this.visit(ctx.range));
@@ -54,25 +39,11 @@ export class QuartzVisitor extends quartzVisitorConstructor {
     }
     return expr;
   }
-
-  interval(ctx: IOperationContext) {
-    return new StringLiteral(ctx.rhs[0].image);
-  }
-
-  range(ctx: IOperationContext) {
-    return new StringLiteral(ctx.rhs[0].image);
-  }
-
   dow(ctx: IDoWContext) {
     const occurence = ctx.occurence[0].image === "L" ? 5 : parseInt(ctx.occurence[0].image, 10);
     return new DayOfWeekExpr(occurence);
   }
 }
-
-export interface ICronContext {
-  cronExpression: CstNode;
-}
-
 interface ICronExpressionContext {
   second?: CstNode;
   minutes: CstNode;
@@ -83,23 +54,8 @@ interface ICronExpressionContext {
   year?: CstNode;
 }
 
-interface IExpressionContext {
-  exprNotUnion: CstNode[];
-}
-
-interface IExprNotUnionContext {
-  lhs: IToken[];
-  atomicExpr: CstNode;
-}
-
-interface IAtomicExprContext {
-  interval?: CstNode;
-  range?: CstNode;
+interface IAtomicQuartzExprContext extends IAtomicExprContext {
   dow?: CstNode;
-}
-
-interface IOperationContext {
-  rhs: IToken[];
 }
 
 interface IDoWContext {
