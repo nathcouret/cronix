@@ -5,6 +5,7 @@ import { Lexer, ILexingResult } from "chevrotain";
 import { cronTokens, cronVocabulary, quartzTokens, quartzVocabulary, jenkinsTokens } from "./lexer";
 import { QuartzVisitor } from "./semantic/QuartzVisitor";
 import { JenkinsVisitor } from "./semantic/JenkinsVisitor";
+import { QuartzCronExpression } from "./syntax/quartz";
 
 // default values to * to reduce boilerplate for the user
 // second and year optionals, only used by Quartz parser
@@ -37,7 +38,7 @@ function isCronException(expression: string | ICronExpr): expression is ICronExp
   return (expression as ICronExpr).hour !== undefined;
 }
 
-function computeExpr(expr: string, options: ICronOptions) {
+function computeExpr(expr: string, options: ICronOptions): CronExpression | QuartzCronExpression {
   const { mode } = options;
   let parser: BaseParser;
   let lexingResult: ILexingResult;
@@ -47,12 +48,12 @@ function computeExpr(expr: string, options: ICronOptions) {
       lexingResult = quartzLexer.tokenize(expr);
       parser = new QuartzParser();
       parser.input = lexingResult.tokens;
-      return new QuartzVisitor().visit(parser.cron());
+      return new QuartzVisitor().visit(parser.cron()) as QuartzCronExpression;
     case CronMode.JENKINS:
       lexingResult = new Lexer(jenkinsTokens).tokenize(expr);
       parser = new JenkinsParser();
       parser.input = lexingResult.tokens;
-      return new JenkinsVisitor().visit(parser.cron());
+      return new JenkinsVisitor().visit(parser.cron()) as CronExpression;
     case CronMode.CRONTAB:
     default:
       const cronLexer = new Lexer(cronTokens);
@@ -60,7 +61,7 @@ function computeExpr(expr: string, options: ICronOptions) {
       parser = new BaseParser(cronVocabulary);
       parser.input = lexingResult.tokens;
       const cst = parser.cron();
-      return new BaseVisitor().visit(cst);
+      return new BaseVisitor().visit(cst) as CronExpression;
   }
 }
 

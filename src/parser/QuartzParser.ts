@@ -9,7 +9,7 @@ export class QuartzParser extends BaseParser {
 
   readonly cronExpression = this.OVERRIDE_RULE("cronExpression", () => {
     // Seconds
-    this.SUBRULE1(this.expression, { LABEL: "seconds" });
+    this.SUBRULE1(this.expression, { LABEL: "second" });
     // Minutes
     this.SUBRULE2(this.expression, { LABEL: "minutes" });
     // Hours
