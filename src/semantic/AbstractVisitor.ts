@@ -8,6 +8,7 @@ import {
   IOperationContext
 } from "./context";
 import { CronExpression, Expression, StringLiteral, AbstractTree, rangeExpr, intervalExpr } from "src/syntax/base";
+import { type } from "os";
 
 const abstractVisitor = <T extends new (...args: any[]) => ICstVisitor<any, any>>(base: T) => {
   class AbstractVisitor extends base {
@@ -44,7 +45,15 @@ const abstractVisitor = <T extends new (...args: any[]) => ICstVisitor<any, any>
     atomicExpr(ctx: IAtomicExprContext, lhs: StringLiteral) {
       let expr: AbstractTree = lhs;
       if (ctx.range) {
-        expr = rangeExpr(lhs, this.visit(ctx.range));
+        const rhs = this.visit(ctx.range);
+        const leftValue = Number(lhs.value());
+        const rightValue = Number(rhs.value());
+        if (leftValue !== NaN && rightValue !== NaN) {
+          if (leftValue > rightValue) {
+            throw new Error("Left-hand side range value must be smaller than right-hand side");
+          }
+        }
+        expr = rangeExpr(lhs, rhs);
       }
       if (ctx.interval) {
         expr = intervalExpr(expr, this.visit(ctx.interval));

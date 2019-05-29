@@ -30,6 +30,22 @@ describe("QuartzVisitor", () => {
     expect(ast.dow.value()).toEqual("*");
   });
 
+  test("with day of week", () => {
+    // Given
+    // Every 3rd Monday at 04:05
+    const expression = "* 5 4 * * MON#3";
+    // When
+    const cst = parse(expression);
+    const ast: QuartzCronExpression = new QuartzVisitor().visit(cst);
+    // Then
+    expect(parser.errors).toEqual([]);
+    expect(ast.minute.value()).toEqual("5");
+    expect(ast.hour.value()).toEqual("4");
+    expect(ast.dom.value()).toEqual("*");
+    expect(ast.month.value()).toEqual("*");
+    expect(ast.dow.value()).toEqual("MON#3");
+  });
+
   test("with step value", () => {
     // Given
     // Every day of every other month at 04:05
@@ -92,21 +108,20 @@ describe("QuartzVisitor", () => {
     expect(ast.month.value()).toEqual("*");
     expect(ast.dow.value()).toEqual("*");
   });
+
   // TODO Fix visitor to raise
   test("Very complex expression with error", () => {
     // Given
     // At 12:00 on every 2nd day-of-month from 10 through 1 and every 3rd day-of-month from 15 through 25
+    // Expression should fail to parse since the range 10-1 is inverted
     const expression = "* 0 12 10-1/2,15-25/3 * *";
 
     // When
     const cst = parse(expression);
-    const ast: QuartzCronExpression = new QuartzVisitor().visit(cst);
-    /// Then
-    expect(parser.errors).toEqual([]);
-    expect(ast.minute.value()).toEqual("0");
-    expect(ast.hour.value()).toEqual("12");
-    expect(ast.dom.value()).toEqual("10-1/2,15-25/3");
-    expect(ast.month.value()).toEqual("*");
-    expect(ast.dow.value()).toEqual("*");
+    try {
+      new QuartzVisitor().visit(cst);
+    } catch (e) {
+      expect((e as Error).message).toMatch(/Left\-hand/);
+    }
   });
 });

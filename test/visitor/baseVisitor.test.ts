@@ -100,13 +100,10 @@ describe("BaseVisitor", () => {
 
     // When
     const cst = parse(expression);
-    const ast: CronExpression = new BaseVisitor().visit(cst);
-    /// Then
-    expect(parser.errors).toEqual([]);
-    expect(ast.minute.value()).toEqual("0");
-    expect(ast.hour.value()).toEqual("12");
-    expect(ast.dom.value()).toEqual("10-1/2,15-25/3");
-    expect(ast.month.value()).toEqual("*");
-    expect(ast.dow.value()).toEqual("*");
+    try {
+      new BaseVisitor().visit(cst);
+    } catch (e) {
+      expect((e as Error).message).toMatch(/^Left\-hand/);
+    }
   });
 });
