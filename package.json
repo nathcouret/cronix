@@ -4,10 +4,11 @@
   "main": "dist/fenix-cron.js",
   "license": "MIT",
   "scripts": {
-    "test": "jest --coverage",
+    "test": "jest",
     "build": "tsc && webpack",
     "run": "node dist/fenix-cron.js",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "lint": "eslint src/**/*.ts"
   },
   "dependencies": {
     "chevrotain": "^4.1.0"
