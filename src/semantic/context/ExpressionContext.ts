@@ -1,5 +1,5 @@
 import { CstNode } from "chevrotain";
 
-export interface IExpressionContext {
+export interface ExpressionContext {
   exprNotUnion: CstNode[];
 }

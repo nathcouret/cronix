@@ -1,11 +1,11 @@
-import { cron, CronMode, ICronExpr } from "../src/api";
+import { cron, CronMode, CronExpr } from "../src/api";
 import { QuartzCronExpression } from "../src/syntax/quartz";
 
 describe("compute", () => {
   test("A simple Crontab expression", () => {
     // Given
     // Everyday at 04:05
-    const expression: ICronExpr = {
+    const expression: CronExpr = {
       minute: "5",
       hour: "4"
     };

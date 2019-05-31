@@ -1,5 +1,5 @@
 import { CstNode } from "chevrotain";
 
-export interface ICronContext {
+export interface CronContext {
   cronExpression: CstNode;
 }
