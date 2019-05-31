@@ -8,7 +8,7 @@
     "build": "tsc && webpack",
     "run": "node dist/fenix-cron.js",
     "clean": "rimraf dist",
-    "lint": "eslint src/**/*.ts"
+    "lint": "eslint --ext .ts src/**"
   },
   "dependencies": {
     "chevrotain": "^4.1.0"
