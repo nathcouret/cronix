@@ -1,5 +1,18 @@
 const path = require("path");
 const CheckerPlugin = require("fork-ts-checker-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const { cronTokens, quartzTokens, jenkinsTokens } = require(path.resolve(__dirname, "./dist/lexer"));
+
+const allTokens = [cronTokens, quartzTokens, jenkinsTokens]
+  .map(tokens => tokens.map(t => t.name))
+  .reduce((acc, curr) => {
+    curr.forEach(token => {
+      if (acc.indexOf(token.name) === -1) {
+        acc.concat(token.name);
+      }
+    });
+    return acc;
+  }, []);
 
 module.exports = {
   mode: "production",
@@ -33,5 +46,16 @@ module.exports = {
       }
     ]
   },
-  plugins: [new CheckerPlugin({ checkSyntacticErrors: true })]
+  plugins: [new CheckerPlugin({ checkSyntacticErrors: true })],
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          mangle: {
+            reserved: allTokens
+          }
+        }
+      })
+    ]
+  }
 };

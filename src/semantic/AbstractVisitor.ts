@@ -1,14 +1,13 @@
 import { ICstVisitor } from "chevrotain";
+import { AbstractTree, CronExpression, Expression, intervalExpr, rangeExpr, StringLiteral } from "src/syntax/base";
 import {
+  IAtomicExprContext,
   ICronContext,
   ICronExpressionContext,
   IExpressionContext,
   IExprNotUnionContext,
-  IAtomicExprContext,
   IOperationContext
 } from "./context";
-import { CronExpression, Expression, StringLiteral, AbstractTree, rangeExpr, intervalExpr } from "src/syntax/base";
-import { type } from "os";
 
 const abstractVisitor = <T extends new (...args: any[]) => ICstVisitor<any, any>>(base: T) => {
   class AbstractVisitor extends base {

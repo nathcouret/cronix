@@ -1,12 +1,12 @@
 import { CstNode, IToken } from "chevrotain";
 import { QuartzParser } from "../parser";
-import { AbstractTree, intervalExpr, rangeExpr, StringLiteral } from "../syntax/base";
+import { StringLiteral } from "../syntax/base";
 import { DayOfWeekExpr, QuartzCronExpression } from "../syntax/quartz";
 import abstractVisitor from "./AbstractVisitor";
-import { IAtomicExprContext, IExprNotUnionContext } from "./context";
+import { IExprNotUnionContext } from "./context";
 
 const QuartzVisitorConstructor = abstractVisitor(new QuartzParser().getBaseCstVisitorConstructor());
-export class QuartzVisitor extends QuartzVisitorConstructor {
+export default class QuartzVisitor extends QuartzVisitorConstructor {
   constructor() {
     super(QuartzVisitorConstructor);
   }
