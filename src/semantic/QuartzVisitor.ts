@@ -1,9 +1,8 @@
-import { CstNode, IToken } from "chevrotain";
 import { QuartzParser } from "../parser";
 import { StringLiteral } from "../syntax/base";
 import { DayOfWeekExpr, QuartzCronExpression } from "../syntax/quartz";
 import abstractVisitor from "./AbstractVisitor";
-import { IExprNotUnionContext } from "./context";
+import { DowContext, QuartzCronExpressionContext, QuartzExprNotUnionContext } from "./context/quartz";
 
 const QuartzVisitorConstructor = abstractVisitor(new QuartzParser().getBaseCstVisitorConstructor());
 export default class QuartzVisitor extends QuartzVisitorConstructor {
@@ -11,7 +10,7 @@ export default class QuartzVisitor extends QuartzVisitorConstructor {
     super(QuartzVisitorConstructor);
   }
 
-  cronExpression(ctx: ICronExpressionContext) {
+  cronExpression(ctx: QuartzCronExpressionContext) {
     const visitedContext = new QuartzCronExpression();
     if (ctx.second) {
       visitedContext.second = this.visit(ctx.second);
@@ -27,7 +26,7 @@ export default class QuartzVisitor extends QuartzVisitorConstructor {
     return visitedContext;
   }
 
-  exprNotUnion(ctx: IQuartzExprNotUnionContext) {
+  exprNotUnion(ctx: QuartzExprNotUnionContext) {
     const lhs = new StringLiteral(ctx.lhs[0].image);
     if (ctx.dow) {
       return this.visit(ctx.dow, lhs);
@@ -35,25 +34,8 @@ export default class QuartzVisitor extends QuartzVisitorConstructor {
     return this.visit(ctx.atomicExpr, lhs);
   }
 
-  dow(ctx: IDoWContext, lhs: StringLiteral) {
+  dow(ctx: DowContext, lhs: StringLiteral) {
     const occurence = ctx.occurence[0].image === "L" ? 5 : parseInt(ctx.occurence[0].image, 10);
     return new DayOfWeekExpr(lhs, occurence);
   }
-}
-interface ICronExpressionContext {
-  second?: CstNode;
-  minutes: CstNode;
-  hours: CstNode;
-  dom: CstNode;
-  month: CstNode;
-  dow: CstNode;
-  year?: CstNode;
-}
-
-interface IQuartzExprNotUnionContext extends IExprNotUnionContext {
-  dow?: CstNode;
-}
-
-interface IDoWContext {
-  occurence: IToken[];
 }

@@ -1,6 +1,6 @@
 import { CstNode } from "chevrotain";
 
-export interface ICronExpressionContext {
+export interface CronExpressionContext {
   minutes: CstNode;
   hours: CstNode;
   dom: CstNode;

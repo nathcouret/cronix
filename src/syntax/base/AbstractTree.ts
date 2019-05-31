@@ -1,5 +1,5 @@
-import ISyntax from "./ISyntax";
+import Syntax from "./Syntax";
 
-export default abstract class implements ISyntax {
+export default abstract class implements Syntax {
   abstract value(): string;
 }

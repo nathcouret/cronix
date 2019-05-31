@@ -1,5 +1,5 @@
 import { IToken } from "chevrotain";
 
-export interface IOperationContext {
+export interface OperationContext {
   rhs: IToken[];
 }

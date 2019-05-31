@@ -1,14 +1,15 @@
 import { ICstVisitor } from "chevrotain";
 import { AbstractTree, CronExpression, Expression, intervalExpr, rangeExpr, StringLiteral } from "src/syntax/base";
 import {
-  IAtomicExprContext,
-  ICronContext,
-  ICronExpressionContext,
-  IExpressionContext,
-  IExprNotUnionContext,
-  IOperationContext
+  AtomicExprContext,
+  CronContext,
+  CronExpressionContext,
+  ExpressionContext,
+  ExprNotUnionContext,
+  OperationContext
 } from "./context";
 
+/*eslint-disable @typescript-eslint/no-explicit-any */
 const abstractVisitor = <T extends new (...args: any[]) => ICstVisitor<any, any>>(base: T) => {
   class AbstractVisitor extends base {
     constructor(...args: any[]) {
@@ -17,11 +18,11 @@ const abstractVisitor = <T extends new (...args: any[]) => ICstVisitor<any, any>
       this.validateVisitor();
     }
 
-    cron(ctx: ICronContext) {
+    cron(ctx: CronContext) {
       return this.visit(ctx.cronExpression);
     }
 
-    cronExpression(ctx: ICronExpressionContext) {
+    cronExpression(ctx: CronExpressionContext) {
       const visitedContext = new CronExpression();
       visitedContext.minute = this.visit(ctx.minutes);
       visitedContext.hour = this.visit(ctx.hours);
@@ -31,17 +32,17 @@ const abstractVisitor = <T extends new (...args: any[]) => ICstVisitor<any, any>
       return visitedContext;
     }
 
-    expression(ctx: IExpressionContext) {
+    expression(ctx: ExpressionContext) {
       const exprs = ctx.exprNotUnion.map(e => this.visit(e));
       return new Expression(exprs);
     }
 
-    exprNotUnion(ctx: IExprNotUnionContext) {
+    exprNotUnion(ctx: ExprNotUnionContext) {
       const lhs = new StringLiteral(ctx.lhs[0].image);
       return this.visit(ctx.atomicExpr, lhs);
     }
 
-    atomicExpr(ctx: IAtomicExprContext, lhs: StringLiteral) {
+    atomicExpr(ctx: AtomicExprContext, lhs: StringLiteral) {
       let expr: AbstractTree = lhs;
       if (ctx.range) {
         const rhs = this.visit(ctx.range);
@@ -60,11 +61,11 @@ const abstractVisitor = <T extends new (...args: any[]) => ICstVisitor<any, any>
       return expr;
     }
 
-    interval(ctx: IOperationContext) {
+    interval(ctx: OperationContext) {
       return new StringLiteral(ctx.rhs[0].image);
     }
 
-    range(ctx: IOperationContext) {
+    range(ctx: OperationContext) {
       return new StringLiteral(ctx.rhs[0].image);
     }
   }

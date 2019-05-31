@@ -1,6 +1,6 @@
 import { IToken, CstNode } from "chevrotain";
 
-export interface IExprNotUnionContext {
+export interface ExprNotUnionContext {
   lhs: IToken[];
   atomicExpr: CstNode;
 }
