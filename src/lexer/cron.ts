@@ -1,5 +1,5 @@
 import { createToken, Lexer, TokenVocabulary } from "chevrotain";
-import { genVocabulary } from ".";
+import { genVocabulary } from "./vocabularyGenerator";
 
 export const whiteSpace = createToken({
   name: "whiteSpace",
