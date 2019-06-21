@@ -7,13 +7,13 @@ module.exports = {
   },
   globals: {
     "ts-jest": {
-      tsConfig: "tsconfig.json",
+      tsConfig: "test/tsconfig.json",
       diagnostics: true
     }
   },
   moduleNameMapper: {
-    '^src/(.*)$': '<rootDir>/src/$1'
-},
+    "^src/(.*)$": "<rootDir>/src/$1"
+  },
   testMatch: ["**/?(*.)+(spec|test).(js|ts)"],
   testPathIgnorePatterns: ["<rootDir>/dist/", "<rootDir>/node_modules/"]
 };
