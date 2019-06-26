@@ -26,7 +26,7 @@ export default {
       format: "umd",
       globals: {
         chevrotain: "chevrotain",
-        _: "lodash"
+        _: "lodash-es"
       }
     }
   ]
