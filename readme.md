@@ -1,8 +1,6 @@
 Fenix-cron
 ==========
 
-[![Build Status](https://travis-ci.org/gbandsmith/fenix-cron.svg?branch=master)](https://travis-ci.org/gbandsmith/fenix-cron)
-
 A cron parser/generator with support for multiple cron format.
 
 ## Usage
