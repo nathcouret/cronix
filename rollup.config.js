@@ -25,8 +25,7 @@ export default {
       file: pkg.browser,
       format: "umd",
       globals: {
-        chevrotain: "chevrotain",
-        _: "lodash-es"
+        chevrotain: "chevrotain"
       }
     }
   ]
