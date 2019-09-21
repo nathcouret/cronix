@@ -12,9 +12,7 @@ export default {
     resolve(),
     commonjs({ extensions: [".js", ".ts"] }),
     terser({
-      // Disable name mangling as chevrotain relies on symbol name to properly works
-      // See https://github.com/SAP/chevrotain/blob/master/examples/webpack/README.md
-      mangle: false
+      mangle: true
     })
   ],
   output: [
