@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "es6",
     "moduleResolution": "node",
     "esModuleInterop": true,
+    "importHelpers": true,
     "strict": true,
     "target": "es5",
     "outDir": "dist",
-    "lib": ["es5", "es6", "es2015", "es2015.promise", "es2015.generator"],
+    "lib": ["es5", "es6", "es2015"],
     "declaration": true
   },
   "exclude": ["node_modules", "dist"]

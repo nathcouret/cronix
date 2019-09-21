@@ -25,7 +25,8 @@ export default {
       file: pkg.browser,
       format: "umd",
       globals: {
-        chevrotain: "chevrotain"
+        chevrotain: "chevrotain",
+        tslib: "tslib"
       }
     }
   ]

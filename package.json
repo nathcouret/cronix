@@ -15,7 +15,7 @@
     "lint": "eslint --ext .ts src/**"
   },
   "dependencies": {
-    "@types/lodash-es": "^4.17.3",
+    "tslib": "^1.10.0",
     "chevrotain": "^4.8.0"
   },
   "devDependencies": {
