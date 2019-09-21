@@ -1,4 +1,4 @@
-import { ICstVisitor, ILexingResult, Lexer, Parser, TokenType } from "chevrotain";
+import { ILexingResult, Lexer, TokenType } from "chevrotain";
 import { cronTokens, cronVocabulary, jenkinsTokens, quartzTokens } from "./lexer";
 import { BaseParser, JenkinsParser, QuartzParser } from "./parser";
 import { BaseVisitor, JenkinsVisitor, QuartzVisitor } from "./semantic";
@@ -28,19 +28,13 @@ interface CronOptions {
   loose?: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isString(value: any): value is string {
   return typeof value === "string";
 }
 
-interface ExprContext<P extends Parser, V extends ICstVisitor<any, any>, E extends CronExpression> extends CronOptions {
-  parser: P;
-  lexer: Lexer;
-  visitor: V;
-  ast: E;
-}
-
-class ExprElement {
-  private _ast: AbstractTree;
+export class ExprElement {
+  private readonly _ast: AbstractTree;
 
   constructor(expr: AbstractTree | string) {
     if (isString(expr)) {
@@ -61,7 +55,7 @@ function isCronException(expression: string | CronExpr): expression is CronExpr 
   return (expression as CronExpr).hour !== undefined;
 }
 
-function getParser(context: CronOptions) {
+export function getParser(context: CronOptions) {
   switch (context.mode) {
     case CronMode.QUARTZ:
       return new QuartzParser();
@@ -72,7 +66,7 @@ function getParser(context: CronOptions) {
   }
 }
 
-function getLexer(context: CronOptions) {
+export function getLexer(context: CronOptions) {
   let tokens: TokenType[] = [];
   switch (context.mode) {
     case CronMode.QUARTZ:
