@@ -1,7 +1,7 @@
-import { Parser, TokenVocabulary } from "chevrotain";
+import { CstParser, TokenVocabulary } from "chevrotain";
 import { comma, dash, identifier, slash } from "../lexer";
 
-export class BaseParser extends Parser {
+export class BaseParser extends CstParser {
   constructor(vocabulary: TokenVocabulary, invokedByChild: boolean = false) {
     super(vocabulary);
     if (!invokedByChild) {

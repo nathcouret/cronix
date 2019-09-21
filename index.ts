@@ -1,11 +1,11 @@
 import { createSyntaxDiagramsCode } from "chevrotain";
-import { writeFile, writeFileSync } from "fs";
-import { baseVocabulary } from "./src/lexer";
+import { writeFileSync } from "fs";
+import { cronVocabulary } from "./src/lexer";
 import { BaseParser, JenkinsParser, QuartzParser } from "./src/parser";
 
 // Just doing lots of testing in there
 const quartzParser = new QuartzParser();
-const cronParser = new BaseParser(baseVocabulary);
+const cronParser = new BaseParser(cronVocabulary);
 const jenkinsParser = new JenkinsParser();
 
 // Parse the tokens into a CST

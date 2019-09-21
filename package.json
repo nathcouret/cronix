@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "tslib": "^1.10.0",
-    "chevrotain": "^4.8.0"
+    "chevrotain": "^6.0.0"
   },
   "devDependencies": {
     "@types/jest": "^23.3.9",
