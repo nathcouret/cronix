@@ -1,5 +1,5 @@
 import { Lexer } from "chevrotain";
-import { cronTokens } from "../src/lexer";
+import { cronTokens } from "../../src/lexer";
 
 const cronLexer = new Lexer(cronTokens);
 

@@ -1,15 +1,13 @@
-import { BaseParser, QuartzParser, JenkinsParser } from "./parser";
-import { BaseVisitor } from "./semantic/BaseVisitor";
-import { CronExpression } from "./syntax/base";
-import { Lexer, ILexingResult } from "chevrotain";
-import { cronTokens, cronVocabulary, quartzTokens, quartzVocabulary, jenkinsTokens } from "./lexer";
-import { QuartzVisitor } from "./semantic/QuartzVisitor";
-import { JenkinsVisitor } from "./semantic/JenkinsVisitor";
+import { ILexingResult, Lexer, TokenType } from "chevrotain";
+import { cronTokens, cronVocabulary, jenkinsTokens, quartzTokens } from "./lexer";
+import { BaseParser, JenkinsParser, QuartzParser } from "./parser";
+import { BaseVisitor, JenkinsVisitor, QuartzVisitor } from "./semantic";
+import { AbstractTree, CronExpression, Expression, intervalExpr, rangeExpr, StringLiteral } from "./syntax/base";
 import { QuartzCronExpression } from "./syntax/quartz";
 
 // default values to * to reduce boilerplate for the user
 // second and year optionals, only used by Quartz parser
-export interface ICronExpr {
+export interface CronExpr {
   second?: string;
   minute?: string;
   hour?: string;
@@ -25,20 +23,65 @@ export enum CronMode {
   JENKINS = "Jenkins"
 }
 
-interface ICronOptions {
+interface CronOptions {
   mode: CronMode;
+  loose?: boolean;
 }
 
-export function cron(expression: string | ICronExpr, options: ICronOptions = { mode: CronMode.CRONTAB }) {
-  const expr = isCronException(expression) ? compute(expression, options) : expression;
-  return computeExpr(expr, options);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function isString(value: any): value is string {
+  return typeof value === "string";
 }
 
-function isCronException(expression: string | ICronExpr): expression is ICronExpr {
-  return (expression as ICronExpr).hour !== undefined;
+export class ExprElement {
+  private readonly _ast: AbstractTree;
+
+  constructor(expr: AbstractTree | string) {
+    if (isString(expr)) {
+      this._ast = new StringLiteral(expr);
+    } else this._ast = expr;
+  }
+
+  get ast() {
+    return this._ast;
+  }
+
+  get value() {
+    return this._ast.value();
+  }
 }
 
-function computeExpr(expr: string, options: ICronOptions): CronExpression | QuartzCronExpression {
+function isCronException(expression: string | CronExpr): expression is CronExpr {
+  return (expression as CronExpr).hour !== undefined;
+}
+
+export function getParser(context: CronOptions) {
+  switch (context.mode) {
+    case CronMode.QUARTZ:
+      return new QuartzParser();
+    case CronMode.JENKINS:
+      return new JenkinsParser();
+    default:
+      return new BaseParser(cronVocabulary);
+  }
+}
+
+export function getLexer(context: CronOptions) {
+  let tokens: TokenType[] = [];
+  switch (context.mode) {
+    case CronMode.QUARTZ:
+      tokens = quartzTokens;
+      break;
+    case CronMode.JENKINS:
+      tokens = jenkinsTokens;
+      break;
+    default:
+      tokens = cronTokens;
+  }
+  return new Lexer(tokens);
+}
+
+function computeExpr(expr: string, options: CronOptions): CronExpression | QuartzCronExpression {
   const { mode } = options;
   let parser: BaseParser;
   let lexingResult: ILexingResult;
@@ -60,12 +103,11 @@ function computeExpr(expr: string, options: ICronOptions): CronExpression | Quar
       lexingResult = cronLexer.tokenize(expr);
       parser = new BaseParser(cronVocabulary);
       parser.input = lexingResult.tokens;
-      const cst = parser.cron();
-      return new BaseVisitor().visit(cst) as CronExpression;
+      return new BaseVisitor().visit(parser.cron()) as CronExpression;
   }
 }
 
-function compute(expression: ICronExpr, options: ICronOptions): string {
+function compute(expression: CronExpr, options: CronOptions): string {
   const { mode } = options;
   // default values to * to reduce boilerplate for the user
   const base = [
@@ -90,4 +132,26 @@ function compute(expression: ICronExpr, options: ICronOptions): string {
     default:
       return base.join(" ");
   }
+}
+
+export function cron(expression: string | CronExpr, options: CronOptions = { mode: CronMode.CRONTAB, loose: false }) {
+  const expr = isCronException(expression) ? compute(expression, options) : expression;
+  return computeExpr(expr, options);
+}
+
+export function interval(lhs: string | AbstractTree, rhs: string | AbstractTree) {
+  const lhsExpr = isString(lhs) ? new StringLiteral(lhs) : lhs;
+  const rhsExpr = isString(rhs) ? new StringLiteral(rhs) : rhs;
+  return intervalExpr(lhsExpr, rhsExpr);
+}
+
+export function range(lhs: string | AbstractTree, rhs: string | AbstractTree) {
+  const lhsExpr = isString(lhs) ? new StringLiteral(lhs) : lhs;
+  const rhsExpr = isString(rhs) ? new StringLiteral(rhs) : rhs;
+  return rangeExpr(lhsExpr, rhsExpr);
+}
+
+export function union(...values: (string | AbstractTree)[]) {
+  const v = values.map(e => (isString(e) ? new StringLiteral(e) : e));
+  return new Expression(v);
 }

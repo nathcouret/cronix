@@ -1,7 +1,7 @@
 import { Lexer } from "chevrotain";
 import { cronTokens, cronVocabulary } from "../../src/lexer";
 import { BaseParser } from "../../src/parser";
-import { BaseVisitor } from "../../src/semantic/BaseVisitor";
+import { BaseVisitor } from "../../src/semantic";
 import { CronExpression } from "../../src/syntax/base";
 
 const parser = new BaseParser(cronVocabulary);
@@ -92,7 +92,6 @@ describe("BaseVisitor", () => {
     expect(ast.month.value()).toEqual("*");
     expect(ast.dow.value()).toEqual("*");
   });
-  // TODO Fix visitor to raise
   test("Very complex expression with error", () => {
     // Given
     // At 12:00 on every 2nd day-of-month from 10 through 1 and every 3rd day-of-month from 15 through 25
@@ -100,10 +99,6 @@ describe("BaseVisitor", () => {
 
     // When
     const cst = parse(expression);
-    try {
-      new BaseVisitor().visit(cst);
-    } catch (e) {
-      expect((e as Error).message).toMatch(/^Left\-hand/);
-    }
+    expect(() => new BaseVisitor().visit(cst)).toThrowError(/^Left\-hand/);
   });
 });

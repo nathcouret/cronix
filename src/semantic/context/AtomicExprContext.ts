@@ -1,6 +1,6 @@
 import { CstNode } from "chevrotain";
 
-export interface IAtomicExprContext {
+export interface AtomicExprContext {
   interval?: CstNode;
   range?: CstNode;
 }

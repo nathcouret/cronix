@@ -1,7 +1,7 @@
 import { Lexer } from "chevrotain";
 import { quartzTokens } from "../../src/lexer";
 import { QuartzParser } from "../../src/parser";
-import { QuartzVisitor } from "../../src/semantic/QuartzVisitor";
+import { QuartzVisitor } from "../../src/semantic/";
 import { QuartzCronExpression } from "../../src/syntax/quartz";
 
 const parser = new QuartzParser();
@@ -62,7 +62,7 @@ describe("QuartzVisitor", () => {
     expect(ast.dow.value()).toEqual("*");
   });
 
-  test("with range", () => {
+  test("with day of week numeric", () => {
     // Given
     // At 04:00 on every day-of-month from 8 through 14
     const expression = "* 0 4 8-14 * *";
@@ -76,6 +76,38 @@ describe("QuartzVisitor", () => {
     expect(ast.dom.value()).toEqual("8-14");
     expect(ast.month.value()).toEqual("*");
     expect(ast.dow.value()).toEqual("*");
+  });
+
+  test("with last day of week", () => {
+    // Given
+    // At 04:00 on every last thursday of the month
+    const expression = "* 0 4 ? * THUL";
+    // When
+    const cst = parse(expression);
+    const ast: QuartzCronExpression = new QuartzVisitor().visit(cst);
+    // Then
+    expect(parser.errors).toEqual([]);
+    expect(ast.minute.value()).toEqual("0");
+    expect(ast.hour.value()).toEqual("4");
+    expect(ast.dom.value()).toEqual("?");
+    expect(ast.month.value()).toEqual("*");
+    expect(ast.dow.value()).toEqual("THUL");
+  });
+
+  test("with last day of week", () => {
+    // Given
+    // At 04:00 on every third monday of the month
+    const expression = "* 0 4 ? * MON#3";
+    // When
+    const cst = parse(expression);
+    const ast: QuartzCronExpression = new QuartzVisitor().visit(cst);
+    // Then
+    expect(parser.errors).toEqual([]);
+    expect(ast.minute.value()).toEqual("0");
+    expect(ast.hour.value()).toEqual("4");
+    expect(ast.dom.value()).toEqual("?");
+    expect(ast.month.value()).toEqual("*");
+    expect(ast.dow.value()).toEqual("MON#3");
   });
 
   test("Combined", () => {
@@ -93,6 +125,7 @@ describe("QuartzVisitor", () => {
     expect(ast.month.value()).toEqual("*");
     expect(ast.dow.value()).toEqual("*");
   });
+
   test("Very complex expression", () => {
     // Given
     // At 12:00 on every 2nd day-of-month from 1 through 10 and every 3rd day-of-month from 15 through 25
@@ -118,10 +151,6 @@ describe("QuartzVisitor", () => {
 
     // When
     const cst = parse(expression);
-    try {
-      new QuartzVisitor().visit(cst);
-    } catch (e) {
-      expect((e as Error).message).toMatch(/Left\-hand/);
-    }
+    expect(() => new QuartzVisitor().visit(cst)).toThrowError(/^Left\-hand/);
   });
 });
