@@ -20,7 +20,7 @@
     "typescript"
   ],
   "scripts": {
-    "prepublish": "yarn test && ",
+    "prepublish": "yarn lint && yarn test && yarn build",
     "test": "jest",
     "build": "yarn compile && yarn bundle",
     "bundle": "rollup -c",
