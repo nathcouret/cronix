@@ -1,6 +1,6 @@
 {
   "name": "cronix",
-  "version": "0.1.0-beta",
+  "version": "0.1.0-beta2",
   "main": "dist/cronix.js",
   "module": "dist/cronix.es.js",
   "browser": "dist/cronix.umd.js",
@@ -29,8 +29,8 @@
     "lint": "eslint --ext .ts src/**"
   },
   "dependencies": {
-    "tslib": "^1.10.0",
-    "chevrotain": "^6.0.0"
+    "chevrotain": "^6.0.0",
+    "tslib": "^1.10.0"
   },
   "devDependencies": {
     "@types/jest": "^23.3.9",
