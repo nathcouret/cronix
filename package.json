@@ -1,16 +1,30 @@
 {
-  "name": "fenix_cron",
-  "version": "0.1.0-SNAPSHOT",
-  "main": "dist/fenix-cron.js",
-  "module": "dist/fenix-cron.es.js",
-  "browser": "dist/fenix-cron.umd.js",
+  "name": "cronix",
+  "version": "0.1.0-beta",
+  "main": "dist/cronix.js",
+  "module": "dist/cronix.es.js",
+  "browser": "dist/cronix.umd.js",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ataww/cronix.git"
+  },
+  "author": {
+    "name": "Nathanael Couret",
+    "email": "nathanael.couret@gmail.com"
+  },
+  "description": "A cron parser/generator with support for multiple dialects such as Quartz or Jenkins.",
+  "keywords": [
+    "cron",
+    "javascript",
+    "typescript"
+  ],
   "scripts": {
+    "prepublish": "yarn test && ",
     "test": "jest",
     "build": "yarn compile && yarn bundle",
     "bundle": "rollup -c",
     "compile": "tsc --project src/tsconfig.json ",
-    "run": "node dist/fenix-cron.js",
     "clean": "rimraf dist",
     "lint": "eslint --ext .ts src/**"
   },
@@ -35,5 +49,15 @@
     "rollup-plugin-typescript2": "^0.21.2",
     "ts-jest": "^24.0.0",
     "typescript": "^3.6.3"
-  }
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "bugs": {
+    "url": "https://github.com/Ataww/cronix/issues"
+  },
+  "homepage": "https://github.com/Ataww/cronix"
 }

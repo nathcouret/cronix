@@ -18,10 +18,10 @@ export default {
     })
   ],
   output: [
-    { name: "fenix-cron", file: pkg.main, format: "cjs" },
-    { name: "fenix-cron", file: pkg.module, format: "es" },
+    { name: "cronix", file: pkg.main, format: "cjs" },
+    { name: "cronix", file: pkg.module, format: "es" },
     {
-      name: "fenix-cron",
+      name: "cronix",
       file: pkg.browser,
       format: "umd",
       globals: {
