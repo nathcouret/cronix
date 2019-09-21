@@ -1,3 +1,5 @@
+[![npm](https://img.shields.io/npm/v/cronix?style=flat-square)](https://npmjs.com/package/cronix)
+
 Cronix
 ==========
 
