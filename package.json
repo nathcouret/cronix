@@ -1,20 +1,35 @@
 {
-  "name": "fenix_cron",
-  "version": "0.1.0-SNAPSHOT",
-  "main": "dist/fenix-cron.js",
-  "module": "dist/fenix-cron.es.js",
-  "browser": "dist/fenix-cron.umd.js",
+  "name": "cronix",
+  "version": "0.1.0-beta",
+  "main": "dist/cronix.js",
+  "module": "dist/cronix.es.js",
+  "browser": "dist/cronix.umd.js",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ataww/cronix.git"
+  },
+  "author": {
+    "name": "Nathanael Couret",
+    "email": "nathanael.couret@gmail.com"
+  },
+  "description": "A cron parser/generator with support for multiple dialects such as Quartz or Jenkins.",
+  "keywords": [
+    "cron",
+    "javascript",
+    "typescript"
+  ],
   "scripts": {
+    "prepublish": "yarn lint && yarn test && yarn build",
     "test": "jest",
     "build": "yarn compile && yarn bundle",
     "bundle": "rollup -c",
     "compile": "tsc --project src/tsconfig.json ",
-    "run": "node dist/fenix-cron.js",
     "clean": "rimraf dist",
     "lint": "eslint --ext .ts src/**"
   },
   "dependencies": {
+    "tslib": "^1.10.0",
     "chevrotain": "^4.8.0"
   },
   "devDependencies": {
@@ -24,7 +39,7 @@
     "@typescript-eslint/parser": "^1.9.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.3.0",
-    "jest": "^23.6.0",
+    "jest": "^24.0.0",
     "prettier": "1.16.4",
     "rimraf": "^2.6.2",
     "rollup": "^1.15.6",
@@ -32,7 +47,17 @@
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-terser": "^5.0.0",
     "rollup-plugin-typescript2": "^0.21.2",
-    "ts-jest": "^23.10.4",
-    "typescript": "^3.1.6"
-  }
+    "ts-jest": "^24.0.0",
+    "typescript": "^3.6.3"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "bugs": {
+    "url": "https://github.com/Ataww/cronix/issues"
+  },
+  "homepage": "https://github.com/Ataww/cronix"
 }
