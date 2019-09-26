@@ -1,8 +1,8 @@
 import { Lexer } from "chevrotain";
-import { quartzTokens } from "../../src/lexer";
-import { QuartzParser } from "../../src/parser";
-import { QuartzVisitor } from "../../src/semantic/";
-import { QuartzCronExpression } from "../../src/syntax/quartz";
+import { quartzTokens } from "@/lexer";
+import { QuartzParser } from "@/parser";
+import { QuartzVisitor } from "@/semantic/";
+import { QuartzCronExpression } from "@/syntax/quartz";
 
 const parser = new QuartzParser();
 const lexer = new Lexer(quartzTokens);

@@ -1,8 +1,8 @@
 import { EarlyExitException, Lexer, NotAllInputParsedException } from "chevrotain";
-import { cronTokens, cronVocabulary } from "../../src/lexer";
-import { BaseParser } from "../../src/parser";
+import { cronTokens, cronVocabulary } from "@/lexer";
+import { CronParser } from "@/parser";
 
-const parser = new BaseParser(cronVocabulary);
+const parser = new CronParser(cronVocabulary);
 const lexer = new Lexer(cronTokens);
 
 function parse(input: string) {

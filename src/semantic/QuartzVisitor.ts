@@ -1,6 +1,6 @@
-import { QuartzParser } from "../parser";
-import { StringLiteral } from "../syntax/base";
-import { DayOfWeekExpr, QuartzCronExpression } from "../syntax/quartz";
+import { QuartzParser } from "@/parser";
+import { StringLiteral } from "@/syntax/cron";
+import { DayOfWeekExpr, QuartzCronExpression } from "@/syntax/quartz";
 import abstractVisitor from "./AbstractVisitor";
 import { DowContext, QuartzCronExpressionContext, QuartzExprNotUnionContext } from "./context/quartz";
 

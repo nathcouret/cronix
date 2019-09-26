@@ -1,4 +1,4 @@
-import { AbstractTree, StringLiteral } from "../base";
+import { AbstractTree, StringLiteral } from "../cron";
 
 export default class extends AbstractTree {
   private _occurence: number;

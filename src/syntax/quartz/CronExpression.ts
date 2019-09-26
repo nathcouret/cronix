@@ -1,4 +1,4 @@
-import { AbstractTree, anyExpr, CronExpression, everyExpr } from "../base";
+import { AbstractTree, anyExpr, CronExpression, everyExpr } from "../cron";
 
 export default class extends CronExpression {
   private _second: AbstractTree;

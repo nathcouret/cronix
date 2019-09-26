@@ -1,8 +1,8 @@
 import { ILexingResult, Lexer, TokenType } from "chevrotain";
 import { cronTokens, cronVocabulary, jenkinsTokens, quartzTokens } from "./lexer";
-import { BaseParser, JenkinsParser, QuartzParser } from "./parser";
-import { BaseVisitor, JenkinsVisitor, QuartzVisitor } from "./semantic";
-import { AbstractTree, CronExpression, Expression, intervalExpr, rangeExpr, StringLiteral } from "./syntax/base";
+import { CronParser, JenkinsParser, QuartzParser } from "./parser";
+import { CronVisitor, JenkinsVisitor, QuartzVisitor } from "./semantic";
+import { AbstractTree, CronExpression, Expression, intervalExpr, rangeExpr, StringLiteral } from "./syntax/cron";
 import { QuartzCronExpression } from "./syntax/quartz";
 
 // default values to * to reduce boilerplate for the user
@@ -62,7 +62,7 @@ export function getParser(context: CronOptions) {
     case CronMode.JENKINS:
       return new JenkinsParser();
     default:
-      return new BaseParser(cronVocabulary);
+      return new CronParser(cronVocabulary);
   }
 }
 
@@ -83,7 +83,7 @@ export function getLexer(context: CronOptions) {
 
 function computeExpr(expr: string, options: CronOptions): CronExpression | QuartzCronExpression {
   const { mode } = options;
-  let parser: BaseParser;
+  let parser: CronParser;
   let lexingResult: ILexingResult;
   switch (mode) {
     case CronMode.QUARTZ:
@@ -101,9 +101,9 @@ function computeExpr(expr: string, options: CronOptions): CronExpression | Quart
     default:
       const cronLexer = new Lexer(cronTokens);
       lexingResult = cronLexer.tokenize(expr);
-      parser = new BaseParser(cronVocabulary);
+      parser = new CronParser(cronVocabulary);
       parser.input = lexingResult.tokens;
-      return new BaseVisitor().visit(parser.cron()) as CronExpression;
+      return new CronVisitor().visit(parser.cron()) as CronExpression;
   }
 }
 

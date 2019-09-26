@@ -1,5 +1,5 @@
 import { ICstVisitor } from "chevrotain";
-import { AbstractTree, CronExpression, Expression, intervalExpr, rangeExpr, StringLiteral } from "../syntax/base";
+import { AbstractTree, CronExpression, Expression, intervalExpr, rangeExpr, StringLiteral } from "../syntax/cron";
 import {
   AtomicExprContext,
   CronContext,

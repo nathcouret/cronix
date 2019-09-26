@@ -1,6 +1,6 @@
 import { EarlyExitException, Lexer, NotAllInputParsedException } from "chevrotain";
-import { jenkinsTokens } from "../../src/lexer";
-import { JenkinsParser } from "../../src/parser";
+import { jenkinsTokens } from "@/lexer";
+import { JenkinsParser } from "@/parser";
 
 const parser = new JenkinsParser();
 const lexer = new Lexer(jenkinsTokens);
