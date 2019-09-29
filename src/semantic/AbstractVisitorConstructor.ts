@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ICstVisitor } from "chevrotain";
 import { AbstractTree, CronExpression, Expression, intervalExpr, rangeExpr, StringLiteral } from "../syntax/cron";
 import {
@@ -9,9 +10,11 @@ import {
   OperationContext
 } from "./context";
 
-/*eslint-disable @typescript-eslint/no-explicit-any */
-const abstractVisitor = <T extends new (...args: any[]) => ICstVisitor<any, any>>(base: T) => {
-  class AbstractVisitor extends base {
+export type AbstractVisitor = ICstVisitor<any,any>;
+export type AbstractVisitorConstructor = new (...args: any[]) => AbstractVisitor;
+
+const abstractVisitor = <T extends AbstractVisitorConstructor>(base: T) => {
+  class Visitor extends base {
     constructor(...args: any[]) {
       super(args);
 
@@ -48,7 +51,7 @@ const abstractVisitor = <T extends new (...args: any[]) => ICstVisitor<any, any>
         const rhs = this.visit(ctx.range);
         const leftValue = Number(lhs.value());
         const rightValue = Number(rhs.value());
-        if (leftValue !== NaN && rightValue !== NaN) {
+        if (!isNaN(leftValue) && !isNaN(rightValue)) {
           if (leftValue > rightValue) {
             throw new Error("Left-hand side range value must be smaller than right-hand side");
           }
@@ -70,7 +73,7 @@ const abstractVisitor = <T extends new (...args: any[]) => ICstVisitor<any, any>
     }
   }
 
-  return AbstractVisitor;
+  return Visitor;
 };
 
 export default abstractVisitor;

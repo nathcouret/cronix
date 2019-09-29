@@ -1,5 +1,5 @@
-import { cron, CronMode, CronExpr } from "../src/api";
-import { QuartzCronExpression } from "../src/syntax/quartz";
+import { cron, CronMode, CronExpr } from "@/api";
+import { QuartzCronExpression } from "@/syntax/quartz";
 
 describe("compute", () => {
   test("A simple Crontab expression", () => {

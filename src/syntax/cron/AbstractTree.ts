@@ -1,5 +1,5 @@
-import Syntax from "./Syntax";
+import SyntaxNode from "./SyntaxNode";
 
-export default abstract class implements Syntax {
+export default abstract class implements SyntaxNode {
   abstract value(): string;
 }

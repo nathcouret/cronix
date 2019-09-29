@@ -1,7 +1,7 @@
 import { QuartzParser } from "@/parser";
 import { StringLiteral } from "@/syntax/cron";
 import { DayOfWeekExpr, QuartzCronExpression } from "@/syntax/quartz";
-import abstractVisitor from "./AbstractVisitor";
+import abstractVisitor from "./AbstractVisitorConstructor";
 import { DowContext, QuartzCronExpressionContext, QuartzExprNotUnionContext } from "./context/quartz";
 
 const QuartzVisitorConstructor = abstractVisitor(new QuartzParser().getBaseCstVisitorConstructor());

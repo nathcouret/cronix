@@ -1,6 +1,6 @@
 import { Lexer } from "chevrotain";
-import { quartzTokens } from "../../src/lexer";
-import { QuartzParser } from "../../src/parser";
+import { quartzTokens } from "@/lexer";
+import { QuartzParser } from "@/parser";
 
 const lexer = new Lexer(quartzTokens);
 const parser = new QuartzParser();

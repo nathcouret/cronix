@@ -1,4 +1,4 @@
-import AbstractTree from "./AbstractTree";
+import SyntaxNode from "./SyntaxNode";
 import DualExpression from "./DualExpression";
 import StringLiteral from "./StringLiteral";
 
@@ -6,15 +6,15 @@ export { default as AbstractTree } from "./AbstractTree";
 export { default as Cron } from "./Cron";
 export { default as CronExpression } from "./CronExpression";
 export { default as DualExpression } from "./DualExpression";
-export { default as ISyntax } from "./Syntax";
+export { default as SyntaxNode } from "./SyntaxNode";
 export { default as StringLiteral } from "./StringLiteral";
 export { default as Expression } from "./Expression";
 
-export function intervalExpr(lhs: AbstractTree, rhs: AbstractTree) {
+export function intervalExpr(lhs: SyntaxNode, rhs: SyntaxNode) {
   return new DualExpression(lhs, rhs, "/");
 }
 
-export function rangeExpr(lhs: AbstractTree, rhs: AbstractTree) {
+export function rangeExpr(lhs: SyntaxNode, rhs: SyntaxNode) {
   return new DualExpression(lhs, rhs, "-");
 }
 

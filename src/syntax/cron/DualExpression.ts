@@ -1,12 +1,11 @@
-import AbstractTree from "./AbstractTree";
+import SyntaxNode from "./SyntaxNode";
 
-export default class extends AbstractTree {
-  protected _rhs: AbstractTree;
-  protected _lhs: AbstractTree;
+export default class implements SyntaxNode {
+  protected _rhs: SyntaxNode;
+  protected _lhs: SyntaxNode;
   protected _separator: string;
 
-  constructor(lhs: AbstractTree, rhs: AbstractTree, separator: string) {
-    super();
+  constructor(lhs: SyntaxNode, rhs: SyntaxNode, separator: string) {
     this._rhs = rhs;
     this._lhs = lhs;
     this._separator = separator;
