@@ -1,7 +1,6 @@
-import AbstractTree from "./AbstractTree";
 import SyntaxNode from "./SyntaxNode";
 
-export default class Cron<T extends SyntaxNode> implements SyntaxNode {
+export default class Cron<T extends SyntaxNode = SyntaxNode> implements SyntaxNode {
   protected cronExpression!: T;
 
   value() {

@@ -2,7 +2,6 @@ import SyntaxNode from "./SyntaxNode";
 import DualExpression from "./DualExpression";
 import StringLiteral from "./StringLiteral";
 
-export { default as AbstractTree } from "./AbstractTree";
 export { default as Cron } from "./Cron";
 export { default as CronExpression } from "./CronExpression";
 export { default as DualExpression } from "./DualExpression";
