@@ -3,13 +3,12 @@ import { ICstVisitor } from "chevrotain";
 import { CronExpression, Expression, StringLiteral, SyntaxNode } from "@/syntax/cron";
 import {
   AtomicExprContext,
-  CronContext,
   CronExpressionContext,
   ExpressionContext,
   ExprNotUnionContext,
   OperationContext
 } from "./context";
-import { rangeExpr, stepExpr } from "@/syntax";
+import { rangeExpr, stepExpr } from "@/syntax/common";
 
 export type AbstractVisitor = ICstVisitor<any, any>;
 export type AbstractVisitorConstructor = new (...args: any[]) => AbstractVisitor;
