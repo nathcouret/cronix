@@ -1,7 +1,7 @@
 /**
  * A node in the cron syntax tree.
  */
-import { StringLiteral } from "@/syntax";
+import { DualExpression, StringLiteral } from "@/syntax";
 
 export default interface SyntaxNode {
   /**
@@ -11,6 +11,4 @@ export default interface SyntaxNode {
   value(): string;
 }
 
-export function toStringNode(node: string|SyntaxNode) {
-  return typeof node === "string" ? new StringLiteral(node) : node;
-}
+
