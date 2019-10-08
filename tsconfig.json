@@ -5,6 +5,7 @@
     "esModuleInterop": true,
     "importHelpers": true,
     "strict": true,
+    "strictNullChecks": false,
     "target": "es5",
     "outDir": "dist",
     "lib": ["es5", "es2015"],
