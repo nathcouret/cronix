@@ -42,28 +42,28 @@ export function convertToString(expression: CronixExpression | string, { mode }:
  */
 export default class CronixParser {
   private readonly mode: CronixMode;
-  private readonly lexer: Lexer;
-  private readonly parser: DefaultParser;
-  private readonly visitor: AbstractVisitor;
+  private readonly _lexer: Lexer;
+  private readonly _parser: DefaultParser;
+  private readonly _visitor: AbstractVisitor;
 
   constructor(options: CronixOptions = { mode: CronixMode.CRONTAB }) {
     this.mode = options.mode;
     switch (options.mode) {
       case CronixMode.JENKINS:
-        this.lexer = new Lexer(jenkinsTokens);
-        this.parser = new JenkinsParser();
-        this.visitor = new JenkinsVisitor();
+        this._lexer = new Lexer(jenkinsTokens);
+        this._parser = new JenkinsParser();
+        this._visitor = new JenkinsVisitor();
         break;
       case CronixMode.QUARTZ:
-        this.lexer = new Lexer(quartzTokens);
-        this.parser = new QuartzParser();
-        this.visitor = new QuartzVisitor();
+        this._lexer = new Lexer(quartzTokens);
+        this._parser = new QuartzParser();
+        this._visitor = new QuartzVisitor();
         break;
       case CronixMode.CRONTAB:
       default:
-        this.lexer = new Lexer(cronTokens);
-        this.parser = new DefaultParser(cronVocabulary);
-        this.visitor = new CronVisitor();
+        this._lexer = new Lexer(cronTokens);
+        this._parser = new DefaultParser(cronVocabulary);
+        this._visitor = new CronVisitor();
     }
     this.parse = this.parse.bind(this);
     this.parseElement = this.parseElement.bind(this);
@@ -76,20 +76,30 @@ export default class CronixParser {
    */
   parse<T extends CronExpression>(expression: string | CronixExpression): T {
     const stringExpr = convertToString(expression, { mode: this.mode });
-    this.parser.input = this.lexer.tokenize(stringExpr).tokens;
-    const parsed = this.parser.cron();
-    return this.visitor.visit(parsed);
+    this._parser.input = this._lexer.tokenize(stringExpr).tokens;
+    const parsed = this._parser.cron();
+    return this._visitor.visit(parsed);
   }
 
   /**
    * Parse an expression element, according to the parser's context.
-   * @param expression The expression to parse. Can either be a string or an object describing the expression
+   * @param expression The expression to parse.
    * @return The parsed expression as a syntax tree
    */
   parseElement<T extends Expression>(expression: string): T {
     const stringExpr = convertToString(expression, { mode: this.mode });
-    this.parser.input = this.lexer.tokenize(stringExpr).tokens;
-    const parsed = this.parser.expression();
-    return this.visitor.visit(parsed);
+    this._parser.input = this._lexer.tokenize(stringExpr).tokens;
+    const parsed = this._parser.expression();
+    return this._visitor.visit(parsed);
+  }
+
+  get lexer() {
+    return this._parser;
+  }
+  get parser() {
+    return this._parser;
+  }
+  get visitor() {
+    return this._visitor;
   }
 }
