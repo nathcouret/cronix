@@ -1,5 +1,8 @@
 import { DualExpression, Expression, stepExpr, rangeExpr, StringLiteral } from "@/syntax";
 import CronixParser from "./CronixParser";
+import CronixMode from "./CronixMode";
+import CronixExpression from "./CronixExpression";
+import CronixOptions from "./CronixOptions";
 
 export type FieldNode = DualExpression | StringLiteral;
 
@@ -16,42 +19,6 @@ export type StringNode<T extends FieldNode = FieldNode> = string | T;
 export function toStringNode<T extends FieldNode>(node: string | T) {
   return typeof node === "string" ? new StringLiteral(node) : node;
 }
-
-/**
- * Expression input. Each field is optional and defaults to * to reduce boilerplate, however be mindful of the resultant side effect.
- *
- * second and year fields are only used by Quartz parser.
- */
-export interface CronixExpression {
-  minute?: string;
-  hour?: string;
-  dayOfMonth?: string;
-  month?: string;
-  dayOfWeek?: string;
-  year?: string;
-  second?: string;
-}
-
-/**
- * Modes supported by Cronix.
- */
-export enum CronixMode {
-  CRONTAB = "Crontab",
-  QUARTZ = "Quartz",
-  JENKINS = "Jenkins"
-}
-
-/**
- * Options passed to the parser.
- *
- */
-export interface CronixOptions {
-  /**
-   * The mode the parser operates in. The supported syntax depends on the selected mode.
-   */
-  mode: CronixMode;
-}
-
 
 /**
  * Generate a step expression. Step expression is triggered at a set time specified by the left expression, but repeated according to the interval specified by the right expression.

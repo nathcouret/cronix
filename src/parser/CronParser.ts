@@ -9,8 +9,6 @@ export class CronParser extends CstParser {
     }
   }
 
-  readonly cron = this.RULE("cron", () => this.SUBRULE(this.cronExpression));
-
   readonly cronExpression = this.RULE("cronExpression", () => {
     // Minutes
     this.SUBRULE1(this.expression, { LABEL: "minutes" });

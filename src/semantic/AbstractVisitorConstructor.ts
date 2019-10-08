@@ -22,10 +22,6 @@ const abstractVisitor = <T extends AbstractVisitorConstructor>(base: T) => {
       this.validateVisitor();
     }
 
-    cron(ctx: CronContext) {
-      return this.visit(ctx.cronExpression);
-    }
-
     cronExpression(ctx: CronExpressionContext) {
       const visitedContext = new CronExpression();
       visitedContext.minute = this.visit(ctx.minutes);

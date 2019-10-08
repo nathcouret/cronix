@@ -8,7 +8,7 @@ const parser = new QuartzParser();
 function parse(input: string) {
   const lexingResult = lexer.tokenize(input);
   parser.input = lexingResult.tokens;
-  return parser.cron();
+  return parser.cronExpression();
 }
 
 describe("parser", () => {

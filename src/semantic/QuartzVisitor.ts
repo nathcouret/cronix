@@ -35,7 +35,7 @@ export default class QuartzVisitor extends QuartzVisitorConstructor {
   }
 
   dow(ctx: DowContext, lhs: StringLiteral) {
-    const occurence = ctx.occurence[0].image === "L" ? 5 : parseInt(ctx.occurence[0].image, 10);
-    return new DayOfWeekExpr(lhs, occurence);
+    const occurrence = ctx.occurence[0].image === "L" ? 5 : parseInt(ctx.occurence[0].image, 10);
+    return new DayOfWeekExpr(lhs, occurrence);
   }
 }

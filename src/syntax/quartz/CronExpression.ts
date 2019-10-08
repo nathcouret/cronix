@@ -1,7 +1,9 @@
-import { CronExpression, SyntaxNode } from "../cron";
-import { anyExpr, everyExpr } from "@/syntax";
+// Keep the imports to avoid cyclic dependencies
+import CronExpression from "@/syntax/cron/CronExpression";
+import SyntaxNode from "@/syntax/cron/SyntaxNode";
+import { everyExpr,anyExpr } from "@/syntax/common";
 
-export default class extends CronExpression {
+class QuartzCronExpression extends CronExpression {
   private _second: SyntaxNode;
   private _year: SyntaxNode;
 
@@ -38,6 +40,6 @@ export default class extends CronExpression {
   set year(v: SyntaxNode) {
     this._year = v;
   }
-
-
 }
+
+export default QuartzCronExpression;

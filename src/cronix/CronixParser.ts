@@ -1,9 +1,11 @@
-import { CronixExpression, CronixMode, CronixOptions } from "./api";
 import { Lexer } from "chevrotain";
 import { CronParser as DefaultParser, JenkinsParser, QuartzParser } from "@/parser";
 import { AbstractVisitor, CronVisitor, JenkinsVisitor, QuartzVisitor } from "@/semantic";
 import { cronTokens, cronVocabulary, jenkinsTokens, quartzTokens } from "@/lexer";
 import { CronExpression, Expression } from "@/syntax";
+import CronixMode from "./CronixMode";
+import CronixExpression from "./CronixExpression";
+import CronixOptions from "./CronixOptions";
 
 /**
  * Convert an expression to its string representation. If the provided expression is already a string it is simply returned.
@@ -77,7 +79,7 @@ export default class CronixParser {
   parse<T extends CronExpression>(expression: string | CronixExpression): T {
     const stringExpr = convertToString(expression, { mode: this.mode });
     this._parser.input = this._lexer.tokenize(stringExpr).tokens;
-    const parsed = this._parser.cron();
+    const parsed = this._parser.cronExpression();
     return this._visitor.visit(parsed);
   }
 
@@ -96,9 +98,11 @@ export default class CronixParser {
   get lexer() {
     return this._parser;
   }
+
   get parser() {
     return this._parser;
   }
+
   get visitor() {
     return this._visitor;
   }
