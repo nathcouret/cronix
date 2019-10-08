@@ -1,4 +1,5 @@
-import { SyntaxNode, anyExpr, CronExpression, everyExpr } from "../cron";
+import { CronExpression, SyntaxNode } from "../cron";
+import { anyExpr, everyExpr } from "@/syntax";
 
 export default class extends CronExpression {
   private _second: SyntaxNode;

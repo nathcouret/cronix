@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ICstVisitor } from "chevrotain";
-import { CronExpression, Expression, intervalExpr, rangeExpr, StringLiteral, SyntaxNode } from "@/syntax/cron";
+import { CronExpression, Expression, StringLiteral, SyntaxNode } from "@/syntax/cron";
 import {
   AtomicExprContext,
   CronContext,
@@ -9,6 +9,7 @@ import {
   ExprNotUnionContext,
   OperationContext
 } from "./context";
+import { rangeExpr, stepExpr } from "@/syntax";
 
 export type AbstractVisitor = ICstVisitor<any, any>;
 export type AbstractVisitorConstructor = new (...args: any[]) => AbstractVisitor;
@@ -59,7 +60,7 @@ const abstractVisitor = <T extends AbstractVisitorConstructor>(base: T) => {
         expr = rangeExpr(lhs, rhs);
       }
       if (ctx.interval) {
-        expr = intervalExpr(expr, this.visit(ctx.interval));
+        expr = stepExpr(expr, this.visit(ctx.interval));
       }
       return expr;
     }

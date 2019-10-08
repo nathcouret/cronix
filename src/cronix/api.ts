@@ -61,7 +61,7 @@ export interface CronixOptions {
  * @param interval The trigger interval. Must be a single value
  */
 export function step(time: StringNode, interval: StringNode<StringLiteral>): DualExpression {
-  return intervalExpr(toStringNode(time), toStringNode(interval));
+  return stepExpr(toStringNode(time), toStringNode(interval));
 }
 
 /**

@@ -1,5 +1,5 @@
-import { everyExpr } from ".";
 import SyntaxNode from "./SyntaxNode";
+import { everyExpr } from "@/syntax";
 
 export default class CronExpression implements SyntaxNode {
   protected _minute: SyntaxNode;
