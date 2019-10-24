@@ -1,7 +1,7 @@
-import { identifier, integer, last, quartzVocabulary, sharp } from "../lexer";
-import { BaseParser } from "./BaseParser";
+import { identifier, integer, last, quartzVocabulary, sharp } from "@/lexer";
+import { CronParser } from "./CronParser";
 
-export class QuartzParser extends BaseParser {
+export class QuartzParser extends CronParser {
   constructor() {
     super(quartzVocabulary, true);
     this.performSelfAnalysis();

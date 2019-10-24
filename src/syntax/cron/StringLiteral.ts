@@ -1,9 +1,8 @@
-import AbstractTree from "./AbstractTree";
+import SyntaxNode from "./SyntaxNode";
 
-export default class extends AbstractTree {
+export default class implements SyntaxNode {
   protected readonly _value: string;
   constructor(value: string) {
-    super();
     this._value = value;
   }
 
