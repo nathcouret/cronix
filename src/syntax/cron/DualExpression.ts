@@ -1,6 +1,6 @@
 import SyntaxNode from "./SyntaxNode";
 
-export default class implements SyntaxNode {
+export default class DualExpression implements SyntaxNode {
   protected _rhs: SyntaxNode;
   protected _lhs: SyntaxNode;
   protected _separator: string;

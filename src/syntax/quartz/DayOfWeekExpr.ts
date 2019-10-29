@@ -1,6 +1,6 @@
 import { StringLiteral, SyntaxNode } from "../cron";
 
-export default class implements SyntaxNode {
+export default class DayOfWeekExpr implements SyntaxNode {
   private _occurrence: number;
   private _leftValue: StringLiteral;
 
