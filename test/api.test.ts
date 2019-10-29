@@ -1,12 +1,14 @@
 import { QuartzCronExpression } from "@/syntax/quartz";
-import { CronixParser,CronixExpression, CronixMode } from "@/cronix";
+import { CronixExpression, CronixParser } from "@/cronix";
+import CronixMode from "@/cronix/CronixMode";
 
-describe("Cron mode", () => {
+describe("CronixParser Cron mode", () => {
   let parser: CronixParser;
 
-  beforeAll(() => {
+  beforeEach(() => {
     parser = new CronixParser();
   });
+
   describe("parse", () => {
 
     test("Expression object should parse", () => {
@@ -73,15 +75,15 @@ describe("Cron mode", () => {
       expect(parsed.dom.value()).toBe("4");
       expect(parsed.month.value()).toBe("*");
       expect(parsed.dow.value()).toBe("*");
-      expect(parsed.year).toBeUndefined();
+      expect(parsed.year).toBeUndefined()
     });
   });
-  describe("parseElement", () => {
+  describe("parseField", () => {
     test("should parse a simple expression", () => {
       // Given
       const expression = "4-10/2";
       // When
-      const parsed = parser.parseElement(expression);
+      const parsed = parser.parseField(expression);
       // Then
       expect(parsed.value()).toBe(expression);
     });
@@ -90,7 +92,7 @@ describe("Cron mode", () => {
       // Given
       const expression = "MON#4";
       // When
-      const parsed = parser.parseElement(expression);
+      const parsed = parser.parseField(expression);
       // Then
       expect(parsed.value()).toBe("MON");
     });
@@ -167,12 +169,12 @@ describe("CronixParser Quartz mode", () => {
       expect(parsed.year.value()).toBe("*");
     });
   });
-  describe("parseElement", () => {
+  describe("parseField", () => {
     test("should parse a simple expression", () => {
       // Given
       const expression = "4-10/2";
       // When
-      const parsed = parser.parseElement(expression);
+      const parsed = parser.parseField(expression);
       // Then
       expect(parsed.value()).toBe(expression);
     });
@@ -181,7 +183,7 @@ describe("CronixParser Quartz mode", () => {
       // Given
       const expression = "MON#4";
       // When
-      const parsed = parser.parseElement(expression);
+      const parsed = parser.parseField(expression);
       // Then
       expect(parsed.value()).toBe("MON#4");
     });
@@ -268,12 +270,12 @@ describe("CronixParser Jenkins mode", () => {
       expect(parsed.year).toBeUndefined();
     });
   });
-  describe("parseElement", () => {
+  describe("parseField", () => {
     test("should parse a simple expression", () => {
       // Given
       const expression = "4-10/2";
       // When
-      const parsed = parser.parseElement(expression);
+      const parsed = parser.parseField(expression);
       // Then
       expect(parsed.value()).toBe(expression);
     });
@@ -282,7 +284,7 @@ describe("CronixParser Jenkins mode", () => {
       // Given
       const expression = "MON#4";
       // When
-      const parsed = parser.parseElement(expression);
+      const parsed = parser.parseField(expression);
       // Then
       expect(parsed.value()).toBe("MON");
     });

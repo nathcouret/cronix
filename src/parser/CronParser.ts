@@ -2,7 +2,7 @@ import { CstParser, TokenVocabulary } from "chevrotain";
 import { comma, dash, identifier, slash } from "@/lexer";
 
 export class CronParser extends CstParser {
-  constructor(vocabulary: TokenVocabulary, invokedByChild: boolean = false) {
+  constructor(vocabulary: TokenVocabulary, invokedByChild = false) {
     super(vocabulary);
     if (!invokedByChild) {
       this.performSelfAnalysis();

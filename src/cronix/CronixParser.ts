@@ -27,7 +27,7 @@ export function convertToString(expression: CronixExpression | string, { mode }:
   ];
   switch (mode) {
     case CronixMode.QUARTZ:
-      let expr = [expression.second || "0"].concat(base);
+      const expr = [expression.second || "0"].concat(base);
       if (expression.year) {
         expr.push(expression.year);
       }
