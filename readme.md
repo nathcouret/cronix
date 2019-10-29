@@ -21,10 +21,11 @@ npm install cronix
 
 ## Usage
 
-To parse an expression simply call the cronix function
+To parse an expression simply call the cronix function. By default expression are parsed according to the standard crontab format.
+You can specify options as a second argument to change that behaviour.
 
-````ecmascript 6
-import { cronix } from "cronix";
+````javascript
+import { cronix, CronMode } from "cronix";
 // Every day at 00:00
 // const expression = "0 0 * * *";
 const expression = {
@@ -32,16 +33,22 @@ const expression = {
   hour: "0"
 };
 
-const ast = cronix(expression);
+const parsedCron = cronix(expression);
 
 // Get the computed expression using the value() method
 // should be equal to expression
-console.log(ast.value());
+console.log(parsedCron.value());
+
+expression.year = "*/2";
+
+// Quartz supports a year field that is not available in standard cron
+const parsedQuartz = cronix(expression, {mode: CronMode.QUARTZ});
+console.log(parsedQuartz.value());
 ````
 
 Alternatively you can use the class parser to manipulate expressions. 
 
-````ecmascript 6
+````javascript
 import { CronixParser } from "cronix";
 
 // Every day at 00:00
@@ -60,6 +67,28 @@ console.log(ast.minute.value());
 
 ## API
 
+### CronixOptions
+
+The options that can be passed to the parser.
+
+| option | type | default | description |
+|-----------|------|----------|-------------|
+| mode | `CronMode` | `CRONTAB` | Possible values: CRONTAB, QUARTZ, JENKISN |
+
+### CronixExpression
+
+An object representing an input expression. Can be used when you only need to fill some fields and want to leave the rest to their default value `*`.
+
+| field | type | optional | description |
+|-----------|------|----------|-------------|
+| minute | `string` | yes | The minute field |
+| hour | `string` | yes | The hour field |
+| dayOfMonth | `string` | yes | The dayOfMonth field |
+| month | `string` | yes | The month field |
+| dayOfWeek | `string` | yes | The dayOfWeek field |
+| year | `string` | yes | The year field. Quartz only |
+| second | `string` | yes | The second field. Jenkins only |
+
 ### cronix
 
 Parse an expression into the corresponding ast. The output can be a subclass of `CronExpression` depending on the selected mode.
@@ -70,7 +99,7 @@ function cronix(expression: string|CronixExpression, options: CronixOptions = {m
 
 | Parameter | type | optional | description |
 |-----------|------|----------|-------------|
-| expression | `string|CronixExpression` | | The expression to parse |
+| expression | `string or CronixExpression` | | The expression to parse |
 | options | `CronixOptions` | Yes (defaults to Crontab mode) | The parser options |
 
 ### CronixParser
@@ -92,7 +121,7 @@ constructor(options: CronixOptions = {mode: CronixMode.CRONTAB}): CronixParser
 Parse a cron expression according to the parser's context. Returns an ast corresponding to the parsed expression.
 
 ```typescript
-parse(expression: string|CronixExpression): CronExpression
+function parse(expression: string|CronixExpression): CronExpression
 ```
 
 | Parameter | type | optional | description |
@@ -104,7 +133,7 @@ parse(expression: string|CronixExpression): CronExpression
 Parse a single field according to the parser's context. Returns an ast corresponding to the parsed field.
 
 ```typescript
-parseField(expression: string): CronExpression
+function parseField(expression: string): CronExpression
 ```
 
 | Parameter | type | optional | description |
