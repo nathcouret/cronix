@@ -1,7 +1,7 @@
-import { jenkinsVocabulary } from "../lexer";
-import { BaseParser } from "./BaseParser";
+import { jenkinsVocabulary } from "@/lexer";
+import { CronParser } from "./CronParser";
 
-export class JenkinsParser extends BaseParser {
+export class JenkinsParser extends CronParser {
   constructor() {
     super(jenkinsVocabulary, true);
     this.performSelfAnalysis();

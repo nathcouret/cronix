@@ -1,15 +1,13 @@
 import { CstParser, TokenVocabulary } from "chevrotain";
-import { comma, dash, identifier, slash } from "../lexer";
+import { comma, dash, identifier, slash } from "@/lexer";
 
-export class BaseParser extends CstParser {
-  constructor(vocabulary: TokenVocabulary, invokedByChild: boolean = false) {
+export class CronParser extends CstParser {
+  constructor(vocabulary: TokenVocabulary, invokedByChild = false) {
     super(vocabulary);
     if (!invokedByChild) {
       this.performSelfAnalysis();
     }
   }
-
-  readonly cron = this.RULE("cron", () => this.SUBRULE(this.cronExpression));
 
   readonly cronExpression = this.RULE("cronExpression", () => {
     // Minutes

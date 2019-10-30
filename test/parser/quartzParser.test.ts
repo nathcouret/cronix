@@ -1,6 +1,6 @@
 import { Lexer } from "chevrotain";
-import { quartzTokens } from "../../src/lexer";
-import { QuartzParser } from "../../src/parser";
+import { quartzTokens } from "@/lexer";
+import { QuartzParser } from "@/parser";
 
 const lexer = new Lexer(quartzTokens);
 const parser = new QuartzParser();
@@ -8,7 +8,7 @@ const parser = new QuartzParser();
 function parse(input: string) {
   const lexingResult = lexer.tokenize(input);
   parser.input = lexingResult.tokens;
-  return parser.cron();
+  return parser.cronExpression();
 }
 
 describe("parser", () => {

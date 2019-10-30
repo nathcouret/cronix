@@ -3,8 +3,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
-    }
+      "@/*": ["../src/*"]
+    },
+    "sourceMap": true
   },
   "include": ["./**/*.ts"]
 }

@@ -1,21 +1,11 @@
-import { AbstractTree, anyExpr, CronExpression, everyExpr } from "../base";
+// Keep the imports to avoid cyclic dependencies
+import CronExpression from "@/syntax/cron/CronExpression";
+import SyntaxNode from "@/syntax/cron/SyntaxNode";
+import { everyExpr,anyExpr } from "@/syntax/common";
 
-export default class extends CronExpression {
-  private _second: AbstractTree;
-  get second() {
-    return this._second;
-  }
-  set second(s: AbstractTree) {
-    this._second = s;
-  }
-
-  private _year: AbstractTree;
-  get year() {
-    return this._year;
-  }
-  set year(v: AbstractTree) {
-    this._year = v;
-  }
+class QuartzCronExpression extends CronExpression {
+  private _second: SyntaxNode;
+  private _year: SyntaxNode;
 
   constructor(
     minute = everyExpr,
@@ -34,4 +24,22 @@ export default class extends CronExpression {
   value() {
     return `${this.second.value()} ${super.value()} ${this.year.value()}`;
   }
+
+  get second() {
+    return this._second;
+  }
+
+  set second(s: SyntaxNode) {
+    this._second = s;
+  }
+
+  get year() {
+    return this._year;
+  }
+
+  set year(v: SyntaxNode) {
+    this._year = v;
+  }
 }
+
+export default QuartzCronExpression;

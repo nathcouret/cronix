@@ -1,26 +1,26 @@
 import { Lexer } from "chevrotain";
-import { cronTokens, cronVocabulary } from "../../src/lexer";
-import { BaseParser } from "../../src/parser";
-import { BaseVisitor } from "../../src/semantic";
-import { CronExpression } from "../../src/syntax/base";
+import { cronTokens, cronVocabulary } from "@/lexer";
+import { CronParser } from "@/parser";
+import { CronVisitor } from "@/semantic";
+import { CronExpression } from "@/syntax/cron";
 
-const parser = new BaseParser(cronVocabulary);
+const parser = new CronParser(cronVocabulary);
 const lexer = new Lexer(cronTokens);
 
 function parse(input: string) {
   const lexingResult = lexer.tokenize(input);
   parser.input = lexingResult.tokens;
-  return parser.cron();
+  return parser.cronExpression();
 }
 
-describe("BaseVisitor", () => {
+describe("CronVisitor", () => {
   test("a simple expression", () => {
     // Given
     // Everyday at 04:05
     const expression = "5 4 * * *";
     // When
     const cst = parse(expression);
-    const ast: CronExpression = new BaseVisitor().visit(cst);
+    const ast: CronExpression = new CronVisitor().visit(cst);
     // Then
     expect(parser.errors).toEqual([]);
     expect(ast.minute.value()).toEqual("5");
@@ -36,7 +36,7 @@ describe("BaseVisitor", () => {
     const expression = "5 4 * */2 *";
     // When
     const cst = parse(expression);
-    const ast: CronExpression = new BaseVisitor().visit(cst);
+    const ast: CronExpression = new CronVisitor().visit(cst);
     // Then
     expect(parser.errors).toEqual([]);
     expect(ast.minute.value()).toEqual("5");
@@ -52,7 +52,7 @@ describe("BaseVisitor", () => {
     const expression = "0 4 8-14 * *";
     // When
     const cst = parse(expression);
-    const ast: CronExpression = new BaseVisitor().visit(cst);
+    const ast: CronExpression = new CronVisitor().visit(cst);
     // Then
     expect(parser.errors).toEqual([]);
     expect(ast.minute.value()).toEqual("0");
@@ -68,7 +68,7 @@ describe("BaseVisitor", () => {
     const expression = "23 0-20/2 * * *";
     // When
     const cst = parse(expression);
-    const ast: CronExpression = new BaseVisitor().visit(cst);
+    const ast: CronExpression = new CronVisitor().visit(cst);
     // Then
     expect(parser.errors).toEqual([]);
     expect(ast.minute.value()).toEqual("23");
@@ -83,7 +83,7 @@ describe("BaseVisitor", () => {
     const expression = "0 12 1-10/2,15-25/3 * *";
     // When
     const cst = parse(expression);
-    const ast: CronExpression = new BaseVisitor().visit(cst);
+    const ast: CronExpression = new CronVisitor().visit(cst);
     // Then
     expect(parser.errors).toEqual([]);
     expect(ast.minute.value()).toEqual("0");
@@ -99,6 +99,6 @@ describe("BaseVisitor", () => {
 
     // When
     const cst = parse(expression);
-    expect(() => new BaseVisitor().visit(cst)).toThrowError(/^Left\-hand/);
+    expect(() => new CronVisitor().visit(cst)).toThrowError(/^Left\-hand/);
   });
 });

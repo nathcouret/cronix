@@ -1,7 +1,7 @@
-import { QuartzParser } from "../parser";
-import { StringLiteral } from "../syntax/base";
-import { DayOfWeekExpr, QuartzCronExpression } from "../syntax/quartz";
-import abstractVisitor from "./AbstractVisitor";
+import { QuartzParser } from "@/parser";
+import { StringLiteral } from "@/syntax/cron";
+import { DayOfWeekExpr, QuartzCronExpression } from "@/syntax/quartz";
+import abstractVisitor from "./AbstractVisitorConstructor";
 import { DowContext, QuartzCronExpressionContext, QuartzExprNotUnionContext } from "./context/quartz";
 
 const QuartzVisitorConstructor = abstractVisitor(new QuartzParser().getBaseCstVisitorConstructor());
@@ -35,7 +35,7 @@ export default class QuartzVisitor extends QuartzVisitorConstructor {
   }
 
   dow(ctx: DowContext, lhs: StringLiteral) {
-    const occurence = ctx.occurence[0].image === "L" ? 5 : parseInt(ctx.occurence[0].image, 10);
-    return new DayOfWeekExpr(lhs, occurence);
+    const occurrence = ctx.occurence[0].image === "L" ? 5 : parseInt(ctx.occurence[0].image, 10);
+    return new DayOfWeekExpr(lhs, occurrence);
   }
 }
