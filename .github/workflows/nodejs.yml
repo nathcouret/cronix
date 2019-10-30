@@ -24,3 +24,22 @@ jobs:
         yarn test
       env:
         CI: true
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+    - name: run coverage
+      run: |
+        yarn
+        yarn global add codecov
+        yarn test --coverage
+        yarn run codecov
+      env:
+        CI: true
+    - name: Upload coverage
+      uses: codecov/codecov-action@v1.0.3
+      with:
+        token: ${{secrets.CODECOV_TOKEN}}
+        file: ./coverage/clover.xml
+      env:
+        CI: true
+
