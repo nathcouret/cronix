@@ -1,4 +1,5 @@
 [![npm](https://img.shields.io/npm/v/cronix?style=flat-square)](https://npmjs.com/package/cronix)
+[![codecov](https://codecov.io/gh/Ataww/cronix/branch/develop/graph/badge.svg)](https://codecov.io/gh/Ataww/cronix)
 
 Cronix
 ==========
