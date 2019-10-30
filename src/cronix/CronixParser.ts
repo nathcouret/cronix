@@ -27,7 +27,7 @@ export function convertToString(expression: CronixExpression | string, { mode }:
   ];
   switch (mode) {
     case CronixMode.QUARTZ:
-      let expr = [expression.second || "0"].concat(base);
+      const expr = [expression.second || "0"].concat(base);
       if (expression.year) {
         expr.push(expression.year);
       }
@@ -68,7 +68,7 @@ export default class CronixParser {
         this._visitor = new CronVisitor();
     }
     this.parse = this.parse.bind(this);
-    this.parseElement = this.parseElement.bind(this);
+    this.parseField = this.parseField.bind(this);
   }
 
   /**
@@ -88,9 +88,8 @@ export default class CronixParser {
    * @param expression The expression to parse.
    * @return The parsed expression as a syntax tree
    */
-  parseElement<T extends Expression>(expression: string): T {
-    const stringExpr = convertToString(expression, { mode: this.mode });
-    this._parser.input = this._lexer.tokenize(stringExpr).tokens;
+  parseField<T extends Expression>(expression: string): T {
+    this._parser.input = this._lexer.tokenize(expression).tokens;
     const parsed = this._parser.expression();
     return this._visitor.visit(parsed);
   }

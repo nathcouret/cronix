@@ -1,13 +1,13 @@
 import { Lexer } from "chevrotain";
 import { quartzTokens } from "@/lexer";
 import { QuartzParser } from "@/parser";
-import { AbstractVisitor, QuartzVisitor } from "@/semantic/";
+import { QuartzVisitor } from "@/semantic/";
 import { QuartzCronExpression } from "@/syntax/quartz";
 
 describe("QuartzVisitor", () => {
   const parser = new QuartzParser();
-  let lexer = new Lexer(quartzTokens);
-  let visitor = new QuartzVisitor();
+  const lexer = new Lexer(quartzTokens);
+  const visitor = new QuartzVisitor();
 
   const parse = (input: string) => {
     parser.input = lexer.tokenize(input).tokens;

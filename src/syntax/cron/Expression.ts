@@ -1,6 +1,6 @@
 import SyntaxNode from "./SyntaxNode";
 
-export default class implements SyntaxNode {
+export default class Expression implements SyntaxNode {
   protected _exprs: SyntaxNode[];
 
   constructor(exprs: SyntaxNode[]) {
