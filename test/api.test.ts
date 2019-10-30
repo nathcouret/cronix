@@ -5,7 +5,7 @@ import CronixMode from "@/cronix/CronixMode";
 describe("CronixParser Cron mode", () => {
   let parser: CronixParser;
 
-  beforeEach(() => {
+  beforeAll(() => {
     parser = new CronixParser();
   });
 
@@ -106,7 +106,7 @@ describe("CronixParser Quartz mode", () => {
     parser = new CronixParser({ mode: CronixMode.QUARTZ });
   });
   describe("parse", () => {
-    test("expression object should", () => {
+    test("expression object should parse to default values", () => {
       // Given
       // Everyday at 04:05
       const expression: CronixExpression = {
@@ -114,13 +114,39 @@ describe("CronixParser Quartz mode", () => {
         hour: "4"
       };
       // When
-      const parsed = parser.parse(expression);
+      const parsed: QuartzCronExpression = parser.parse(expression);
       // Then
+      expect(parsed.second.value()).toBe("0");
       expect(parsed.minute.value()).toBe("5");
       expect(parsed.hour.value()).toBe("4");
       expect(parsed.dow.value()).toBe("*");
       expect(parsed.month.value()).toBe("*");
       expect(parsed.dom.value()).toBe("*");
+      expect(parsed.year.value()).toBe("*");
+    });
+
+    test("expression object with no default values should parse", () => {
+      // Given
+      // Everyday at 04:05
+      const expression: CronixExpression = {
+        second: "12",
+        minute: "5",
+        hour: "4",
+        dayOfWeek: "?",
+        dayOfMonth: "*/3",
+        month: "*/2",
+        year: "*/2"
+      };
+      // When
+      const parsed: QuartzCronExpression = parser.parse(expression);
+      // Then
+      expect(parsed.second.value()).toBe("12");
+      expect(parsed.minute.value()).toBe("5");
+      expect(parsed.hour.value()).toBe("4");
+      expect(parsed.dow.value()).toBe("?");
+      expect(parsed.month.value()).toBe("*/2");
+      expect(parsed.dom.value()).toBe("*/3");
+      expect(parsed.year.value()).toBe("*/2");
     });
 
     test("String expression without seconds should fail", () => {
