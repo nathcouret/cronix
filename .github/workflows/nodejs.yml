@@ -31,9 +31,7 @@ jobs:
     - name: run coverage
       run: |
         yarn
-        yarn global add codecov
         yarn test --coverage
-        yarn run codecov
       env:
         CI: true
     - name: Upload coverage
