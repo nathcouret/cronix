@@ -1,4 +1,4 @@
-import { QuartzCronExpression } from "@/syntax/quartz";
+import { QuartzCronExpression } from "@/quartz/syntax";
 import { CronixExpression, CronixParser } from "@/cronix";
 import CronixMode from "@/cronix/CronixMode";
 

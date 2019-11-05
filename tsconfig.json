@@ -3,7 +3,6 @@
     "module": "esnext",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "importHelpers": true,
     "strict": true,
     "strictNullChecks": false,
     "target": "es5",
