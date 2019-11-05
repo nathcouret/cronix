@@ -1,4 +1,5 @@
-import { StringLiteral, SyntaxNode } from "@/common/syntax";
+import { StringLiteral, SyntaxNode } from "@/common/syntax/cron";
+import { InvalidValueException } from "@/syntax/InvalidValueException";
 
 export default class DayOfWeekExpr implements SyntaxNode {
   private _occurrence: number;
@@ -19,6 +20,9 @@ export default class DayOfWeekExpr implements SyntaxNode {
   }
 
   set occurrence(v: number) {
+    if(v > 5) {
+      throw new InvalidValueException("Occurrence value in Day of week expression should be less than or equal to 5");
+    }
     this._occurrence = v;
   }
 

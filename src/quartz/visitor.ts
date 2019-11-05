@@ -7,8 +7,8 @@ import { DowContext, QuartzCronExpressionContext, QuartzExprNotUnionContext } fr
 const QuartzVisitorConstructor = abstractVisitor(new QuartzParser().getBaseCstVisitorConstructor());
 export class QuartzVisitor extends QuartzVisitorConstructor {
   constructor() {
-    super(QuartzVisitorConstructor, true);
     this.validateVisitor();
+    super(QuartzVisitorConstructor, true);
   }
 
   cronExpression(ctx: QuartzCronExpressionContext) {
@@ -37,6 +37,9 @@ export class QuartzVisitor extends QuartzVisitorConstructor {
 
   dow(ctx: DowContext, lhs: StringLiteral) {
     const occurrence = ctx.occurence[0].image === "L" ? 5 : parseInt(ctx.occurence[0].image, 10);
+    if(occurrence > 5) {
+      throw new InvalidValueException("Occurrence value in Day of week expression should be less than or equal to 5");
+    }
     return new DayOfWeekExpr(lhs, occurrence);
   }
 }
