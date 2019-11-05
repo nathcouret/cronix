@@ -1,5 +1,5 @@
 import { StringLiteral, SyntaxNode } from "@/common/syntax/cron";
-import { InvalidValueException } from "@/syntax/InvalidValueException";
+import { InvalidValueException } from "@/common/syntax/InvalidValueException";
 
 export default class DayOfWeekExpr implements SyntaxNode {
   private _occurrence: number;

@@ -3,12 +3,13 @@ import { StringLiteral } from "@/common/syntax";
 import { DayOfWeekExpr, QuartzCronExpression } from "./syntax";
 import abstractVisitor from "@/common/AbstractVisitorConstructor";
 import { DowContext, QuartzCronExpressionContext, QuartzExprNotUnionContext } from "./context";
+import { InvalidValueException } from "@/common/syntax/InvalidValueException";
 
 const QuartzVisitorConstructor = abstractVisitor(new QuartzParser().getBaseCstVisitorConstructor());
 export class QuartzVisitor extends QuartzVisitorConstructor {
   constructor() {
-    this.validateVisitor();
     super(QuartzVisitorConstructor, true);
+    this.validateVisitor();
   }
 
   cronExpression(ctx: QuartzCronExpressionContext) {
