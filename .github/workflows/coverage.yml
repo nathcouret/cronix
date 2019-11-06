@@ -1,0 +1,22 @@
+name: Coverage
+
+on: [push]
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: run coverage
+      run: |
+        yarn
+        yarn test --coverage
+      env:
+        CI: true
+    - name: Upload coverage
+      uses: codecov/codecov-action@v1.0.3
+      with:
+        token: ${{secrets.CODECOV_TOKEN}}
+        file: ./coverage/clover.xml
+      env:
+        CI: true
