@@ -1,11 +1,12 @@
 import { Lexer } from "chevrotain";
-import { CronParser as DefaultParser, JenkinsParser, QuartzParser } from "@/parser";
-import { AbstractVisitor, CronVisitor, JenkinsVisitor, QuartzVisitor } from "@/semantic";
-import { cronTokens, cronVocabulary, jenkinsTokens, quartzTokens } from "@/lexer";
-import { CronExpression, Expression } from "@/syntax";
+import { CronParser as DefaultParser, CronVisitor } from "@/cron";
+import { CronExpression, Expression } from "@/common/syntax";
 import CronixMode from "./CronixMode";
 import CronixExpression from "./CronixExpression";
 import CronixOptions from "./CronixOptions";
+import { JenkinsParser, jenkinsTokens, JenkinsVisitor } from "@/jenkins";
+import { QuartzParser, quartzTokens, QuartzVisitor } from "@/quartz";
+import { baseTokens, AbstractVisitor } from "@/common";
 
 /**
  * Convert an expression to its string representation. If the provided expression is already a string it is simply returned.
@@ -63,8 +64,8 @@ export default class CronixParser {
         break;
       case CronixMode.CRONTAB:
       default:
-        this._lexer = new Lexer(cronTokens);
-        this._parser = new DefaultParser(cronVocabulary);
+        this._lexer = new Lexer(baseTokens);
+        this._parser = new DefaultParser();
         this._visitor = new CronVisitor();
     }
     this.parse = this.parse.bind(this);
