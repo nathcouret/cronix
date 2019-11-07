@@ -2,6 +2,11 @@ import { CstParser, TokenVocabulary } from "chevrotain";
 import { comma, dash, identifier, slash } from "./lexer";
 
 export class BaseParser extends CstParser {
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // index type to dynamically invoke a specific rule
+  [key: string]: any;
+
   constructor(vocabulary: TokenVocabulary, invokedByChild = false) {
     super(vocabulary);
     if (!invokedByChild) {

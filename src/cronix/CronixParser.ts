@@ -1,4 +1,4 @@
-import { Lexer } from "chevrotain";
+import { CstNode, Lexer } from "chevrotain";
 import { CronParser as DefaultParser, CronVisitor } from "@/cron";
 import { CronExpression, Expression } from "@/common/syntax";
 import CronixMode from "./CronixMode";
@@ -40,6 +40,17 @@ export function convertToString(expression: CronixExpression | string, { mode }:
   }
 }
 
+export enum ParserStep {
+  LEXING = "lexing",
+  PARSING = "parsing",
+  SEMANTIC = "semantic"
+}
+
+export interface ParserException extends Error {
+  innerException: Error;
+  step: ParserStep;
+}
+
 /**
  * A Cron parser with support for multiple cron dialects.
  */
@@ -48,6 +59,8 @@ export default class CronixParser {
   private readonly _lexer: Lexer;
   private readonly _parser: DefaultParser;
   private readonly _visitor: AbstractVisitor;
+
+  private _parserErrors: ParserException[];
 
   constructor(options: CronixOptions = { mode: CronixMode.CRONTAB }) {
     this.mode = options.mode;
@@ -70,6 +83,7 @@ export default class CronixParser {
     }
     this.parse = this.parse.bind(this);
     this.parseField = this.parseField.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   /**
@@ -79,9 +93,7 @@ export default class CronixParser {
    */
   parse<T extends CronExpression>(expression: string | CronixExpression): T {
     const stringExpr = convertToString(expression, { mode: this.mode });
-    this._parser.input = this._lexer.tokenize(stringExpr).tokens;
-    const parsed = this._parser.cronExpression();
-    return this._visitor.visit(parsed);
+    return this.doParse(stringExpr, "cronExpression");
   }
 
   /**
@@ -90,9 +102,39 @@ export default class CronixParser {
    * @return The parsed expression as a syntax tree
    */
   parseField<T extends Expression>(expression: string): T {
-    this._parser.input = this._lexer.tokenize(expression).tokens;
-    const parsed = this._parser.expression();
-    return this._visitor.visit(parsed);
+    return this.doParse(expression, "expression");
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private doParse<T>(input: string, handler: string): T {
+    // Reset the state of this instance
+    this.reset();
+    this._parser.input = this._lexer.tokenize(input).tokens;
+    const parsed = this._parser[handler]();
+    // Check for parsing errors
+    if (this._parser.errors.length > 0) {
+      this._parser.errors.map(er => this._parserErrors.push({
+        ...er,
+        innerException: er,
+        step: ParserStep.PARSING
+      }));
+      return null;
+    }
+    try {
+      return this._visitor.visit(parsed);
+    } catch (e) {
+      // Handle semantic errors
+      this._parserErrors.push({
+        ...e,
+        innerException: e,
+        step: ParserStep.SEMANTIC
+      });
+      return null;
+    }
+  }
+
+  private reset() {
+    this._parserErrors = [];
   }
 
   get lexer() {
@@ -105,5 +147,9 @@ export default class CronixParser {
 
   get visitor() {
     return this._visitor;
+  }
+
+  get errors() {
+    return this._parserErrors;
   }
 }

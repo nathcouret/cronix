@@ -1,6 +1,7 @@
 import { QuartzCronExpression } from "@/quartz/syntax";
 import { CronixExpression, CronixParser } from "@/cronix";
 import CronixMode from "@/cronix/CronixMode";
+import { EarlyExitException, NotAllInputParsedException } from "chevrotain";
 
 describe("CronixParser Cron mode", () => {
   let parser: CronixParser;
@@ -49,7 +50,9 @@ describe("CronixParser Cron mode", () => {
       // When
       const parsed = parser.parse(expression);
       // Then
-      expect(parsed).toBeUndefined();
+      expect(parsed).toBeNull();
+      expect(parser.errors.length).toBe(1);
+      expect(parser.errors[0].innerException).toBeInstanceOf(EarlyExitException);
     });
 
     test("Jenkins expression should fail", () => {
@@ -59,7 +62,9 @@ describe("CronixParser Cron mode", () => {
       // When
       const parsed = parser.parse(expression);
       // Then
-      expect(parsed).toBeUndefined();
+      expect(parsed).toBeNull();
+      expect(parser.errors.length).toBe(1);
+      expect(parser.errors[0].innerException).toBeInstanceOf(EarlyExitException);
     });
 
     test("Quartz expression should parse with undefined field", () => {
@@ -75,7 +80,7 @@ describe("CronixParser Cron mode", () => {
       expect(parsed.dom.value()).toBe("4");
       expect(parsed.month.value()).toBe("*");
       expect(parsed.dow.value()).toBe("*");
-      expect(parsed.year).toBeUndefined()
+      expect(parsed.year).toBeUndefined();
     });
   });
   describe("parseField", () => {
@@ -94,7 +99,9 @@ describe("CronixParser Cron mode", () => {
       // When
       const parsed = parser.parseField(expression);
       // Then
-      expect(parsed.value()).toBe("MON");
+      expect(parsed).toBeNull();
+      expect(parser.errors.length).toBe(1);
+      expect(parser.errors[0].innerException).toBeInstanceOf(NotAllInputParsedException);
     });
   });
 });
@@ -156,7 +163,9 @@ describe("CronixParser Quartz mode", () => {
       // When
       const parsed = parser.parse(expression);
       // Then
-      expect(parsed).toBeUndefined();
+      expect(parsed).toBeNull();
+      expect(parser.errors.length).toBe(1);
+      expect(parser.errors[0].innerException).toBeInstanceOf(EarlyExitException);
     });
 
     test("Invalid string expression should fail", () => {
@@ -166,7 +175,10 @@ describe("CronixParser Quartz mode", () => {
       // When
       const parsed = parser.parse(expression);
       // Then
-      expect(parsed).toBeUndefined();
+      expect(parsed).toBeNull();
+      expect(parser.errors.length).toBe(1);
+      expect(parser.errors[0].innerException).toBeInstanceOf(EarlyExitException);
+
     });
 
     test("Jenkins expression should fail", () => {
@@ -176,7 +188,9 @@ describe("CronixParser Quartz mode", () => {
       // When
       const parsed = parser.parse(expression);
       // Then
-      expect(parsed).toBeUndefined();
+      expect(parsed).toBeNull();
+      expect(parser.errors.length).toBe(1);
+      expect(parser.errors[0].innerException).toBeInstanceOf(EarlyExitException);
     });
 
     test("Quartz expression should parse", () => {
@@ -263,7 +277,9 @@ describe("CronixParser Jenkins mode", () => {
       // When
       const parsed = parser.parse(expression);
       // Then
-      expect(parsed).toBeUndefined();
+      expect(parsed).toBeNull();
+      expect(parser.errors.length).toBe(1);
+      expect(parser.errors[0].innerException).toBeInstanceOf(EarlyExitException);
     });
 
     test("Jenkins expression should parse", () => {
@@ -312,7 +328,9 @@ describe("CronixParser Jenkins mode", () => {
       // When
       const parsed = parser.parseField(expression);
       // Then
-      expect(parsed.value()).toBe("MON");
+      expect(parsed).toBeNull();
+      expect(parser.errors.length).toBe(1);
+      expect(parser.errors[0].innerException).toBeInstanceOf(NotAllInputParsedException);
     });
   });
 });
