@@ -51,8 +51,9 @@ describe("CronixParser Cron mode", () => {
       const parsed = parser.parse(expression);
       // Then
       expect(parsed).toBeNull();
-      expect(parser.errors.length).toBe(1);
-      expect(parser.errors[0].innerException).toBeInstanceOf(EarlyExitException);
+      expect(parser.errors.length).toBe(2);
+      expect(parser.errors[0].name).toBe("LexingError");
+      expect(parser.errors[1].innerException).toBeInstanceOf(EarlyExitException);
     });
 
     test("Jenkins specific token should fail", () => {
@@ -63,8 +64,9 @@ describe("CronixParser Cron mode", () => {
       const parsed = parser.parse(expression);
       // Then
       expect(parsed).toBeNull();
-      expect(parser.errors.length).toBe(1);
-      expect(parser.errors[0].innerException).toBeInstanceOf(EarlyExitException);
+      expect(parser.errors.length).toBe(2);
+      expect(parser.errors[0].name).toBe("LexingError");
+      expect(parser.errors[1].innerException).toBeInstanceOf(EarlyExitException);
     });
 
     test("Quartz expression should parse with undefined field and unexpected result", () => {
@@ -100,8 +102,9 @@ describe("CronixParser Cron mode", () => {
       const parsed = parser.parseField(expression);
       // Then
       expect(parsed).toBeNull();
-      expect(parser.errors.length).toBe(1);
-      expect(parser.errors[0].innerException).toBeInstanceOf(NotAllInputParsedException);
+      expect(parser.errors.length).toBe(2);
+      expect(parser.errors[0].name).toBe("LexingError");
+      expect(parser.errors[1].innerException).toBeInstanceOf(EarlyExitException);
     });
   });
 });
@@ -176,9 +179,9 @@ describe("CronixParser Quartz mode", () => {
       const parsed = parser.parse(expression);
       // Then
       expect(parsed).toBeNull();
-      expect(parser.errors.length).toBe(1);
-      expect(parser.errors[0].innerException).toBeInstanceOf(EarlyExitException);
-
+      expect(parser.errors.length).toBe(2);
+      expect(parser.errors[0].name).toBe("LexingError");
+      expect(parser.errors[1].innerException).toBeInstanceOf(EarlyExitException);
     });
 
     test("Jenkins expression should fail", () => {
@@ -189,8 +192,9 @@ describe("CronixParser Quartz mode", () => {
       const parsed = parser.parse(expression);
       // Then
       expect(parsed).toBeNull();
-      expect(parser.errors.length).toBe(1);
-      expect(parser.errors[0].innerException).toBeInstanceOf(EarlyExitException);
+      expect(parser.errors.length).toBe(2);
+      expect(parser.errors[0].name).toBe("LexingError");
+      expect(parser.errors[1].innerException).toBeInstanceOf(EarlyExitException);
     });
 
     test("Quartz expression should parse", () => {
@@ -330,8 +334,9 @@ describe("CronixParser Jenkins mode", () => {
       const parsed = parser.parseField(expression);
       // Then
       expect(parsed).toBeNull();
-      expect(parser.errors.length).toBe(1);
-      expect(parser.errors[0].innerException).toBeInstanceOf(NotAllInputParsedException);
+      expect(parser.errors.length).toBe(2);
+      expect(parser.errors[0].name).toBe("LexingError");
+      expect(parser.errors[1].innerException).toBeInstanceOf(EarlyExitException);
     });
   });
 });
