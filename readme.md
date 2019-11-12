@@ -38,13 +38,13 @@ const parsedCron = cronix(expression);
 
 // Get the computed expression using the value() method
 // should be equal to expression
-console.log(parsedCron.value());
+console.log(parsedCron.value.value());
 
 expression.year = "*/2";
 
 // Quartz supports a year field that is not available in standard cron
 const parsedQuartz = cronix(expression, {mode: CronMode.QUARTZ});
-console.log(parsedQuartz.value());
+console.log(parsedQuartz.value.value());
 ````
 
 Alternatively you can use the class parser to manipulate expressions. 
@@ -83,16 +83,17 @@ An object representing an input expression. Can be used when you only need to fi
 | field | type | optional | description |
 |-----------|------|----------|-------------|
 | minute | `string` | yes | The minute field |
-| hour | `string` | yes | The hour field |
+`| hour | `string` | yes | The hour field |
 | dayOfMonth | `string` | yes | The dayOfMonth field |
 | month | `string` | yes | The month field |
 | dayOfWeek | `string` | yes | The dayOfWeek field |
 | year | `string` | yes | The year field. Quartz only |
-| second | `string` | yes | The second field. Jenkins only |
+| second | `string` | yes | The second field. Quartz only |
 
 ### cronix
 
 Parse an expression into the corresponding ast. The output can be a subclass of `CronExpression` depending on the selected mode.
+If parsing fails a `CronixParserException` is thrown.
 
 ```typescript
 function cronix(expression: string|CronixExpression, options: CronixOptions = {mode: CronixMode.CRONTAB}): CronExpression
@@ -102,6 +103,11 @@ function cronix(expression: string|CronixExpression, options: CronixOptions = {m
 |-----------|------|----------|-------------|
 | expression | `string or CronixExpression` | | The expression to parse |
 | options | `CronixOptions` | Yes (defaults to Crontab mode) | The parser options |
+
+| Return field | type | optional | description |
+|-----------|------|----------|-------------|
+| value | `CronExpression` | | The parsed expression. Null if the input cannot be parsed |
+| errors | `array of CronixParserException` | | The errors encountered by the parser |
 
 ### CronixParser
 
@@ -119,7 +125,8 @@ constructor(options: CronixOptions = {mode: CronixMode.CRONTAB}): CronixParser
 
 #### parse
 
-Parse a cron expression according to the parser's context. Returns an ast corresponding to the parsed expression.
+Parse a cron expression according to the parser's context. Returns an ast corresponding to the parsed expression. 
+If parsing fails a `CronixParserException` will be added to the error list and the return value will be null.
 
 ```typescript
 function parse(expression: string|CronixExpression): CronExpression
@@ -132,6 +139,7 @@ function parse(expression: string|CronixExpression): CronExpression
 #### parseField 
 
 Parse a single field according to the parser's context. Returns an ast corresponding to the parsed field.
+If parsing fails a `CronixParserException` will be added to the error list and the return value will be null.
 
 ```typescript
 function parseField(expression: string): CronExpression
@@ -141,7 +149,21 @@ function parseField(expression: string): CronExpression
 |-----------|------|----------|-------------|
 | expression | `string` | The expression to parse |
 
+#### errors
 
+A getters that returns a list of errors encountered during. Useful for figuring out where the parsing fail.
+It is reset with each call of parse or parsefield method.
+
+### CronixParserException
+
+An exception indicating an error occured during a parse or parseField call. It wraps the caught expression with an indication of the step at which it failed.
+
+| field | type | optional | description |
+|-----------|------|----------|-------------|
+| innerException | `Error or ILexingError` | | The root cause |
+| options | `lexing or parsing or semantic` |  | The step at which parsing failed |
+
+Other fields are inherited from the [Error interface](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) definition
 
 ## scripts
 

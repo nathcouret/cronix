@@ -1,7 +1,7 @@
 import { QuartzCronExpression } from "@/quartz/syntax";
 import { CronixExpression, CronixParser } from "@/cronix";
 import CronixMode from "@/cronix/CronixMode";
-import { EarlyExitException, NotAllInputParsedException } from "chevrotain";
+import { EarlyExitException, ILexingError, NotAllInputParsedException } from "chevrotain";
 
 describe("CronixParser Cron mode", () => {
   let parser: CronixParser;
@@ -55,7 +55,7 @@ describe("CronixParser Cron mode", () => {
       expect(parser.errors[0].innerException).toBeInstanceOf(EarlyExitException);
     });
 
-    test("Jenkins expression should fail", () => {
+    test("Jenkins specific token should fail", () => {
       // Given
       // Everyday at 04:05
       const expression = "5 4 * * H";
@@ -67,7 +67,7 @@ describe("CronixParser Cron mode", () => {
       expect(parser.errors[0].innerException).toBeInstanceOf(EarlyExitException);
     });
 
-    test("Quartz expression should parse with undefined field", () => {
+    test("Quartz expression should parse with undefined field and unexpected result", () => {
       // Given
       // Everyday at 04:05
       const expression = "0 5 4 * * ?";
@@ -93,7 +93,7 @@ describe("CronixParser Cron mode", () => {
       expect(parsed.value()).toBe(expression);
     });
 
-    test("Quartz day of week should ignore Quartz specific tokens", () => {
+    test("Quartz day of week should fail to parse", () => {
       // Given
       const expression = "MON#4";
       // When
@@ -278,8 +278,9 @@ describe("CronixParser Jenkins mode", () => {
       const parsed = parser.parse(expression);
       // Then
       expect(parsed).toBeNull();
-      expect(parser.errors.length).toBe(1);
-      expect(parser.errors[0].innerException).toBeInstanceOf(EarlyExitException);
+      expect(parser.errors.length).toBe(2);
+      expect(parser.errors[0].name).toBe("LexingError");
+      expect(parser.errors[1].innerException).toBeInstanceOf(EarlyExitException);
     });
 
     test("Jenkins expression should parse", () => {

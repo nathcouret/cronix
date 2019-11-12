@@ -1,4 +1,4 @@
-import { CstNode, Lexer } from "chevrotain";
+import { CstNode, ILexingError, Lexer } from "chevrotain";
 import { CronParser as DefaultParser, CronVisitor } from "@/cron";
 import { CronExpression, Expression } from "@/common/syntax";
 import CronixMode from "./CronixMode";
@@ -40,14 +40,26 @@ export function convertToString(expression: CronixExpression | string, { mode }:
   }
 }
 
+/**
+ * Enum indicating the different steps the parser goes through. Useful for error reporting
+ */
 export enum ParserStep {
   LEXING = "lexing",
   PARSING = "parsing",
   SEMANTIC = "semantic"
 }
 
-export interface ParserException extends Error {
-  innerException: Error;
+/**
+ * An exception raised during parsing to indicate failure to process the input.
+ */
+export interface CronixParserException extends Error {
+  /**
+   * The root cause of the exception
+   */
+  innerException: Error | ILexingError;
+  /**
+   * Indicates the step at which the parser failed
+   */
   step: ParserStep;
 }
 
@@ -60,7 +72,7 @@ export default class CronixParser {
   private readonly _parser: DefaultParser;
   private readonly _visitor: AbstractVisitor;
 
-  private _parserErrors: ParserException[];
+  private _parserErrors: CronixParserException[];
 
   constructor(options: CronixOptions = { mode: CronixMode.CRONTAB }) {
     this.mode = options.mode;
@@ -109,6 +121,13 @@ export default class CronixParser {
   private doParse<T>(input: string, handler: string): T {
     // Reset the state of this instance
     this.reset();
+    const lexingResult = this._lexer.tokenize(input);
+    lexingResult.errors.forEach(e => this._parserErrors.push({
+      name: "LexingError",
+      message: e.message,
+      innerException: e,
+      step: ParserStep.LEXING
+    }));
     this._parser.input = this._lexer.tokenize(input).tokens;
     const parsed = this._parser[handler]();
     // Check for parsing errors
@@ -133,6 +152,9 @@ export default class CronixParser {
     }
   }
 
+  /**
+   * Reset the parser's state. This flush any errors raised during a previous parse.
+   */
   private reset() {
     this._parserErrors = [];
   }
