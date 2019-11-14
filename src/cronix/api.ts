@@ -19,7 +19,7 @@ export default function parse(expression: string | CronixExpression, options: Cr
   const parser = new CronixParser(options);
   const value = parser.parse(expression);
   return {
-    value,
+    value: parser.errors.length > 0 ? null : value,
     errors: parser.errors
   };
 }
