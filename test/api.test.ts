@@ -7,7 +7,7 @@ describe("cronix tests", () => {
     // Given
 
     // When
-    const result = cronix("0 5 4 * * ?", { mode: CronixMode.QUARTZ });
+    const result = cronix("0 5 4 * * ?", CronixMode.QUARTZ);
     // Then
     expect(result.value.value()).toBe("0 5 4 * * ? *");
     expect(result.errors.length).toBe(0);

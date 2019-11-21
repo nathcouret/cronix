@@ -27,7 +27,8 @@
     "bundle": "rollup -c",
     "compile": "tsc --project src/tsconfig.json --emitDeclarationOnly",
     "clean": "rimraf dist",
-    "lint": "eslint --ext .ts src/**/*.ts"
+    "lint": "eslint --ext .ts src/**/*.ts",
+    "lint:fix": "eslint --fix --ext .ts src/**/*.ts"
   },
   "dependencies": {
     "chevrotain": "^6.0.0"

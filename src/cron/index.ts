@@ -1,2 +1,2 @@
-export * from "./parser";
+export * from "./cstParser";
 export * from "./visitor";

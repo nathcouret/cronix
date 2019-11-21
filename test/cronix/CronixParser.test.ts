@@ -1,12 +1,11 @@
-import { CronixParser } from "@/cronix";
-import CronixMode from "@/cronix/CronixMode";
+import { CronixCron, CronixJenkins, CronixQuartz } from "@/cronix";
 import exprDict from "../expression";
 
 describe("CronixParser", () => {
   describe("parse", () => {
     const { expressions } = exprDict;
     test("Cron mode", () => {
-      const parser = new CronixParser();
+      const parser = new CronixCron();
       const testResults = Object.values(expressions).map(expr => {
         const result = parser.parse(expr);
         return {
@@ -19,7 +18,7 @@ describe("CronixParser", () => {
     });
 
     test("Quartz mode", () => {
-      const parser = new CronixParser({ mode: CronixMode.QUARTZ });
+      const parser = new CronixQuartz();
       const testResults = Object.values(expressions).map(expr => {
         const result = parser.parse(expr);
         return {
@@ -31,8 +30,8 @@ describe("CronixParser", () => {
       expect(testResults).toMatchSnapshot();
     });
 
-    test("Quartz mode", () => {
-      const parser = new CronixParser({ mode: CronixMode.JENKINS });
+    test("Jenkins mode", () => {
+      const parser = new CronixJenkins();
       const testResults = Object.values(expressions).map(expr => {
         const result = parser.parse(expr);
         return {
@@ -49,7 +48,7 @@ describe("CronixParser", () => {
     const { fields } = exprDict;
 
     test("Cron mode", () => {
-      const parser = new CronixParser();
+      const parser = new CronixCron();
       const testResults = Object.values(fields).map(expr => {
         const result = parser.parseField(expr);
         return {
@@ -62,7 +61,7 @@ describe("CronixParser", () => {
     });
 
     test("Quartz mode", () => {
-      const parser = new CronixParser({ mode: CronixMode.QUARTZ });
+      const parser = new CronixQuartz();
       const testResults = Object.values(fields).map(expr => {
         const result = parser.parseField(expr);
         return {
@@ -75,7 +74,7 @@ describe("CronixParser", () => {
     });
 
     test("Quartz mode", () => {
-      const parser = new CronixParser({ mode: CronixMode.JENKINS });
+      const parser = new CronixJenkins();
       const testResults = Object.values(fields).map(expr => {
         const result = parser.parseField(expr);
         return {

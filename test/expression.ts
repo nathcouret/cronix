@@ -41,8 +41,14 @@ const dictionary: ExpressionDictionary = {
   },
   fields: {
     withRangeAndStep: "4-10/2",
-    dayOfWeekWithQuartzOccurrence: "MON#4"
-
+    dayOfWeekWithQuartzOccurrence: "MON#4",
+    everyExpr: "*",
+    anyExpr: "?",
+    singleNumber: "5",
+    singleDay: "MON",
+    dayRange: "TUE-SUN",
+    numberRange: "2-20",
+    numberStep: "10/2"
   }
 
 };
