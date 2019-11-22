@@ -1,12 +1,12 @@
-import { Lexer } from "chevrotain";
-import { CronParser as DefaultParser, CronVisitor } from "@/cron";
-import { CronExpression, Expression } from "@/common/syntax";
+import { ILexingError, Lexer } from "chevrotain";
+import { CronCstParser, CronCstParser as DefaultParser, CronVisitor } from "@/cron";
+import { CronExpression } from "@/common/syntax";
 import CronixMode from "./CronixMode";
 import CronixExpression from "./CronixExpression";
 import CronixOptions from "./CronixOptions";
-import { JenkinsParser, jenkinsTokens, JenkinsVisitor } from "@/jenkins";
-import { QuartzParser, quartzTokens, QuartzVisitor } from "@/quartz";
-import { baseTokens, AbstractVisitor } from "@/common";
+import { JenkinsCstParser, jenkinsTokens, JenkinsVisitor } from "@/jenkins";
+import { QuartzCronExpression, QuartzCstParser, quartzTokens, QuartzVisitor } from "@/quartz";
+import { AbstractVisitor, BaseCstParser, baseTokens } from "@/common";
 
 /**
  * Convert an expression to its string representation. If the provided expression is already a string it is simply returned.
@@ -14,7 +14,7 @@ import { baseTokens, AbstractVisitor } from "@/common";
  * @param expression The expression to convert
  * @param options The context to infer the conversion strategy from
  */
-export function convertToString(expression: CronixExpression | string, { mode }: CronixOptions): string {
+export function convertToString(expression: CronixExpression | string, { mode }: Pick<CronixOptions, "mode">): string {
   if (typeof expression === "string") {
     return expression;
   }
@@ -41,35 +41,49 @@ export function convertToString(expression: CronixExpression | string, { mode }:
 }
 
 /**
+ * Enum indicating the different steps the parser goes through. Useful for error reporting
+ */
+export enum ParserStep {
+  LEXING = "lexing",
+  PARSING = "parsing",
+  SEMANTIC = "semantic"
+}
+
+/**
+ * An exception raised during parsing to indicate failure to process the input.
+ */
+export interface ParserException extends Error {
+  /**
+   * The root cause of the exception
+   */
+  innerException: Error | ILexingError;
+  /**
+   * Indicates the step at which the parser failed
+   */
+  step: ParserStep;
+}
+
+/**
  * A Cron parser with support for multiple cron dialects.
  */
-export default class CronixParser {
+export abstract class CronixParser<T extends CronExpression = CronExpression> {
   private readonly mode: CronixMode;
   private readonly _lexer: Lexer;
   private readonly _parser: DefaultParser;
   private readonly _visitor: AbstractVisitor;
 
-  constructor(options: CronixOptions = { mode: CronixMode.CRONTAB }) {
+  private _errors: ParserException[];
+
+  constructor(options: CronixOptions = {
+    mode: CronixMode.CRONTAB,
+    tokens: baseTokens
+  }, parser: BaseCstParser, visitor: AbstractVisitor) {
     this.mode = options.mode;
-    switch (options.mode) {
-      case CronixMode.JENKINS:
-        this._lexer = new Lexer(jenkinsTokens);
-        this._parser = new JenkinsParser();
-        this._visitor = new JenkinsVisitor();
-        break;
-      case CronixMode.QUARTZ:
-        this._lexer = new Lexer(quartzTokens);
-        this._parser = new QuartzParser();
-        this._visitor = new QuartzVisitor();
-        break;
-      case CronixMode.CRONTAB:
-      default:
-        this._lexer = new Lexer(baseTokens);
-        this._parser = new DefaultParser();
-        this._visitor = new CronVisitor();
-    }
+    this._lexer = new Lexer(options.tokens);
+    this._parser = parser;
+    this._visitor = visitor;
     this.parse = this.parse.bind(this);
-    this.parseField = this.parseField.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   /**
@@ -77,22 +91,82 @@ export default class CronixParser {
    * @param expression The expression to parse. Can either be a string or an object describing the expression
    * @return The parsed expression as a syntax tree
    */
-  parse<T extends CronExpression>(expression: string | CronixExpression): T {
+  parse(expression: string | CronixExpression): T {
+    // Reset the state of this instance
+    this.reset();
+
     const stringExpr = convertToString(expression, { mode: this.mode });
+    const lexingResult = this._lexer.tokenize(stringExpr);
+    lexingResult.errors.forEach(e => this._errors.push({
+      name: "LexingError",
+      message: e.message,
+      innerException: e,
+      step: ParserStep.LEXING
+    }));
     this._parser.input = this._lexer.tokenize(stringExpr).tokens;
     const parsed = this._parser.cronExpression();
-    return this._visitor.visit(parsed);
+    // Check for parsing errors
+    if (this._parser.errors.length > 0) {
+      this._parser.errors.map(er => this._errors.push({
+        ...er,
+        innerException: er,
+        step: ParserStep.PARSING
+      }));
+      return null;
+    }
+    try {
+      return this._visitor.visit(parsed);
+    } catch (e) {
+      // Handle semantic errors
+      this._errors.push({
+        ...e,
+        innerException: e,
+        step: ParserStep.SEMANTIC
+      });
+      return null;
+    }
+  }
+
+  parseField(expression: string): T {
+    // Reset the state of this instance
+    this.reset();
+
+    const lexingResult = this._lexer.tokenize(expression);
+    lexingResult.errors.forEach(e => this._errors.push({
+      name: "LexingError",
+      message: e.message,
+      innerException: e,
+      step: ParserStep.LEXING
+    }));
+    this._parser.input = this._lexer.tokenize(expression).tokens;
+    const parsed = this._parser.expression();
+    // Check for parsing errors
+    if (this._parser.errors.length > 0) {
+      this._parser.errors.map(er => this._errors.push({
+        ...er,
+        innerException: er,
+        step: ParserStep.PARSING
+      }));
+      return null;
+    }
+    try {
+      return this._visitor.visit(parsed);
+    } catch (e) {
+      // Handle semantic errors
+      this._errors.push({
+        ...e,
+        innerException: e,
+        step: ParserStep.SEMANTIC
+      });
+      return null;
+    }
   }
 
   /**
-   * Parse an expression element, according to the parser's context.
-   * @param expression The expression to parse.
-   * @return The parsed expression as a syntax tree
+   * Reset the parser's state. This flush any errors raised during a previous parse.
    */
-  parseField<T extends Expression>(expression: string): T {
-    this._parser.input = this._lexer.tokenize(expression).tokens;
-    const parsed = this._parser.expression();
-    return this._visitor.visit(parsed);
+  private reset() {
+    this._errors = [];
   }
 
   get lexer() {
@@ -105,5 +179,37 @@ export default class CronixParser {
 
   get visitor() {
     return this._visitor;
+  }
+
+  get errors() {
+    return this._errors;
+  }
+}
+
+export class CronParser extends CronixParser {
+  constructor() {
+    super({
+      mode: CronixMode.CRONTAB,
+      tokens: baseTokens
+    }, new CronCstParser(), new CronVisitor());
+  }
+
+}
+
+export class QuartzParser extends CronixParser<QuartzCronExpression> {
+  constructor() {
+    super({
+      mode: CronixMode.QUARTZ,
+      tokens: quartzTokens
+    }, new QuartzCstParser(), new QuartzVisitor());
+  }
+}
+
+export class JenkinsParser extends CronixParser {
+  constructor() {
+    super({
+      mode: CronixMode.JENKINS,
+      tokens: jenkinsTokens
+    }, new JenkinsCstParser(), new JenkinsVisitor());
   }
 }

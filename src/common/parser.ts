@@ -1,7 +1,11 @@
-import { CstParser, TokenVocabulary } from "chevrotain";
+import { CstNode, CstParser, TokenVocabulary } from "chevrotain";
 import { comma, dash, identifier, slash } from "./lexer";
 
-export class BaseParser extends CstParser {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type CstRule = (idxInCallingRule?: number, ...args: any[]) => CstNode;
+
+export class BaseCstParser extends CstParser {
+
   constructor(vocabulary: TokenVocabulary, invokedByChild = false) {
     super(vocabulary);
     if (!invokedByChild) {
@@ -9,7 +13,7 @@ export class BaseParser extends CstParser {
     }
   }
 
-  readonly cronExpression = this.RULE("cronExpression", () => {
+  readonly cronExpression: CstRule = this.RULE("cronExpression", () => {
     // Minutes
     this.SUBRULE1(this.expression, { LABEL: "minutes" });
     // Hours
@@ -22,19 +26,19 @@ export class BaseParser extends CstParser {
     this.SUBRULE5(this.expression, { LABEL: "dow" });
   });
 
-  readonly expression = this.RULE("expression", () => {
+  readonly expression: CstRule = this.RULE("expression", () => {
     this.AT_LEAST_ONE_SEP({
       SEP: comma,
       DEF: () => this.SUBRULE(this.exprNotUnion)
     });
   });
 
-  readonly exprNotUnion = this.RULE("exprNotUnion", () => {
+  readonly exprNotUnion: CstRule = this.RULE("exprNotUnion", () => {
     this.CONSUME(identifier, { LABEL: "lhs" });
     this.SUBRULE(this.atomicExpr);
   });
 
-  readonly atomicExpr = this.RULE("atomicExpr", () => {
+  readonly atomicExpr: CstRule = this.RULE("atomicExpr", () => {
     this.OPTION1({
       DEF: () => this.SUBRULE1(this.range)
     });
@@ -43,12 +47,12 @@ export class BaseParser extends CstParser {
     });
   });
 
-  readonly interval = this.RULE("interval", () => {
+  readonly interval: CstRule = this.RULE("interval", () => {
     this.CONSUME1(slash);
     this.CONSUME2(identifier, { LABEL: "rhs" });
   });
 
-  readonly range = this.RULE("range", () => {
+  readonly range: CstRule = this.RULE("range", () => {
     this.CONSUME1(dash);
     this.CONSUME2(identifier, { LABEL: "rhs" });
   });

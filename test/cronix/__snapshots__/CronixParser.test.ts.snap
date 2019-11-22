@@ -1,0 +1,2410 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CronixParser parse Cron mode 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "input": Object {
+      "hour": "4",
+      "minute": "5",
+    },
+    "result": CronExpression {
+      "_dom": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_dow": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_hour": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "4",
+          },
+        ],
+      },
+      "_minute": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "5",
+          },
+        ],
+      },
+      "_month": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": Object {
+      "dayOfMonth": "*",
+      "dayOfWeek": "1-5",
+      "hour": "12",
+      "minute": "0",
+      "month": "*",
+      "second": "0",
+      "year": "*",
+    },
+    "result": CronExpression {
+      "_dom": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_dow": Expression {
+        "_exprs": Array [
+          DualExpression {
+            "_lhs": StringLiteral {
+              "_value": "1",
+            },
+            "_rhs": StringLiteral {
+              "_value": "5",
+            },
+            "_separator": "-",
+          },
+        ],
+      },
+      "_hour": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "12",
+          },
+        ],
+      },
+      "_minute": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "0",
+          },
+        ],
+      },
+      "_month": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+    },
+  },
+  Object {
+    "errors": Array [
+      Object {
+        "innerException": Object {
+          "column": 13,
+          "length": 1,
+          "line": 1,
+          "message": "unexpected character: ->?<- at offset: 12, skipped 1 characters.",
+          "offset": 12,
+        },
+        "message": "unexpected character: ->?<- at offset: 12, skipped 1 characters.",
+        "name": "LexingError",
+        "step": "lexing",
+      },
+      Object {
+        "context": Object {
+          "ruleOccurrenceStack": Array [
+            0,
+            5,
+          ],
+          "ruleStack": Array [
+            "cronExpression",
+            "expression",
+          ],
+        },
+        "innerException": [EarlyExitException: Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''],
+        "message": "Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''",
+        "name": "EarlyExitException",
+        "previousToken": Object {
+          "endColumn": 11,
+          "endLine": 1,
+          "endOffset": 10,
+          "image": "2",
+          "startColumn": 11,
+          "startLine": 1,
+          "startOffset": 10,
+          "tokenType": Object {
+            "CATEGORIES": Array [
+              Object {
+                "CATEGORIES": Array [],
+                "PATTERN": /NOT_APPLICABLE/,
+                "categoryMatches": Array [
+                  5,
+                  6,
+                  10,
+                  11,
+                  12,
+                  13,
+                  15,
+                  16,
+                ],
+                "categoryMatchesMap": Object {
+                  "10": true,
+                  "11": true,
+                  "12": true,
+                  "13": true,
+                  "15": true,
+                  "16": true,
+                  "5": true,
+                  "6": true,
+                },
+                "isParent": true,
+                "name": "identifier",
+                "tokenTypeIdx": 4,
+              },
+            ],
+            "PATTERN": /\\[0-9\\]\\{1,2\\}/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "integer",
+            "tokenTypeIdx": 10,
+          },
+          "tokenTypeIdx": 10,
+        },
+        "resyncedTokens": Array [],
+        "step": "parsing",
+        "token": Object {
+          "endColumn": NaN,
+          "endLine": NaN,
+          "endOffset": NaN,
+          "image": "",
+          "startColumn": NaN,
+          "startLine": NaN,
+          "startOffset": NaN,
+          "tokenType": Object {
+            "CATEGORIES": Array [],
+            "PATTERN": /NOT_APPLICABLE/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "EOF",
+            "tokenTypeIdx": 1,
+          },
+          "tokenTypeIdx": 1,
+        },
+      },
+    ],
+    "input": Object {
+      "dayOfMonth": "*/3",
+      "dayOfWeek": "?",
+      "hour": "4",
+      "minute": "5",
+      "month": "*/2",
+      "second": "12",
+      "year": "*/2",
+    },
+    "result": null,
+  },
+  Object {
+    "errors": Array [],
+    "input": "5 4 * * *",
+    "result": CronExpression {
+      "_dom": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_dow": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_hour": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "4",
+          },
+        ],
+      },
+      "_minute": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "5",
+          },
+        ],
+      },
+      "_month": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+    },
+  },
+  Object {
+    "errors": Array [
+      Object {
+        "innerException": Object {
+          "column": 11,
+          "length": 1,
+          "line": 1,
+          "message": "unexpected character: ->?<- at offset: 10, skipped 1 characters.",
+          "offset": 10,
+        },
+        "message": "unexpected character: ->?<- at offset: 10, skipped 1 characters.",
+        "name": "LexingError",
+        "step": "lexing",
+      },
+    ],
+    "input": "0 5 4 * * ?",
+    "result": CronExpression {
+      "_dom": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "4",
+          },
+        ],
+      },
+      "_dow": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_hour": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "5",
+          },
+        ],
+      },
+      "_minute": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "0",
+          },
+        ],
+      },
+      "_month": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+    },
+  },
+  Object {
+    "errors": Array [
+      Object {
+        "innerException": Object {
+          "column": 1,
+          "length": 1,
+          "line": 1,
+          "message": "unexpected character: ->H<- at offset: 0, skipped 1 characters.",
+          "offset": 0,
+        },
+        "message": "unexpected character: ->H<- at offset: 0, skipped 1 characters.",
+        "name": "LexingError",
+        "step": "lexing",
+      },
+      Object {
+        "innerException": Object {
+          "column": 2,
+          "length": 1,
+          "line": 1,
+          "message": "unexpected character: ->H<- at offset: 2, skipped 1 characters.",
+          "offset": 2,
+        },
+        "message": "unexpected character: ->H<- at offset: 2, skipped 1 characters.",
+        "name": "LexingError",
+        "step": "lexing",
+      },
+      Object {
+        "context": Object {
+          "ruleOccurrenceStack": Array [
+            0,
+            4,
+          ],
+          "ruleStack": Array [
+            "cronExpression",
+            "expression",
+          ],
+        },
+        "innerException": [EarlyExitException: Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''],
+        "message": "Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''",
+        "name": "EarlyExitException",
+        "previousToken": Object {
+          "endColumn": 7,
+          "endLine": 1,
+          "endOffset": 8,
+          "image": "*",
+          "startColumn": 7,
+          "startLine": 1,
+          "startOffset": 8,
+          "tokenType": Object {
+            "CATEGORIES": Array [
+              Object {
+                "CATEGORIES": Array [],
+                "PATTERN": /NOT_APPLICABLE/,
+                "categoryMatches": Array [
+                  5,
+                  6,
+                  10,
+                  11,
+                  12,
+                  13,
+                  15,
+                  16,
+                ],
+                "categoryMatchesMap": Object {
+                  "10": true,
+                  "11": true,
+                  "12": true,
+                  "13": true,
+                  "15": true,
+                  "16": true,
+                  "5": true,
+                  "6": true,
+                },
+                "isParent": true,
+                "name": "identifier",
+                "tokenTypeIdx": 4,
+              },
+            ],
+            "PATTERN": /\\\\\\*/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "every",
+            "tokenTypeIdx": 11,
+          },
+          "tokenTypeIdx": 11,
+        },
+        "resyncedTokens": Array [],
+        "step": "parsing",
+        "token": Object {
+          "endColumn": NaN,
+          "endLine": NaN,
+          "endOffset": NaN,
+          "image": "",
+          "startColumn": NaN,
+          "startLine": NaN,
+          "startOffset": NaN,
+          "tokenType": Object {
+            "CATEGORIES": Array [],
+            "PATTERN": /NOT_APPLICABLE/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "EOF",
+            "tokenTypeIdx": 1,
+          },
+          "tokenTypeIdx": 1,
+        },
+      },
+    ],
+    "input": "H H * * *",
+    "result": null,
+  },
+  Object {
+    "errors": Array [
+      Object {
+        "innerException": Object {
+          "column": 7,
+          "length": 3,
+          "line": 1,
+          "message": "unexpected character: ->A<- at offset: 6, skipped 3 characters.",
+          "offset": 6,
+        },
+        "message": "unexpected character: ->A<- at offset: 6, skipped 3 characters.",
+        "name": "LexingError",
+        "step": "lexing",
+      },
+      Object {
+        "context": Object {
+          "ruleOccurrenceStack": Array [
+            0,
+            5,
+          ],
+          "ruleStack": Array [
+            "cronExpression",
+            "expression",
+          ],
+        },
+        "innerException": [EarlyExitException: Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''],
+        "message": "Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''",
+        "name": "EarlyExitException",
+        "previousToken": Object {
+          "endColumn": 8,
+          "endLine": 1,
+          "endOffset": 10,
+          "image": "*",
+          "startColumn": 8,
+          "startLine": 1,
+          "startOffset": 10,
+          "tokenType": Object {
+            "CATEGORIES": Array [
+              Object {
+                "CATEGORIES": Array [],
+                "PATTERN": /NOT_APPLICABLE/,
+                "categoryMatches": Array [
+                  5,
+                  6,
+                  10,
+                  11,
+                  12,
+                  13,
+                  15,
+                  16,
+                ],
+                "categoryMatchesMap": Object {
+                  "10": true,
+                  "11": true,
+                  "12": true,
+                  "13": true,
+                  "15": true,
+                  "16": true,
+                  "5": true,
+                  "6": true,
+                },
+                "isParent": true,
+                "name": "identifier",
+                "tokenTypeIdx": 4,
+              },
+            ],
+            "PATTERN": /\\\\\\*/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "every",
+            "tokenTypeIdx": 11,
+          },
+          "tokenTypeIdx": 11,
+        },
+        "resyncedTokens": Array [],
+        "step": "parsing",
+        "token": Object {
+          "endColumn": NaN,
+          "endLine": NaN,
+          "endOffset": NaN,
+          "image": "",
+          "startColumn": NaN,
+          "startLine": NaN,
+          "startOffset": NaN,
+          "tokenType": Object {
+            "CATEGORIES": Array [],
+            "PATTERN": /NOT_APPLICABLE/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "EOF",
+            "tokenTypeIdx": 1,
+          },
+          "tokenTypeIdx": 1,
+        },
+      },
+    ],
+    "input": "5 4 * ABC *",
+    "result": null,
+  },
+  Object {
+    "errors": Array [
+      Object {
+        "context": Object {
+          "ruleOccurrenceStack": Array [],
+          "ruleStack": Array [],
+        },
+        "innerException": [NotAllInputParsedException: Redundant input, expecting EOF but found: *],
+        "message": "Redundant input, expecting EOF but found: *",
+        "name": "NotAllInputParsedException",
+        "resyncedTokens": Array [],
+        "step": "parsing",
+        "token": Object {
+          "endColumn": 11,
+          "endLine": 1,
+          "endOffset": 10,
+          "image": "*",
+          "startColumn": 11,
+          "startLine": 1,
+          "startOffset": 10,
+          "tokenType": Object {
+            "CATEGORIES": Array [
+              Object {
+                "CATEGORIES": Array [],
+                "PATTERN": /NOT_APPLICABLE/,
+                "categoryMatches": Array [
+                  5,
+                  6,
+                  10,
+                  11,
+                  12,
+                  13,
+                  15,
+                  16,
+                ],
+                "categoryMatchesMap": Object {
+                  "10": true,
+                  "11": true,
+                  "12": true,
+                  "13": true,
+                  "15": true,
+                  "16": true,
+                  "5": true,
+                  "6": true,
+                },
+                "isParent": true,
+                "name": "identifier",
+                "tokenTypeIdx": 4,
+              },
+            ],
+            "PATTERN": /\\\\\\*/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "every",
+            "tokenTypeIdx": 11,
+          },
+          "tokenTypeIdx": 11,
+        },
+      },
+    ],
+    "input": "0 5 4 * * *",
+    "result": null,
+  },
+]
+`;
+
+exports[`CronixParser parse Jenkins mode 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "input": Object {
+      "hour": "4",
+      "minute": "5",
+    },
+    "result": CronExpression {
+      "_dom": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_dow": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_hour": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "4",
+          },
+        ],
+      },
+      "_minute": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "5",
+          },
+        ],
+      },
+      "_month": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": Object {
+      "dayOfMonth": "*",
+      "dayOfWeek": "1-5",
+      "hour": "12",
+      "minute": "0",
+      "month": "*",
+      "second": "0",
+      "year": "*",
+    },
+    "result": CronExpression {
+      "_dom": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_dow": Expression {
+        "_exprs": Array [
+          DualExpression {
+            "_lhs": StringLiteral {
+              "_value": "1",
+            },
+            "_rhs": StringLiteral {
+              "_value": "5",
+            },
+            "_separator": "-",
+          },
+        ],
+      },
+      "_hour": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "12",
+          },
+        ],
+      },
+      "_minute": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "0",
+          },
+        ],
+      },
+      "_month": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+    },
+  },
+  Object {
+    "errors": Array [
+      Object {
+        "innerException": Object {
+          "column": 13,
+          "length": 1,
+          "line": 1,
+          "message": "unexpected character: ->?<- at offset: 12, skipped 1 characters.",
+          "offset": 12,
+        },
+        "message": "unexpected character: ->?<- at offset: 12, skipped 1 characters.",
+        "name": "LexingError",
+        "step": "lexing",
+      },
+      Object {
+        "context": Object {
+          "ruleOccurrenceStack": Array [
+            0,
+            5,
+          ],
+          "ruleStack": Array [
+            "cronExpression",
+            "expression",
+          ],
+        },
+        "innerException": [EarlyExitException: Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''],
+        "message": "Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''",
+        "name": "EarlyExitException",
+        "previousToken": Object {
+          "endColumn": 11,
+          "endLine": 1,
+          "endOffset": 10,
+          "image": "2",
+          "startColumn": 11,
+          "startLine": 1,
+          "startOffset": 10,
+          "tokenType": Object {
+            "CATEGORIES": Array [
+              Object {
+                "CATEGORIES": Array [],
+                "PATTERN": /NOT_APPLICABLE/,
+                "categoryMatches": Array [
+                  5,
+                  6,
+                  10,
+                  11,
+                  12,
+                  13,
+                  15,
+                  16,
+                ],
+                "categoryMatchesMap": Object {
+                  "10": true,
+                  "11": true,
+                  "12": true,
+                  "13": true,
+                  "15": true,
+                  "16": true,
+                  "5": true,
+                  "6": true,
+                },
+                "isParent": true,
+                "name": "identifier",
+                "tokenTypeIdx": 4,
+              },
+            ],
+            "PATTERN": /\\[0-9\\]\\{1,2\\}/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "integer",
+            "tokenTypeIdx": 10,
+          },
+          "tokenTypeIdx": 10,
+        },
+        "resyncedTokens": Array [],
+        "step": "parsing",
+        "token": Object {
+          "endColumn": NaN,
+          "endLine": NaN,
+          "endOffset": NaN,
+          "image": "",
+          "startColumn": NaN,
+          "startLine": NaN,
+          "startOffset": NaN,
+          "tokenType": Object {
+            "CATEGORIES": Array [],
+            "PATTERN": /NOT_APPLICABLE/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "EOF",
+            "tokenTypeIdx": 1,
+          },
+          "tokenTypeIdx": 1,
+        },
+      },
+    ],
+    "input": Object {
+      "dayOfMonth": "*/3",
+      "dayOfWeek": "?",
+      "hour": "4",
+      "minute": "5",
+      "month": "*/2",
+      "second": "12",
+      "year": "*/2",
+    },
+    "result": null,
+  },
+  Object {
+    "errors": Array [],
+    "input": "5 4 * * *",
+    "result": CronExpression {
+      "_dom": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_dow": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_hour": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "4",
+          },
+        ],
+      },
+      "_minute": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "5",
+          },
+        ],
+      },
+      "_month": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+    },
+  },
+  Object {
+    "errors": Array [
+      Object {
+        "innerException": Object {
+          "column": 11,
+          "length": 1,
+          "line": 1,
+          "message": "unexpected character: ->?<- at offset: 10, skipped 1 characters.",
+          "offset": 10,
+        },
+        "message": "unexpected character: ->?<- at offset: 10, skipped 1 characters.",
+        "name": "LexingError",
+        "step": "lexing",
+      },
+    ],
+    "input": "0 5 4 * * ?",
+    "result": CronExpression {
+      "_dom": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "4",
+          },
+        ],
+      },
+      "_dow": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_hour": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "5",
+          },
+        ],
+      },
+      "_minute": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "0",
+          },
+        ],
+      },
+      "_month": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": "H H * * *",
+    "result": CronExpression {
+      "_dom": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_dow": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_hour": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "H",
+          },
+        ],
+      },
+      "_minute": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "H",
+          },
+        ],
+      },
+      "_month": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+    },
+  },
+  Object {
+    "errors": Array [
+      Object {
+        "innerException": Object {
+          "column": 7,
+          "length": 3,
+          "line": 1,
+          "message": "unexpected character: ->A<- at offset: 6, skipped 3 characters.",
+          "offset": 6,
+        },
+        "message": "unexpected character: ->A<- at offset: 6, skipped 3 characters.",
+        "name": "LexingError",
+        "step": "lexing",
+      },
+      Object {
+        "context": Object {
+          "ruleOccurrenceStack": Array [
+            0,
+            5,
+          ],
+          "ruleStack": Array [
+            "cronExpression",
+            "expression",
+          ],
+        },
+        "innerException": [EarlyExitException: Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''],
+        "message": "Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''",
+        "name": "EarlyExitException",
+        "previousToken": Object {
+          "endColumn": 8,
+          "endLine": 1,
+          "endOffset": 10,
+          "image": "*",
+          "startColumn": 8,
+          "startLine": 1,
+          "startOffset": 10,
+          "tokenType": Object {
+            "CATEGORIES": Array [
+              Object {
+                "CATEGORIES": Array [],
+                "PATTERN": /NOT_APPLICABLE/,
+                "categoryMatches": Array [
+                  5,
+                  6,
+                  10,
+                  11,
+                  12,
+                  13,
+                  15,
+                  16,
+                ],
+                "categoryMatchesMap": Object {
+                  "10": true,
+                  "11": true,
+                  "12": true,
+                  "13": true,
+                  "15": true,
+                  "16": true,
+                  "5": true,
+                  "6": true,
+                },
+                "isParent": true,
+                "name": "identifier",
+                "tokenTypeIdx": 4,
+              },
+            ],
+            "PATTERN": /\\\\\\*/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "every",
+            "tokenTypeIdx": 11,
+          },
+          "tokenTypeIdx": 11,
+        },
+        "resyncedTokens": Array [],
+        "step": "parsing",
+        "token": Object {
+          "endColumn": NaN,
+          "endLine": NaN,
+          "endOffset": NaN,
+          "image": "",
+          "startColumn": NaN,
+          "startLine": NaN,
+          "startOffset": NaN,
+          "tokenType": Object {
+            "CATEGORIES": Array [],
+            "PATTERN": /NOT_APPLICABLE/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "EOF",
+            "tokenTypeIdx": 1,
+          },
+          "tokenTypeIdx": 1,
+        },
+      },
+    ],
+    "input": "5 4 * ABC *",
+    "result": null,
+  },
+  Object {
+    "errors": Array [
+      Object {
+        "context": Object {
+          "ruleOccurrenceStack": Array [],
+          "ruleStack": Array [],
+        },
+        "innerException": [NotAllInputParsedException: Redundant input, expecting EOF but found: *],
+        "message": "Redundant input, expecting EOF but found: *",
+        "name": "NotAllInputParsedException",
+        "resyncedTokens": Array [],
+        "step": "parsing",
+        "token": Object {
+          "endColumn": 11,
+          "endLine": 1,
+          "endOffset": 10,
+          "image": "*",
+          "startColumn": 11,
+          "startLine": 1,
+          "startOffset": 10,
+          "tokenType": Object {
+            "CATEGORIES": Array [
+              Object {
+                "CATEGORIES": Array [],
+                "PATTERN": /NOT_APPLICABLE/,
+                "categoryMatches": Array [
+                  5,
+                  6,
+                  10,
+                  11,
+                  12,
+                  13,
+                  15,
+                  16,
+                ],
+                "categoryMatchesMap": Object {
+                  "10": true,
+                  "11": true,
+                  "12": true,
+                  "13": true,
+                  "15": true,
+                  "16": true,
+                  "5": true,
+                  "6": true,
+                },
+                "isParent": true,
+                "name": "identifier",
+                "tokenTypeIdx": 4,
+              },
+            ],
+            "PATTERN": /\\\\\\*/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "every",
+            "tokenTypeIdx": 11,
+          },
+          "tokenTypeIdx": 11,
+        },
+      },
+    ],
+    "input": "0 5 4 * * *",
+    "result": null,
+  },
+]
+`;
+
+exports[`CronixParser parse Quartz mode 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "input": Object {
+      "hour": "4",
+      "minute": "5",
+    },
+    "result": QuartzCronExpression {
+      "_dom": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_dow": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_hour": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "4",
+          },
+        ],
+      },
+      "_minute": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "5",
+          },
+        ],
+      },
+      "_month": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_second": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "0",
+          },
+        ],
+      },
+      "_year": StringLiteral {
+        "_value": "*",
+      },
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": Object {
+      "dayOfMonth": "*",
+      "dayOfWeek": "1-5",
+      "hour": "12",
+      "minute": "0",
+      "month": "*",
+      "second": "0",
+      "year": "*",
+    },
+    "result": QuartzCronExpression {
+      "_dom": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_dow": Expression {
+        "_exprs": Array [
+          DualExpression {
+            "_lhs": StringLiteral {
+              "_value": "1",
+            },
+            "_rhs": StringLiteral {
+              "_value": "5",
+            },
+            "_separator": "-",
+          },
+        ],
+      },
+      "_hour": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "12",
+          },
+        ],
+      },
+      "_minute": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "0",
+          },
+        ],
+      },
+      "_month": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_second": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "0",
+          },
+        ],
+      },
+      "_year": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": Object {
+      "dayOfMonth": "*/3",
+      "dayOfWeek": "?",
+      "hour": "4",
+      "minute": "5",
+      "month": "*/2",
+      "second": "12",
+      "year": "*/2",
+    },
+    "result": QuartzCronExpression {
+      "_dom": Expression {
+        "_exprs": Array [
+          DualExpression {
+            "_lhs": StringLiteral {
+              "_value": "*",
+            },
+            "_rhs": StringLiteral {
+              "_value": "3",
+            },
+            "_separator": "/",
+          },
+        ],
+      },
+      "_dow": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "?",
+          },
+        ],
+      },
+      "_hour": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "4",
+          },
+        ],
+      },
+      "_minute": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "5",
+          },
+        ],
+      },
+      "_month": Expression {
+        "_exprs": Array [
+          DualExpression {
+            "_lhs": StringLiteral {
+              "_value": "*",
+            },
+            "_rhs": StringLiteral {
+              "_value": "2",
+            },
+            "_separator": "/",
+          },
+        ],
+      },
+      "_second": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "12",
+          },
+        ],
+      },
+      "_year": Expression {
+        "_exprs": Array [
+          DualExpression {
+            "_lhs": StringLiteral {
+              "_value": "*",
+            },
+            "_rhs": StringLiteral {
+              "_value": "2",
+            },
+            "_separator": "/",
+          },
+        ],
+      },
+    },
+  },
+  Object {
+    "errors": Array [
+      Object {
+        "context": Object {
+          "ruleOccurrenceStack": Array [
+            0,
+            6,
+          ],
+          "ruleStack": Array [
+            "cronExpression",
+            "expression",
+          ],
+        },
+        "innerException": [EarlyExitException: Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''],
+        "message": "Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''",
+        "name": "EarlyExitException",
+        "previousToken": Object {
+          "endColumn": 9,
+          "endLine": 1,
+          "endOffset": 8,
+          "image": "*",
+          "startColumn": 9,
+          "startLine": 1,
+          "startOffset": 8,
+          "tokenType": Object {
+            "CATEGORIES": Array [
+              Object {
+                "CATEGORIES": Array [],
+                "PATTERN": /NOT_APPLICABLE/,
+                "categoryMatches": Array [
+                  5,
+                  6,
+                  10,
+                  11,
+                  12,
+                  13,
+                  15,
+                  16,
+                ],
+                "categoryMatchesMap": Object {
+                  "10": true,
+                  "11": true,
+                  "12": true,
+                  "13": true,
+                  "15": true,
+                  "16": true,
+                  "5": true,
+                  "6": true,
+                },
+                "isParent": true,
+                "name": "identifier",
+                "tokenTypeIdx": 4,
+              },
+            ],
+            "PATTERN": /\\\\\\*/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "every",
+            "tokenTypeIdx": 11,
+          },
+          "tokenTypeIdx": 11,
+        },
+        "resyncedTokens": Array [],
+        "step": "parsing",
+        "token": Object {
+          "endColumn": NaN,
+          "endLine": NaN,
+          "endOffset": NaN,
+          "image": "",
+          "startColumn": NaN,
+          "startLine": NaN,
+          "startOffset": NaN,
+          "tokenType": Object {
+            "CATEGORIES": Array [],
+            "PATTERN": /NOT_APPLICABLE/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "EOF",
+            "tokenTypeIdx": 1,
+          },
+          "tokenTypeIdx": 1,
+        },
+      },
+    ],
+    "input": "5 4 * * *",
+    "result": null,
+  },
+  Object {
+    "errors": Array [],
+    "input": "0 5 4 * * ?",
+    "result": QuartzCronExpression {
+      "_dom": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_dow": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "?",
+          },
+        ],
+      },
+      "_hour": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "4",
+          },
+        ],
+      },
+      "_minute": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "5",
+          },
+        ],
+      },
+      "_month": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_second": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "0",
+          },
+        ],
+      },
+      "_year": StringLiteral {
+        "_value": "*",
+      },
+    },
+  },
+  Object {
+    "errors": Array [
+      Object {
+        "innerException": Object {
+          "column": 1,
+          "length": 1,
+          "line": 1,
+          "message": "unexpected character: ->H<- at offset: 0, skipped 1 characters.",
+          "offset": 0,
+        },
+        "message": "unexpected character: ->H<- at offset: 0, skipped 1 characters.",
+        "name": "LexingError",
+        "step": "lexing",
+      },
+      Object {
+        "innerException": Object {
+          "column": 2,
+          "length": 1,
+          "line": 1,
+          "message": "unexpected character: ->H<- at offset: 2, skipped 1 characters.",
+          "offset": 2,
+        },
+        "message": "unexpected character: ->H<- at offset: 2, skipped 1 characters.",
+        "name": "LexingError",
+        "step": "lexing",
+      },
+      Object {
+        "context": Object {
+          "ruleOccurrenceStack": Array [
+            0,
+            4,
+          ],
+          "ruleStack": Array [
+            "cronExpression",
+            "expression",
+          ],
+        },
+        "innerException": [EarlyExitException: Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''],
+        "message": "Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''",
+        "name": "EarlyExitException",
+        "previousToken": Object {
+          "endColumn": 7,
+          "endLine": 1,
+          "endOffset": 8,
+          "image": "*",
+          "startColumn": 7,
+          "startLine": 1,
+          "startOffset": 8,
+          "tokenType": Object {
+            "CATEGORIES": Array [
+              Object {
+                "CATEGORIES": Array [],
+                "PATTERN": /NOT_APPLICABLE/,
+                "categoryMatches": Array [
+                  5,
+                  6,
+                  10,
+                  11,
+                  12,
+                  13,
+                  15,
+                  16,
+                ],
+                "categoryMatchesMap": Object {
+                  "10": true,
+                  "11": true,
+                  "12": true,
+                  "13": true,
+                  "15": true,
+                  "16": true,
+                  "5": true,
+                  "6": true,
+                },
+                "isParent": true,
+                "name": "identifier",
+                "tokenTypeIdx": 4,
+              },
+            ],
+            "PATTERN": /\\\\\\*/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "every",
+            "tokenTypeIdx": 11,
+          },
+          "tokenTypeIdx": 11,
+        },
+        "resyncedTokens": Array [],
+        "step": "parsing",
+        "token": Object {
+          "endColumn": NaN,
+          "endLine": NaN,
+          "endOffset": NaN,
+          "image": "",
+          "startColumn": NaN,
+          "startLine": NaN,
+          "startOffset": NaN,
+          "tokenType": Object {
+            "CATEGORIES": Array [],
+            "PATTERN": /NOT_APPLICABLE/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "EOF",
+            "tokenTypeIdx": 1,
+          },
+          "tokenTypeIdx": 1,
+        },
+      },
+    ],
+    "input": "H H * * *",
+    "result": null,
+  },
+  Object {
+    "errors": Array [
+      Object {
+        "innerException": Object {
+          "column": 7,
+          "length": 3,
+          "line": 1,
+          "message": "unexpected character: ->A<- at offset: 6, skipped 3 characters.",
+          "offset": 6,
+        },
+        "message": "unexpected character: ->A<- at offset: 6, skipped 3 characters.",
+        "name": "LexingError",
+        "step": "lexing",
+      },
+      Object {
+        "context": Object {
+          "ruleOccurrenceStack": Array [
+            0,
+            5,
+          ],
+          "ruleStack": Array [
+            "cronExpression",
+            "expression",
+          ],
+        },
+        "innerException": [EarlyExitException: Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''],
+        "message": "Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''",
+        "name": "EarlyExitException",
+        "previousToken": Object {
+          "endColumn": 8,
+          "endLine": 1,
+          "endOffset": 10,
+          "image": "*",
+          "startColumn": 8,
+          "startLine": 1,
+          "startOffset": 10,
+          "tokenType": Object {
+            "CATEGORIES": Array [
+              Object {
+                "CATEGORIES": Array [],
+                "PATTERN": /NOT_APPLICABLE/,
+                "categoryMatches": Array [
+                  5,
+                  6,
+                  10,
+                  11,
+                  12,
+                  13,
+                  15,
+                  16,
+                ],
+                "categoryMatchesMap": Object {
+                  "10": true,
+                  "11": true,
+                  "12": true,
+                  "13": true,
+                  "15": true,
+                  "16": true,
+                  "5": true,
+                  "6": true,
+                },
+                "isParent": true,
+                "name": "identifier",
+                "tokenTypeIdx": 4,
+              },
+            ],
+            "PATTERN": /\\\\\\*/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "every",
+            "tokenTypeIdx": 11,
+          },
+          "tokenTypeIdx": 11,
+        },
+        "resyncedTokens": Array [],
+        "step": "parsing",
+        "token": Object {
+          "endColumn": NaN,
+          "endLine": NaN,
+          "endOffset": NaN,
+          "image": "",
+          "startColumn": NaN,
+          "startLine": NaN,
+          "startOffset": NaN,
+          "tokenType": Object {
+            "CATEGORIES": Array [],
+            "PATTERN": /NOT_APPLICABLE/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "EOF",
+            "tokenTypeIdx": 1,
+          },
+          "tokenTypeIdx": 1,
+        },
+      },
+    ],
+    "input": "5 4 * ABC *",
+    "result": null,
+  },
+  Object {
+    "errors": Array [],
+    "input": "0 5 4 * * *",
+    "result": QuartzCronExpression {
+      "_dom": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_dow": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_hour": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "4",
+          },
+        ],
+      },
+      "_minute": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "5",
+          },
+        ],
+      },
+      "_month": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "*",
+          },
+        ],
+      },
+      "_second": Expression {
+        "_exprs": Array [
+          StringLiteral {
+            "_value": "0",
+          },
+        ],
+      },
+      "_year": StringLiteral {
+        "_value": "*",
+      },
+    },
+  },
+]
+`;
+
+exports[`CronixParser parseField Cron mode 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "input": "4-10/2",
+    "result": Expression {
+      "_exprs": Array [
+        DualExpression {
+          "_lhs": DualExpression {
+            "_lhs": StringLiteral {
+              "_value": "4",
+            },
+            "_rhs": StringLiteral {
+              "_value": "10",
+            },
+            "_separator": "-",
+          },
+          "_rhs": StringLiteral {
+            "_value": "2",
+          },
+          "_separator": "/",
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [
+      Object {
+        "innerException": Object {
+          "column": 4,
+          "length": 1,
+          "line": 1,
+          "message": "unexpected character: ->#<- at offset: 3, skipped 1 characters.",
+          "offset": 3,
+        },
+        "message": "unexpected character: ->#<- at offset: 3, skipped 1 characters.",
+        "name": "LexingError",
+        "step": "lexing",
+      },
+      Object {
+        "context": Object {
+          "ruleOccurrenceStack": Array [],
+          "ruleStack": Array [],
+        },
+        "innerException": [NotAllInputParsedException: Redundant input, expecting EOF but found: 4],
+        "message": "Redundant input, expecting EOF but found: 4",
+        "name": "NotAllInputParsedException",
+        "resyncedTokens": Array [],
+        "step": "parsing",
+        "token": Object {
+          "endColumn": 4,
+          "endLine": 1,
+          "endOffset": 4,
+          "image": "4",
+          "startColumn": 4,
+          "startLine": 1,
+          "startOffset": 4,
+          "tokenType": Object {
+            "CATEGORIES": Array [
+              Object {
+                "CATEGORIES": Array [],
+                "PATTERN": /NOT_APPLICABLE/,
+                "categoryMatches": Array [
+                  5,
+                  6,
+                  10,
+                  11,
+                  12,
+                  13,
+                  15,
+                  16,
+                ],
+                "categoryMatchesMap": Object {
+                  "10": true,
+                  "11": true,
+                  "12": true,
+                  "13": true,
+                  "15": true,
+                  "16": true,
+                  "5": true,
+                  "6": true,
+                },
+                "isParent": true,
+                "name": "identifier",
+                "tokenTypeIdx": 4,
+              },
+            ],
+            "PATTERN": /\\[0-9\\]\\{1,2\\}/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "integer",
+            "tokenTypeIdx": 10,
+          },
+          "tokenTypeIdx": 10,
+        },
+      },
+    ],
+    "input": "MON#4",
+    "result": null,
+  },
+  Object {
+    "errors": Array [],
+    "input": "*",
+    "result": Expression {
+      "_exprs": Array [
+        StringLiteral {
+          "_value": "*",
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [
+      Object {
+        "innerException": Object {
+          "column": 1,
+          "length": 1,
+          "line": 1,
+          "message": "unexpected character: ->?<- at offset: 0, skipped 1 characters.",
+          "offset": 0,
+        },
+        "message": "unexpected character: ->?<- at offset: 0, skipped 1 characters.",
+        "name": "LexingError",
+        "step": "lexing",
+      },
+      Object {
+        "context": Object {
+          "ruleOccurrenceStack": Array [
+            0,
+          ],
+          "ruleStack": Array [
+            "expression",
+          ],
+        },
+        "innerException": [EarlyExitException: Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''],
+        "message": "Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''",
+        "name": "EarlyExitException",
+        "previousToken": Object {
+          "endColumn": NaN,
+          "endLine": NaN,
+          "endOffset": NaN,
+          "image": "",
+          "startColumn": NaN,
+          "startLine": NaN,
+          "startOffset": NaN,
+          "tokenType": Object {
+            "CATEGORIES": Array [],
+            "PATTERN": /NOT_APPLICABLE/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "EOF",
+            "tokenTypeIdx": 1,
+          },
+          "tokenTypeIdx": 1,
+        },
+        "resyncedTokens": Array [],
+        "step": "parsing",
+        "token": Object {
+          "endColumn": NaN,
+          "endLine": NaN,
+          "endOffset": NaN,
+          "image": "",
+          "startColumn": NaN,
+          "startLine": NaN,
+          "startOffset": NaN,
+          "tokenType": Object {
+            "CATEGORIES": Array [],
+            "PATTERN": /NOT_APPLICABLE/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "EOF",
+            "tokenTypeIdx": 1,
+          },
+          "tokenTypeIdx": 1,
+        },
+      },
+    ],
+    "input": "?",
+    "result": null,
+  },
+  Object {
+    "errors": Array [],
+    "input": "5",
+    "result": Expression {
+      "_exprs": Array [
+        StringLiteral {
+          "_value": "5",
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": "MON",
+    "result": Expression {
+      "_exprs": Array [
+        StringLiteral {
+          "_value": "MON",
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": "TUE-SUN",
+    "result": Expression {
+      "_exprs": Array [
+        DualExpression {
+          "_lhs": StringLiteral {
+            "_value": "TUE",
+          },
+          "_rhs": StringLiteral {
+            "_value": "SUN",
+          },
+          "_separator": "-",
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": "2-20",
+    "result": Expression {
+      "_exprs": Array [
+        DualExpression {
+          "_lhs": StringLiteral {
+            "_value": "2",
+          },
+          "_rhs": StringLiteral {
+            "_value": "20",
+          },
+          "_separator": "-",
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": "10/2",
+    "result": Expression {
+      "_exprs": Array [
+        DualExpression {
+          "_lhs": StringLiteral {
+            "_value": "10",
+          },
+          "_rhs": StringLiteral {
+            "_value": "2",
+          },
+          "_separator": "/",
+        },
+      ],
+    },
+  },
+]
+`;
+
+exports[`CronixParser parseField Quartz mode 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "input": "4-10/2",
+    "result": Expression {
+      "_exprs": Array [
+        DualExpression {
+          "_lhs": DualExpression {
+            "_lhs": StringLiteral {
+              "_value": "4",
+            },
+            "_rhs": StringLiteral {
+              "_value": "10",
+            },
+            "_separator": "-",
+          },
+          "_rhs": StringLiteral {
+            "_value": "2",
+          },
+          "_separator": "/",
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": "MON#4",
+    "result": Expression {
+      "_exprs": Array [
+        DayOfWeekExpr {
+          "_leftValue": StringLiteral {
+            "_value": "MON",
+          },
+          "_occurrence": 4,
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": "*",
+    "result": Expression {
+      "_exprs": Array [
+        StringLiteral {
+          "_value": "*",
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": "?",
+    "result": Expression {
+      "_exprs": Array [
+        StringLiteral {
+          "_value": "?",
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": "5",
+    "result": Expression {
+      "_exprs": Array [
+        StringLiteral {
+          "_value": "5",
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": "MON",
+    "result": Expression {
+      "_exprs": Array [
+        StringLiteral {
+          "_value": "MON",
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": "TUE-SUN",
+    "result": Expression {
+      "_exprs": Array [
+        DualExpression {
+          "_lhs": StringLiteral {
+            "_value": "TUE",
+          },
+          "_rhs": StringLiteral {
+            "_value": "SUN",
+          },
+          "_separator": "-",
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": "2-20",
+    "result": Expression {
+      "_exprs": Array [
+        DualExpression {
+          "_lhs": StringLiteral {
+            "_value": "2",
+          },
+          "_rhs": StringLiteral {
+            "_value": "20",
+          },
+          "_separator": "-",
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": "10/2",
+    "result": Expression {
+      "_exprs": Array [
+        DualExpression {
+          "_lhs": StringLiteral {
+            "_value": "10",
+          },
+          "_rhs": StringLiteral {
+            "_value": "2",
+          },
+          "_separator": "/",
+        },
+      ],
+    },
+  },
+]
+`;
+
+exports[`CronixParser parseField Quartz mode 2`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "input": "4-10/2",
+    "result": Expression {
+      "_exprs": Array [
+        DualExpression {
+          "_lhs": DualExpression {
+            "_lhs": StringLiteral {
+              "_value": "4",
+            },
+            "_rhs": StringLiteral {
+              "_value": "10",
+            },
+            "_separator": "-",
+          },
+          "_rhs": StringLiteral {
+            "_value": "2",
+          },
+          "_separator": "/",
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [
+      Object {
+        "innerException": Object {
+          "column": 4,
+          "length": 1,
+          "line": 1,
+          "message": "unexpected character: ->#<- at offset: 3, skipped 1 characters.",
+          "offset": 3,
+        },
+        "message": "unexpected character: ->#<- at offset: 3, skipped 1 characters.",
+        "name": "LexingError",
+        "step": "lexing",
+      },
+      Object {
+        "context": Object {
+          "ruleOccurrenceStack": Array [],
+          "ruleStack": Array [],
+        },
+        "innerException": [NotAllInputParsedException: Redundant input, expecting EOF but found: 4],
+        "message": "Redundant input, expecting EOF but found: 4",
+        "name": "NotAllInputParsedException",
+        "resyncedTokens": Array [],
+        "step": "parsing",
+        "token": Object {
+          "endColumn": 4,
+          "endLine": 1,
+          "endOffset": 4,
+          "image": "4",
+          "startColumn": 4,
+          "startLine": 1,
+          "startOffset": 4,
+          "tokenType": Object {
+            "CATEGORIES": Array [
+              Object {
+                "CATEGORIES": Array [],
+                "PATTERN": /NOT_APPLICABLE/,
+                "categoryMatches": Array [
+                  5,
+                  6,
+                  10,
+                  11,
+                  12,
+                  13,
+                  15,
+                  16,
+                ],
+                "categoryMatchesMap": Object {
+                  "10": true,
+                  "11": true,
+                  "12": true,
+                  "13": true,
+                  "15": true,
+                  "16": true,
+                  "5": true,
+                  "6": true,
+                },
+                "isParent": true,
+                "name": "identifier",
+                "tokenTypeIdx": 4,
+              },
+            ],
+            "PATTERN": /\\[0-9\\]\\{1,2\\}/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "integer",
+            "tokenTypeIdx": 10,
+          },
+          "tokenTypeIdx": 10,
+        },
+      },
+    ],
+    "input": "MON#4",
+    "result": null,
+  },
+  Object {
+    "errors": Array [],
+    "input": "*",
+    "result": Expression {
+      "_exprs": Array [
+        StringLiteral {
+          "_value": "*",
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [
+      Object {
+        "innerException": Object {
+          "column": 1,
+          "length": 1,
+          "line": 1,
+          "message": "unexpected character: ->?<- at offset: 0, skipped 1 characters.",
+          "offset": 0,
+        },
+        "message": "unexpected character: ->?<- at offset: 0, skipped 1 characters.",
+        "name": "LexingError",
+        "step": "lexing",
+      },
+      Object {
+        "context": Object {
+          "ruleOccurrenceStack": Array [
+            0,
+          ],
+          "ruleStack": Array [
+            "expression",
+          ],
+        },
+        "innerException": [EarlyExitException: Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''],
+        "message": "Expecting: expecting at least one iteration which starts with one of these possible Token sequences::
+  <[identifier]>
+but found: ''",
+        "name": "EarlyExitException",
+        "previousToken": Object {
+          "endColumn": NaN,
+          "endLine": NaN,
+          "endOffset": NaN,
+          "image": "",
+          "startColumn": NaN,
+          "startLine": NaN,
+          "startOffset": NaN,
+          "tokenType": Object {
+            "CATEGORIES": Array [],
+            "PATTERN": /NOT_APPLICABLE/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "EOF",
+            "tokenTypeIdx": 1,
+          },
+          "tokenTypeIdx": 1,
+        },
+        "resyncedTokens": Array [],
+        "step": "parsing",
+        "token": Object {
+          "endColumn": NaN,
+          "endLine": NaN,
+          "endOffset": NaN,
+          "image": "",
+          "startColumn": NaN,
+          "startLine": NaN,
+          "startOffset": NaN,
+          "tokenType": Object {
+            "CATEGORIES": Array [],
+            "PATTERN": /NOT_APPLICABLE/,
+            "categoryMatches": Array [],
+            "categoryMatchesMap": Object {},
+            "isParent": false,
+            "name": "EOF",
+            "tokenTypeIdx": 1,
+          },
+          "tokenTypeIdx": 1,
+        },
+      },
+    ],
+    "input": "?",
+    "result": null,
+  },
+  Object {
+    "errors": Array [],
+    "input": "5",
+    "result": Expression {
+      "_exprs": Array [
+        StringLiteral {
+          "_value": "5",
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": "MON",
+    "result": Expression {
+      "_exprs": Array [
+        StringLiteral {
+          "_value": "MON",
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": "TUE-SUN",
+    "result": Expression {
+      "_exprs": Array [
+        DualExpression {
+          "_lhs": StringLiteral {
+            "_value": "TUE",
+          },
+          "_rhs": StringLiteral {
+            "_value": "SUN",
+          },
+          "_separator": "-",
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": "2-20",
+    "result": Expression {
+      "_exprs": Array [
+        DualExpression {
+          "_lhs": StringLiteral {
+            "_value": "2",
+          },
+          "_rhs": StringLiteral {
+            "_value": "20",
+          },
+          "_separator": "-",
+        },
+      ],
+    },
+  },
+  Object {
+    "errors": Array [],
+    "input": "10/2",
+    "result": Expression {
+      "_exprs": Array [
+        DualExpression {
+          "_lhs": StringLiteral {
+            "_value": "10",
+          },
+          "_rhs": StringLiteral {
+            "_value": "2",
+          },
+          "_separator": "/",
+        },
+      ],
+    },
+  },
+]
+`;

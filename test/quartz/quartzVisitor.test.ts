@@ -1,9 +1,9 @@
 import { EarlyExitException, Lexer, MismatchedTokenException } from "chevrotain";
-import { quartzTokens, QuartzParser, QuartzVisitor } from "@/quartz";
+import { quartzTokens, QuartzCstParser, QuartzVisitor } from "@/quartz";
 import { QuartzCronExpression } from "@/quartz/syntax";
 
 describe("QuartzVisitor", () => {
-  const parser = new QuartzParser();
+  const parser = new QuartzCstParser();
   const lexer = new Lexer(quartzTokens);
   const visitor = new QuartzVisitor();
 

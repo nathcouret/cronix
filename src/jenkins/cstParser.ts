@@ -1,7 +1,7 @@
 import { jenkinsVocabulary } from "./lexer";
-import { BaseParser } from "@/common";
+import { BaseCstParser } from "@/common";
 
-export class JenkinsParser extends BaseParser {
+export class JenkinsCstParser extends BaseCstParser {
   constructor() {
     super(jenkinsVocabulary, true);
     this.performSelfAnalysis();
