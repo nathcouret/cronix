@@ -1,22 +1,22 @@
-import { CronixCron, CronixJenkins, CronixParserException, CronixQuartz } from "./CronixParser";
+import { CronParser, JenkinsParser, ParserException, QuartzParser } from "./CronixParser";
 import CronixMode from "./CronixMode";
 import CronixExpression from "./CronixExpression";
 import { CronExpression } from "@/common";
 
 export interface ParseResult {
   value: CronExpression | null;
-  errors: CronixParserException[];
+  errors: ParserException[];
 }
 
 function getParser(mode: CronixMode) {
   switch (mode) {
     case CronixMode.JENKINS:
-      return new CronixJenkins();
+      return new JenkinsParser();
     case CronixMode.QUARTZ:
-      return new CronixQuartz();
+      return new QuartzParser();
     case CronixMode.CRONTAB:
     default:
-      return new CronixCron();
+      return new CronParser();
   }
 }
 
@@ -34,5 +34,4 @@ export default function parse(expression: string | CronixExpression, mode = Cron
     errors: parser.errors
   };
 }
-
 

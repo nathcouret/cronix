@@ -6,7 +6,6 @@ export type CstRule = (idxInCallingRule?: number, ...args: any[]) => CstNode;
 
 export class BaseCstParser extends CstParser {
 
-
   constructor(vocabulary: TokenVocabulary, invokedByChild = false) {
     super(vocabulary);
     if (!invokedByChild) {

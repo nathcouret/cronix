@@ -23,10 +23,10 @@ npm install cronix
 ## Usage
 
 To parse an expression simply call the cronix function. By default expression are parsed according to the standard crontab format.
-You can specify options as a second argument to change that behaviour.
+You can specify the mode as a second parameter to change that behaviour.
 
 ````javascript
-import { cronix, CronMode } from "cronix";
+import { cronix, CronixMode } from "cronix";
 // Every day at 00:00
 // const expression = "0 0 * * *";
 const expression = {
@@ -35,46 +35,35 @@ const expression = {
 };
 
 const parsedCron = cronix(expression);
-
+const cronAst = parsedCron.value;
 // Get the computed expression using the value() method
 // should be equal to expression
-console.log(parsedCron.value.value());
+console.log(cronAst.value());
+// should be an empty array
+console.log(parsedCron.errors);
 
 expression.year = "*/2";
 
 // Quartz supports a year field that is not available in standard cron
-const parsedQuartz = cronix(expression, {mode: CronMode.QUARTZ});
+const parsedQuartz = cronix(expression, CronixMode.QUARTZ);
 console.log(parsedQuartz.value.value());
 ````
 
-Alternatively you can use the class parser to manipulate expressions. 
+Alternatively you can use the class parser. Choose the implementation relevant to the desired dialect.
 
 ````javascript
-import { CronixParser } from "cronix";
+import { CronParser } from "cronix";
 
 // Every day at 00:00
 const expression = "0 0 * * *";
-const parser = new CronixParser();
+const parser = new CronParser();
 
 const ast = parser.parse(expression);
 // should be equal to expression
 console.log(ast.value());
-
-// You can use the parser to update a field in the expression
-ast.minute = parser.parseElement("0,30");
-// should be equal to 0,30
-console.log(ast.minute.value());
 ````
 
 ## API
-
-### CronixOptions
-
-The options that can be passed to the parser.
-
-| option | type | default | description |
-|-----------|------|----------|-------------|
-| mode | `CronMode` | `CRONTAB` | Possible values: CRONTAB, QUARTZ, JENKISN |
 
 ### CronixExpression
 
@@ -96,7 +85,7 @@ Parse an expression into the corresponding ast. The output can be a subclass of 
 If parsing fails a `CronixParserException` is thrown.
 
 ```typescript
-function cronix(expression: string|CronixExpression, options: CronixOptions = {mode: CronixMode.CRONTAB}): CronExpression
+function cronix(expression: string|CronixExpression, mode: CronixMode): {value: CronExpression, errors: ParserException[]}
 ```
 
 | Parameter | type | optional | description |
@@ -107,26 +96,25 @@ function cronix(expression: string|CronixExpression, options: CronixOptions = {m
 | Return field | type | optional | description |
 |-----------|------|----------|-------------|
 | value | `CronExpression` | | The parsed expression. Null if the input cannot be parsed |
-| errors | `array of CronixParserException` | | The errors encountered by the parser |
+| errors | `array of ParserException` | | The errors encountered by the parser |
 
 ### CronixParser
 
-Class holding a parsing context to reuse in repeated parsing. Can also be used to parse single field expression.
+Class holding a parsing context to reuse in repeated parsing. The base CronixParser class is abstract 
+and should be subclassed to handle a specific dialect.
 
-#### constructor
+#### Available implementations
 
-```typescript
-constructor(options: CronixOptions = {mode: CronixMode.CRONTAB}): CronixParser
-```
-
-| Parameter | type | optional | description |
-|-----------|------|----------|-------------|
-| options | `CronixOptions` | Yes (defaults to Crontab mode) | The parser options |
+| Dialect | type | constructor|
+|-----------|------|----------|
+| crontab | `CronParser` | `new CronParser()` |
+| quartz | `QuartzParser` | `new QuartzParser()` |
+| jenkins | `JenkinsParser` | `new JenkinsParser()` |
 
 #### parse
 
 Parse a cron expression according to the parser's context. Returns an ast corresponding to the parsed expression. 
-If parsing fails a `CronixParserException` will be added to the error list and the return value will be null.
+If parsing fails one or more `ParserException` will be added to the error list and the return value will be null.
 
 ```typescript
 function parse(expression: string|CronixExpression): CronExpression
@@ -136,25 +124,12 @@ function parse(expression: string|CronixExpression): CronExpression
 |-----------|------|----------|-------------|
 | expression | `string or CronixExpression` | | The expression to parse |
 
-#### parseField 
-
-Parse a single field according to the parser's context. Returns an ast corresponding to the parsed field.
-If parsing fails a `CronixParserException` will be added to the error list and the return value will be null.
-
-```typescript
-function parseField(expression: string): CronExpression
-```
-
-| Parameter | type | optional | description |
-|-----------|------|----------|-------------|
-| expression | `string` | The expression to parse |
-
 #### errors
 
 A getters that returns a list of errors encountered during. Useful for figuring out where the parsing fail.
-It is reset with each call of parse or parsefield method.
+It is reset with each call of parse method.
 
-### CronixParserException
+### ParserException
 
 An exception indicating an error occured during a parse or parseField call. It wraps the caught expression with an indication of the step at which it failed.
 
@@ -173,7 +148,7 @@ Build into a ES5 package. Output can be found in the dist folder.
 
 > test
 
-Run unit tests
+Run Jest unit tests
 
 > lint
 

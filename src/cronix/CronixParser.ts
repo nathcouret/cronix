@@ -52,7 +52,7 @@ export enum ParserStep {
 /**
  * An exception raised during parsing to indicate failure to process the input.
  */
-export interface CronixParserException extends Error {
+export interface ParserException extends Error {
   /**
    * The root cause of the exception
    */
@@ -72,7 +72,7 @@ export abstract class CronixParser<T extends CronExpression = CronExpression> {
   private readonly _parser: DefaultParser;
   private readonly _visitor: AbstractVisitor;
 
-  private _errors: CronixParserException[];
+  private _errors: ParserException[];
 
   constructor(options: CronixOptions = {
     mode: CronixMode.CRONTAB,
@@ -186,7 +186,7 @@ export abstract class CronixParser<T extends CronExpression = CronExpression> {
   }
 }
 
-export class CronixCron extends CronixParser {
+export class CronParser extends CronixParser {
   constructor() {
     super({
       mode: CronixMode.CRONTAB,
@@ -196,7 +196,7 @@ export class CronixCron extends CronixParser {
 
 }
 
-export class CronixQuartz extends CronixParser<QuartzCronExpression> {
+export class QuartzParser extends CronixParser<QuartzCronExpression> {
   constructor() {
     super({
       mode: CronixMode.QUARTZ,
@@ -205,7 +205,7 @@ export class CronixQuartz extends CronixParser<QuartzCronExpression> {
   }
 }
 
-export class CronixJenkins extends CronixParser {
+export class JenkinsParser extends CronixParser {
   constructor() {
     super({
       mode: CronixMode.JENKINS,
