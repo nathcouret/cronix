@@ -51,6 +51,6 @@ export default class CronExpression implements SyntaxNode {
   }
 
   value() {
-    return ` ${this._minute.value()} ${this._hour.value()} ${this._dom.value()} ${this._month.value()} ${this._dow.value()}`;
+    return `${this._minute.value()} ${this._hour.value()} ${this._dom.value()} ${this._month.value()} ${this._dow.value()}`;
   }
 }

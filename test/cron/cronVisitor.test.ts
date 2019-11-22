@@ -1,9 +1,9 @@
 import { Lexer } from "chevrotain";
 import { baseTokens } from "@/common";
-import { CronParser, CronVisitor } from "@/cron";
+import { CronCstParser, CronVisitor } from "@/cron";
 import { CronExpression } from "@/common/syntax";
 
-const parser = new CronParser();
+const parser = new CronCstParser();
 const lexer = new Lexer(baseTokens);
 
 function parse(input: string) {

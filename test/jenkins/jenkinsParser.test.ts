@@ -1,7 +1,7 @@
 import { EarlyExitException, Lexer, NotAllInputParsedException } from "chevrotain";
-import { jenkinsTokens, JenkinsParser } from "@/jenkins";
+import { jenkinsTokens, JenkinsCstParser } from "@/jenkins";
 
-const parser = new JenkinsParser();
+const parser = new JenkinsCstParser();
 const lexer = new Lexer(jenkinsTokens);
 
 function parse(input: string) {

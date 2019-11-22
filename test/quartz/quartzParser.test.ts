@@ -1,8 +1,8 @@
 import { Lexer } from "chevrotain";
-import { quartzTokens, QuartzParser } from "@/quartz";
+import { quartzTokens, QuartzCstParser } from "@/quartz";
 
 const lexer = new Lexer(quartzTokens);
-const parser = new QuartzParser();
+const parser = new QuartzCstParser();
 
 function parse(input: string) {
   const lexingResult = lexer.tokenize(input);

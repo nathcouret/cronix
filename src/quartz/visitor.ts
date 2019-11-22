@@ -1,11 +1,12 @@
-import { QuartzParser } from "./parser";
+import { QuartzCstParser } from "./cstParser";
 import { StringLiteral } from "@/common/syntax";
 import { DayOfWeekExpr, QuartzCronExpression } from "./syntax";
 import abstractVisitor from "@/common/AbstractVisitorConstructor";
 import { DowContext, QuartzCronExpressionContext, QuartzExprNotUnionContext } from "./context";
 import { InvalidValueException } from "@/common/syntax/InvalidValueException";
 
-const QuartzVisitorConstructor = abstractVisitor(new QuartzParser().getBaseCstVisitorConstructor());
+const QuartzVisitorConstructor = abstractVisitor(new QuartzCstParser().getBaseCstVisitorConstructor());
+
 export class QuartzVisitor extends QuartzVisitorConstructor {
   constructor() {
     super(QuartzVisitorConstructor, true);
@@ -38,7 +39,7 @@ export class QuartzVisitor extends QuartzVisitorConstructor {
 
   dow(ctx: DowContext, lhs: StringLiteral) {
     const occurrence = ctx.occurence[0].image === "L" ? 5 : parseInt(ctx.occurence[0].image, 10);
-    if(occurrence > 5) {
+    if (occurrence > 5) {
       throw new InvalidValueException("Occurrence value in Day of week expression should be less than or equal to 5");
     }
     return new DayOfWeekExpr(lhs, occurrence);
