@@ -117,7 +117,7 @@ Parse a cron expression according to the parser's context. Returns an ast corres
 If parsing fails one or more `ParserException` will be added to the error list and the return value will be null.
 
 ```typescript
-function parse(expression: string|CronixExpression): CronExpression
+function CronixParser.parse(expression: string|CronixExpression): CronExpression
 ```
 
 | Parameter | type | optional | description |
@@ -136,7 +136,7 @@ An exception indicating an error occured during a parse or parseField call. It w
 | field | type | optional | description |
 |-----------|------|----------|-------------|
 | innerException | `Error or ILexingError` | | The root cause |
-| options | `lexing or parsing or semantic` |  | The step at which parsing failed |
+| step | `lexing or parsing or semantic` |  | The step at which parsing failed |
 
 Other fields are inherited from the [Error interface](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) definition
 
