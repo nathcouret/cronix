@@ -9,7 +9,7 @@ describe("cronix tests", () => {
     // When
     const result = cronix("0 5 4 * * ?", CronixMode.QUARTZ);
     // Then
-    expect(result.value.value()).toBe("0 5 4 * * ? *");
+    expect(result.ast.value()).toBe("0 5 4 * * ? *");
     expect(result.errors.length).toBe(0);
   });
 
@@ -18,7 +18,7 @@ describe("cronix tests", () => {
     // When
     const result = cronix("0 5 4 * * ?");
     // Then
-    expect(result.value).toBeNull();
+    expect(result.ast).toBeNull();
     expect(result.errors.length).toBe(1);
   });
 
@@ -27,7 +27,7 @@ describe("cronix tests", () => {
     // When
     const result = cronix("5 4 * * *");
     // Then
-    expect(result.value.value()).toBe("5 4 * * *");
+    expect(result.ast.value()).toBe("5 4 * * *");
     expect(result.errors.length).toBe(0);
   });
 });

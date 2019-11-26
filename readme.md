@@ -1,8 +1,7 @@
 [![npm](https://img.shields.io/npm/v/cronix?style=flat-square)](https://npmjs.com/package/cronix)
 [![codecov](https://codecov.io/gh/Ataww/cronix/branch/develop/graph/badge.svg)](https://codecov.io/gh/Ataww/cronix)
 
-Cronix
-==========
+# Cronix
 
 A cron parser/generator with support for multiple cron dialect such as Quartz or Jenkins.
 
@@ -95,7 +94,7 @@ function cronix(expression: string|CronixExpression, mode: CronixMode): {value: 
 
 | Return field | type | optional | description |
 |-----------|------|----------|-------------|
-| value | `CronExpression` | | The parsed expression. Null if the input cannot be parsed |
+| ast | `CronExpression` | | The parsed expression. Null if the input cannot be parsed |
 | errors | `array of ParserException` | | The errors encountered by the parser |
 
 ### CronixParser
@@ -140,7 +139,36 @@ An exception indicating an error occured during a parse or parseField call. It w
 
 Other fields are inherited from the [Error interface](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) definition
 
-## scripts
+### Output AST
+
+#### SyntaxNode
+
+The base interface for all nodes in the AST.
+
+| method | signature         | description                                                                |
+|--------|-------------------|----------------------------------------------------------------------------|
+| value  | `value(): string` | The generated value for this node. Recursively called for each child node. |
+
+#### StringLiteral
+
+Nodes containing terminal values in the ast. Can be a number or a literal alias (MON,TUE,SUN... for days for instance).
+
+| method      | signature                      | description                                |
+|-------------|--------------------------------|--------------------------------------------|
+| constructor | `StringLiteral(value: string)` | Instantiate a literal with the given value |
+
+#### DualExpression
+
+An expression comprising of two node operands. Known implementations are range and step expression.
+
+| method      | signature                                          | description                                            |
+|-------------|----------------------------------------------------|--------------------------------------------------------|
+| constructor | `DualExpression(lhs: SyntaxNode, rhs: SyntaxNode)` | Instantiate a dual expression with the given operands. |
+
+
+## development
+
+### Scripts
 
 > build
 
@@ -153,3 +181,11 @@ Run Jest unit tests
 > lint
 
 run eslint on the sources.
+
+> lint:fix
+
+Run eslint and correct fixable violations.
+
+> clean
+
+Clean and delete the output folder.
