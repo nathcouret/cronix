@@ -43,7 +43,7 @@ const abstractVisitor = <T extends AbstractVisitorConstructor>(base: T) => {
     atomicExpr(ctx: AtomicExprContext, lhs: StringLiteral) {
       let expr: SyntaxNode = lhs;
       if (ctx.range) {
-        const rhs = this.visit(ctx.range);
+        const rhs: StringLiteral = this.visit(ctx.range);
         const leftValue = Number(lhs.value());
         const rightValue = Number(rhs.value());
         if (!isNaN(leftValue) && !isNaN(rightValue)) {

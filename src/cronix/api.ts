@@ -4,7 +4,7 @@ import CronixExpression from "./CronixExpression";
 import { CronExpression } from "@/common";
 
 export interface ParseResult {
-  value: CronExpression | null;
+  ast: CronExpression | null;
   errors: ParserException[];
 }
 
@@ -26,11 +26,11 @@ function getParser(mode: CronixMode) {
  * @param expression The expression to parse
  * @param mode The mode the parser operates in
  */
-export default function parse(expression: string | CronixExpression, mode = CronixMode.CRONTAB): ParseResult {
+export default function cronix(expression: string | CronixExpression, mode = CronixMode.CRONTAB): ParseResult {
   const parser = getParser(mode);
   const value = parser.parse(expression);
   return {
-    value: parser.errors.length > 0 ? null : value,
+    ast: parser.errors.length > 0 ? null : value,
     errors: parser.errors
   };
 }
