@@ -90,7 +90,7 @@ function cronix(expression: string|CronixExpression, mode: CronixMode): {value: 
 | Parameter | type | optional | description |
 |-----------|------|----------|-------------|
 | expression | `string or CronixExpression` | | The expression to parse |
-| options | `CronixOptions` | Yes (defaults to Crontab mode) | The parser options |
+| mode | `CronixMode` | Yes (defaults to Crontab mode) | The parser mode. Available options are CRONTAB, JENKINS, or QUARTZ |
 
 | Return field | type | optional | description |
 |-----------|------|----------|-------------|
