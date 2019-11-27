@@ -9,35 +9,35 @@ Array [
       "minute": "5",
     },
     "result": CronExpression {
-      "_dom": Expression {
+      "_dom": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_dow": Expression {
+      "_dow": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_hour": Expression {
+      "_hour": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "4",
           },
         ],
       },
-      "_minute": Expression {
+      "_minute": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "5",
           },
         ],
       },
-      "_month": Expression {
+      "_month": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
@@ -58,14 +58,14 @@ Array [
       "year": "*",
     },
     "result": CronExpression {
-      "_dom": Expression {
+      "_dom": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_dow": Expression {
+      "_dow": Field {
         "_exprs": Array [
           DualExpression {
             "_lhs": StringLiteral {
@@ -78,21 +78,21 @@ Array [
           },
         ],
       },
-      "_hour": Expression {
+      "_hour": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "12",
           },
         ],
       },
-      "_minute": Expression {
+      "_minute": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "0",
           },
         ],
       },
-      "_month": Expression {
+      "_month": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
@@ -218,35 +218,35 @@ but found: ''",
     "errors": Array [],
     "input": "5 4 * * *",
     "result": CronExpression {
-      "_dom": Expression {
+      "_dom": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_dow": Expression {
+      "_dow": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_hour": Expression {
+      "_hour": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "4",
           },
         ],
       },
-      "_minute": Expression {
+      "_minute": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "5",
           },
         ],
       },
-      "_month": Expression {
+      "_month": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
@@ -272,35 +272,35 @@ but found: ''",
     ],
     "input": "0 5 4 * * ?",
     "result": CronExpression {
-      "_dom": Expression {
+      "_dom": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "4",
           },
         ],
       },
-      "_dow": Expression {
+      "_dow": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_hour": Expression {
+      "_hour": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "5",
           },
         ],
       },
-      "_minute": Expression {
+      "_minute": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "0",
           },
         ],
       },
-      "_month": Expression {
+      "_month": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
@@ -607,35 +607,35 @@ Array [
       "minute": "5",
     },
     "result": CronExpression {
-      "_dom": Expression {
+      "_dom": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_dow": Expression {
+      "_dow": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_hour": Expression {
+      "_hour": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "4",
           },
         ],
       },
-      "_minute": Expression {
+      "_minute": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "5",
           },
         ],
       },
-      "_month": Expression {
+      "_month": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
@@ -656,14 +656,14 @@ Array [
       "year": "*",
     },
     "result": CronExpression {
-      "_dom": Expression {
+      "_dom": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_dow": Expression {
+      "_dow": Field {
         "_exprs": Array [
           DualExpression {
             "_lhs": StringLiteral {
@@ -676,21 +676,21 @@ Array [
           },
         ],
       },
-      "_hour": Expression {
+      "_hour": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "12",
           },
         ],
       },
-      "_minute": Expression {
+      "_minute": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "0",
           },
         ],
       },
-      "_month": Expression {
+      "_month": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
@@ -816,35 +816,35 @@ but found: ''",
     "errors": Array [],
     "input": "5 4 * * *",
     "result": CronExpression {
-      "_dom": Expression {
+      "_dom": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_dow": Expression {
+      "_dow": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_hour": Expression {
+      "_hour": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "4",
           },
         ],
       },
-      "_minute": Expression {
+      "_minute": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "5",
           },
         ],
       },
-      "_month": Expression {
+      "_month": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
@@ -870,35 +870,35 @@ but found: ''",
     ],
     "input": "0 5 4 * * ?",
     "result": CronExpression {
-      "_dom": Expression {
+      "_dom": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "4",
           },
         ],
       },
-      "_dow": Expression {
+      "_dow": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_hour": Expression {
+      "_hour": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "5",
           },
         ],
       },
-      "_minute": Expression {
+      "_minute": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "0",
           },
         ],
       },
-      "_month": Expression {
+      "_month": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
@@ -911,35 +911,35 @@ but found: ''",
     "errors": Array [],
     "input": "H H * * *",
     "result": CronExpression {
-      "_dom": Expression {
+      "_dom": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_dow": Expression {
+      "_dow": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_hour": Expression {
+      "_hour": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "H",
           },
         ],
       },
-      "_minute": Expression {
+      "_minute": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "H",
           },
         ],
       },
-      "_month": Expression {
+      "_month": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
@@ -1129,42 +1129,42 @@ Array [
       "minute": "5",
     },
     "result": QuartzCronExpression {
-      "_dom": Expression {
+      "_dom": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_dow": Expression {
+      "_dow": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_hour": Expression {
+      "_hour": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "4",
           },
         ],
       },
-      "_minute": Expression {
+      "_minute": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "5",
           },
         ],
       },
-      "_month": Expression {
+      "_month": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_second": Expression {
+      "_second": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "0",
@@ -1188,14 +1188,14 @@ Array [
       "year": "*",
     },
     "result": QuartzCronExpression {
-      "_dom": Expression {
+      "_dom": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_dow": Expression {
+      "_dow": Field {
         "_exprs": Array [
           DualExpression {
             "_lhs": StringLiteral {
@@ -1208,35 +1208,35 @@ Array [
           },
         ],
       },
-      "_hour": Expression {
+      "_hour": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "12",
           },
         ],
       },
-      "_minute": Expression {
+      "_minute": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "0",
           },
         ],
       },
-      "_month": Expression {
+      "_month": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_second": Expression {
+      "_second": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "0",
           },
         ],
       },
-      "_year": Expression {
+      "_year": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
@@ -1257,7 +1257,7 @@ Array [
       "year": "*/2",
     },
     "result": QuartzCronExpression {
-      "_dom": Expression {
+      "_dom": Field {
         "_exprs": Array [
           DualExpression {
             "_lhs": StringLiteral {
@@ -1270,28 +1270,28 @@ Array [
           },
         ],
       },
-      "_dow": Expression {
+      "_dow": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "?",
           },
         ],
       },
-      "_hour": Expression {
+      "_hour": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "4",
           },
         ],
       },
-      "_minute": Expression {
+      "_minute": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "5",
           },
         ],
       },
-      "_month": Expression {
+      "_month": Field {
         "_exprs": Array [
           DualExpression {
             "_lhs": StringLiteral {
@@ -1304,14 +1304,14 @@ Array [
           },
         ],
       },
-      "_second": Expression {
+      "_second": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "12",
           },
         ],
       },
-      "_year": Expression {
+      "_year": Field {
         "_exprs": Array [
           DualExpression {
             "_lhs": StringLiteral {
@@ -1423,42 +1423,42 @@ but found: ''",
     "errors": Array [],
     "input": "0 5 4 * * ?",
     "result": QuartzCronExpression {
-      "_dom": Expression {
+      "_dom": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_dow": Expression {
+      "_dow": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "?",
           },
         ],
       },
-      "_hour": Expression {
+      "_hour": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "4",
           },
         ],
       },
-      "_minute": Expression {
+      "_minute": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "5",
           },
         ],
       },
-      "_month": Expression {
+      "_month": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_second": Expression {
+      "_second": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "0",
@@ -1696,42 +1696,42 @@ but found: ''",
     "errors": Array [],
     "input": "0 5 4 * * *",
     "result": QuartzCronExpression {
-      "_dom": Expression {
+      "_dom": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_dow": Expression {
+      "_dow": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_hour": Expression {
+      "_hour": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "4",
           },
         ],
       },
-      "_minute": Expression {
+      "_minute": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "5",
           },
         ],
       },
-      "_month": Expression {
+      "_month": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "*",
           },
         ],
       },
-      "_second": Expression {
+      "_second": Field {
         "_exprs": Array [
           StringLiteral {
             "_value": "0",
@@ -1751,7 +1751,7 @@ Array [
   Object {
     "errors": Array [],
     "input": "4-10/2",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         DualExpression {
           "_lhs": DualExpression {
@@ -1850,7 +1850,7 @@ Array [
   Object {
     "errors": Array [],
     "input": "*",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         StringLiteral {
           "_value": "*",
@@ -1936,7 +1936,7 @@ but found: ''",
   Object {
     "errors": Array [],
     "input": "5",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         StringLiteral {
           "_value": "5",
@@ -1947,7 +1947,7 @@ but found: ''",
   Object {
     "errors": Array [],
     "input": "MON",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         StringLiteral {
           "_value": "MON",
@@ -1958,7 +1958,7 @@ but found: ''",
   Object {
     "errors": Array [],
     "input": "TUE-SUN",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         DualExpression {
           "_lhs": StringLiteral {
@@ -1975,7 +1975,7 @@ but found: ''",
   Object {
     "errors": Array [],
     "input": "2-20",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         DualExpression {
           "_lhs": StringLiteral {
@@ -1992,7 +1992,7 @@ but found: ''",
   Object {
     "errors": Array [],
     "input": "10/2",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         DualExpression {
           "_lhs": StringLiteral {
@@ -2014,7 +2014,7 @@ Array [
   Object {
     "errors": Array [],
     "input": "4-10/2",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         DualExpression {
           "_lhs": DualExpression {
@@ -2037,7 +2037,7 @@ Array [
   Object {
     "errors": Array [],
     "input": "MON#4",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         DayOfWeekExpr {
           "_leftValue": StringLiteral {
@@ -2051,7 +2051,7 @@ Array [
   Object {
     "errors": Array [],
     "input": "*",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         StringLiteral {
           "_value": "*",
@@ -2062,7 +2062,7 @@ Array [
   Object {
     "errors": Array [],
     "input": "?",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         StringLiteral {
           "_value": "?",
@@ -2073,7 +2073,7 @@ Array [
   Object {
     "errors": Array [],
     "input": "5",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         StringLiteral {
           "_value": "5",
@@ -2084,7 +2084,7 @@ Array [
   Object {
     "errors": Array [],
     "input": "MON",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         StringLiteral {
           "_value": "MON",
@@ -2095,7 +2095,7 @@ Array [
   Object {
     "errors": Array [],
     "input": "TUE-SUN",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         DualExpression {
           "_lhs": StringLiteral {
@@ -2112,7 +2112,7 @@ Array [
   Object {
     "errors": Array [],
     "input": "2-20",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         DualExpression {
           "_lhs": StringLiteral {
@@ -2129,7 +2129,7 @@ Array [
   Object {
     "errors": Array [],
     "input": "10/2",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         DualExpression {
           "_lhs": StringLiteral {
@@ -2151,7 +2151,7 @@ Array [
   Object {
     "errors": Array [],
     "input": "4-10/2",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         DualExpression {
           "_lhs": DualExpression {
@@ -2250,7 +2250,7 @@ Array [
   Object {
     "errors": Array [],
     "input": "*",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         StringLiteral {
           "_value": "*",
@@ -2336,7 +2336,7 @@ but found: ''",
   Object {
     "errors": Array [],
     "input": "5",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         StringLiteral {
           "_value": "5",
@@ -2347,7 +2347,7 @@ but found: ''",
   Object {
     "errors": Array [],
     "input": "MON",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         StringLiteral {
           "_value": "MON",
@@ -2358,7 +2358,7 @@ but found: ''",
   Object {
     "errors": Array [],
     "input": "TUE-SUN",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         DualExpression {
           "_lhs": StringLiteral {
@@ -2375,7 +2375,7 @@ but found: ''",
   Object {
     "errors": Array [],
     "input": "2-20",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         DualExpression {
           "_lhs": StringLiteral {
@@ -2392,7 +2392,7 @@ but found: ''",
   Object {
     "errors": Array [],
     "input": "10/2",
-    "result": Expression {
+    "result": Field {
       "_exprs": Array [
         DualExpression {
           "_lhs": StringLiteral {

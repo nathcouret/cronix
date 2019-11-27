@@ -141,6 +141,10 @@ Other fields are inherited from the [Error interface](https://developer.mozilla.
 
 ### Output AST
 
+Below are described the different classes that composes the output AST.
+At the top is a single CronExpression instance, composed of several Field (minute, hour, day of month, ...) that can contain a list of either literals (singular expression) or dual expression (range or step).
+Dialects can have their own special expression.
+
 #### SyntaxNode
 
 The base interface for all nodes in the AST.
@@ -148,6 +152,22 @@ The base interface for all nodes in the AST.
 | method | signature         | description                                                                |
 |--------|-------------------|----------------------------------------------------------------------------|
 | value  | `value(): string` | The generated value for this node. Recursively called for each child node. |
+
+#### CronExpression
+
+The root element of the AST. Can be subclassed by dialects wish to have a different signature (Quartz having the second field first).
+
+| method      | signature                                          | description                                            |
+|-------------|----------------------------------------------------|--------------------------------------------------------|
+| constructor | `CronExpression(minute?: SyntaxNode, hour?: SyntaxNode, dom?: SyntaxNode, month?: SyntaxNode, dow?: SyntaxNode` | Instantiate a CronExpression. Each field is optional and defaults to `*` |
+
+#### Field
+
+Represents a single field in the cron expression.
+
+| method      | signature                    | description                                    |
+|-------------|------------------------------|------------------------------------------------|
+| constructor | `Field(exprs: SyntaxNode[])` | Instantiate a field with the given expressions |
 
 #### StringLiteral
 
@@ -161,10 +181,9 @@ Nodes containing terminal values in the ast. Can be a number or a literal alias 
 
 An expression comprising of two node operands. Known implementations are range and step expression.
 
-| method      | signature                                          | description                                            |
-|-------------|----------------------------------------------------|--------------------------------------------------------|
-| constructor | `DualExpression(lhs: SyntaxNode, rhs: SyntaxNode)` | Instantiate a dual expression with the given operands. |
-
+| method      | signature                                          | description                                           |
+|-------------|----------------------------------------------------|-------------------------------------------------------|
+| constructor | `DualExpression(lhs: SyntaxNode, rhs: SyntaxNode)` | Instantiate a dual expression with the given operands |
 
 ## development
 
