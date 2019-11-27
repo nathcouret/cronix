@@ -1,6 +1,6 @@
 {
   "name": "cronix",
-  "version": "0.1.0-RC1",
+  "version": "0.1.0",
   "main": "dist/cronix.js",
   "module": "dist/cronix.es.js",
   "browser": "dist/cronix.umd.js",
