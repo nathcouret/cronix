@@ -34,7 +34,7 @@ const expression = {
 };
 
 const parsedCron = cronix(expression);
-const cronAst = parsedCron.value;
+const cronAst = parsedCron.ast;
 // Get the computed expression using the value() method
 // should be equal to expression
 console.log(cronAst.value());
@@ -45,7 +45,7 @@ expression.year = "*/2";
 
 // Quartz supports a year field that is not available in standard cron
 const parsedQuartz = cronix(expression, CronixMode.QUARTZ);
-console.log(parsedQuartz.value.value());
+console.log(parsedQuartz.ast.value());
 ````
 
 Alternatively you can use the class parser. Choose the implementation relevant to the desired dialect.

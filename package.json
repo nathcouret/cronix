@@ -17,7 +17,6 @@
   "description": "A cron parser/generator with support for multiple dialects such as Quartz or Jenkins.",
   "keywords": [
     "cron",
-    "javascript",
     "typescript"
   ],
   "scripts": {
