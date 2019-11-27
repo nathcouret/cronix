@@ -71,7 +71,7 @@ An object representing an input expression. Can be used when you only need to fi
 | field | type | optional | description |
 |-----------|------|----------|-------------|
 | minute | `string` | yes | The minute field |
-`| hour | `string` | yes | The hour field |
+| hour | `string` | yes | The hour field |
 | dayOfMonth | `string` | yes | The dayOfMonth field |
 | month | `string` | yes | The month field |
 | dayOfWeek | `string` | yes | The dayOfWeek field |
@@ -84,7 +84,7 @@ Parse an expression into the corresponding ast. The output can be a subclass of 
 If parsing fails a `CronixParserException` is thrown.
 
 ```typescript
-function cronix(expression: string|CronixExpression, mode: CronixMode): {value: CronExpression, errors: ParserException[]}
+function cronix(expression: string|CronixExpression, mode: CronixMode): {ast: CronExpression|null, errors: ParserException[]}
 ```
 
 | Parameter | type | optional | description |
