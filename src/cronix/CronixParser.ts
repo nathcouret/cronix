@@ -7,38 +7,7 @@ import CronixOptions from "./CronixOptions";
 import { JenkinsCstParser, jenkinsTokens, JenkinsVisitor } from "@/jenkins";
 import { QuartzCronExpression, QuartzCstParser, quartzTokens, QuartzVisitor } from "@/quartz";
 import { AbstractVisitor, BaseCstParser, baseTokens } from "@/common";
-
-/**
- * Convert an expression to its string representation. If the provided expression is already a string it is simply returned.
- * The conversion strategy depends on the options passed (for instance, Quartz has additional fields which require a different processing).
- * @param expression The expression to convert
- * @param options The context to infer the conversion strategy from
- */
-export function convertToString(expression: CronixExpression | string, { mode }: Pick<CronixOptions, "mode">): string {
-  if (typeof expression === "string") {
-    return expression;
-  }
-  // default values to * to reduce boilerplate for the user
-  const base = [
-    expression.minute || "*",
-    expression.hour || "*",
-    expression.dayOfMonth || "*",
-    expression.month || "*",
-    expression.dayOfWeek || "*"
-  ];
-  switch (mode) {
-    case CronixMode.QUARTZ:
-      const expr = [expression.second || "0"].concat(base);
-      if (expression.year) {
-        expr.push(expression.year);
-      }
-      return expr.join(" ");
-    case CronixMode.JENKINS:
-    case CronixMode.CRONTAB:
-    default:
-      return base.join(" ");
-  }
-}
+import { expressionToString } from "@/cronix/utils";
 
 /**
  * Enum indicating the different steps the parser goes through. Useful for error reporting
@@ -74,7 +43,7 @@ export abstract class CronixParser<T extends CronExpression = CronExpression> {
 
   private _errors: ParserException[];
 
-  constructor(options: CronixOptions = {
+  protected constructor(options: CronixOptions = {
     mode: CronixMode.CRONTAB,
     tokens: baseTokens
   }, parser: BaseCstParser, visitor: AbstractVisitor) {
@@ -95,7 +64,7 @@ export abstract class CronixParser<T extends CronExpression = CronExpression> {
     // Reset the state of this instance
     this.reset();
 
-    const stringExpr = convertToString(expression, { mode: this.mode });
+    const stringExpr = expressionToString(expression, { mode: this.mode });
     const lexingResult = this._lexer.tokenize(stringExpr);
     lexingResult.errors.forEach(e => this._errors.push({
       name: "LexingError",
@@ -169,19 +138,19 @@ export abstract class CronixParser<T extends CronExpression = CronExpression> {
     this._errors = [];
   }
 
-  get lexer() {
+  get lexer(): Lexer {
+    return this._lexer;
+  }
+
+  get parser(): CronCstParser {
     return this._parser;
   }
 
-  get parser() {
-    return this._parser;
-  }
-
-  get visitor() {
+  get visitor(): AbstractVisitor {
     return this._visitor;
   }
 
-  get errors() {
+  get errors(): ParserException[] {
     return this._errors;
   }
 }

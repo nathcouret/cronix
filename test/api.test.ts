@@ -1,4 +1,4 @@
-import { cronix } from "@/cronix";
+import { cronix, CronixExpression } from "@/cronix";
 import CronixMode from "@/cronix/CronixMode";
 
 describe("cronix tests", () => {
@@ -48,4 +48,21 @@ describe("cronix tests", () => {
     expect(result.ast.value()).toBe("H 4 * * *");
     expect(result.errors.length).toBe(0);
   });
+
+  test("test expression issue #32", () => {
+    // Given
+    const data: CronixExpression = {
+      hour: 7,
+      minute: '0',
+      second: 0,
+      dayOfMonth: '?',
+      dayOfWeek: 'MON, WED, FRI'
+    }
+
+    // When
+    const result = cronix(data, CronixMode.QUARTZ);
+
+    // Then
+    expect(result.ast.value()).toEqual("0 0 7 ? * MON,WED,FRI *");
+  })
 });
