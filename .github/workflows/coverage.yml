@@ -9,7 +9,7 @@ jobs:
     - uses: actions/checkout@master
     - name: run coverage
       run: |
-        yarn
+        yarn install --frozen-lockfile
         yarn test --coverage
       env:
         CI: true
