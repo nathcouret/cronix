@@ -1167,7 +1167,7 @@ Array [
       "_second": Field {
         "_exprs": Array [
           StringLiteral {
-            "_value": "0",
+            "_value": "*",
           },
         ],
       },
