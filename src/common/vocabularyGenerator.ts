@@ -5,7 +5,7 @@ import { TokenType, TokenTypeDictionary } from "chevrotain";
  * @param tokens The token list to convert
  * @returns The corresponding vocabulary
  */
-export function genVocabulary(tokens: TokenType[]) {
+export function generateVocabulary(tokens: TokenType[]): TokenTypeDictionary {
   return tokens.reduce((map: TokenTypeDictionary, obj: TokenType) => {
     map[obj.name] = obj;
     return map;

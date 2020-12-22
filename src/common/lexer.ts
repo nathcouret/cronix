@@ -1,5 +1,5 @@
 import { createToken, Lexer, TokenVocabulary } from "chevrotain";
-import { genVocabulary } from "@/common/vocabularyGenerator";
+import { generateVocabulary } from "@/common/vocabularyGenerator";
 
 export const whiteSpace = createToken({
   name: "whiteSpace",
@@ -45,4 +45,4 @@ export const every = createToken({
 // Base tokens
 export const baseTokens = [whiteSpace, identifier, months, days, dash, slash, comma, integer, every];
 
-export const baseVocabulary: TokenVocabulary = genVocabulary(baseTokens);
+export const baseVocabulary: TokenVocabulary = generateVocabulary(baseTokens);

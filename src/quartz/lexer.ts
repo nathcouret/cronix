@@ -1,6 +1,6 @@
 import { createToken, TokenVocabulary } from "chevrotain";
 import { baseTokens, identifier } from "@/common/lexer";
-import { genVocabulary } from "@/common";
+import { generateVocabulary } from "@/common";
 
 // Quartz specific
 export const anyToken = createToken({
@@ -26,4 +26,4 @@ export const weekday = createToken({
 // Available tokens for Quartz cron
 export const quartzTokens = [...baseTokens, anyToken, sharp, last, weekday];
 
-export const quartzVocabulary: TokenVocabulary = genVocabulary(quartzTokens);
+export const quartzVocabulary: TokenVocabulary = generateVocabulary(quartzTokens);

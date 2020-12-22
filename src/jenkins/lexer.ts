@@ -1,6 +1,6 @@
 import { createToken, TokenVocabulary } from "chevrotain";
 import { identifier } from "@/common/lexer";
-import { baseTokens, genVocabulary } from "@/common";
+import { baseTokens, generateVocabulary } from "@/common";
 
 // Jenkins specific
 export const roundTime = createToken({
@@ -11,4 +11,4 @@ export const roundTime = createToken({
 // Available tokens for Jenkins cron
 export const jenkinsTokens = [...baseTokens, roundTime];
 
-export const jenkinsVocabulary: TokenVocabulary = genVocabulary(jenkinsTokens);
+export const jenkinsVocabulary: TokenVocabulary = generateVocabulary(jenkinsTokens);
