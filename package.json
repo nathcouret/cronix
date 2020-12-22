@@ -30,7 +30,7 @@
     "lint:fix": "eslint --fix --ext .ts src/**/*.ts"
   },
   "dependencies": {
-    "chevrotain": "^6.0.0"
+    "chevrotain": "^7.0.3"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
