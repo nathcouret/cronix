@@ -184,27 +184,3 @@ An expression comprising of two node operands. Known implementations are range a
 | method      | signature                                          | description                                           |
 |-------------|----------------------------------------------------|-------------------------------------------------------|
 | constructor | `DualExpression(lhs: SyntaxNode, rhs: SyntaxNode)` | Instantiate a dual expression with the given operands |
-
-## development
-
-### Scripts
-
-> build
-
-Build into a ES5 package. Output can be found in the dist folder.
-
-> test
-
-Run Jest unit tests
-
-> lint
-
-run eslint on the sources.
-
-> lint:fix
-
-Run eslint and correct fixable violations.
-
-> clean
-
-Clean and delete the output folder.
