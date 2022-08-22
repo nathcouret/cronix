@@ -8,13 +8,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Ataww/cronix.git"
+    "url": "https://github.com/nathcouret/cronix.git"
   },
   "author": {
     "name": "Nathanael Couret",
     "email": "nathanael.couret@gmail.com"
   },
-  "description": "A cron parser/generator with support for multiple dialects such as Quartz or Jenkins.",
+  "description": "A cron parser/generator with support for multiple dialects. Supported dialects include Quartz, Jenkins, and the standard crontab dialect.",
   "keywords": [
     "cron",
     "typescript"
@@ -58,7 +58,7 @@
     "dist"
   ],
   "bugs": {
-    "url": "https://github.com/Ataww/cronix/issues"
+    "url": "https://github.com/nathcouret/cronix/issues"
   },
-  "homepage": "https://github.com/Ataww/cronix"
+  "homepage": "https://github.com/nathcouret/cronix"
 }
